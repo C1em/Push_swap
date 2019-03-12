@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 07:19:06 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/09 10:41:14 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/12 06:26:12 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,18 @@ static int			*number_of_next_greater(t_arr *arr, int start, int end)
 	count_last_part(arr, start, end, mask_tab);
 }
 
-static void			search_the_best_sequence(int* arr, int start)
+static void			search_the_best_sequence(int* arr, int start, int size)
 {
-	arr[start] = 1;
+	int i;
+	int index_of_last_biggest;
+
+	i = 1;
+	arr[start] = -1;
+	index_of_last_biggest = start;
+	while (index_of_last_biggest < size)
+	{
+		while ()
+	}
 }
 
 void				mark_the_ones_to_move(t_arr *arr)
@@ -84,5 +93,5 @@ void				mark_the_ones_to_move(t_arr *arr)
 		start++;
 	mask_tab = number_of_next_greater(arr, start,
 							((!start) ? arr->size - 1 : start - 1));
-	search_the_best_sequence(mask_tab, start);
+	search_the_best_sequence(mask_tab, start, arr->size);
 }

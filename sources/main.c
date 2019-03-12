@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/09 07:41:00 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/12 15:03:46 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static int	usage(void)
 int		main(int ac, char **av)
 {
 	t_arr	*arr;
-	int		*sorted;
 
 	if (ac < 2)
 		return (usage());
@@ -36,10 +35,8 @@ int		main(int ac, char **av)
 	arr->arr[3] = -96;
 	arr->arr[4] = 0;
 
-	sorted = sort_array(arr);
-	simplify_arr(arr->arr, sorted, arr->size);
-	free(sorted);
+
 //	printf("%d|%d|%d|%d|%d\n", arr->arr[0], arr->arr[1], arr->arr[2], arr->arr[3], arr->arr[4]);
-	mark_the_ones_to_move(arr);
+//	mark_the_ones_to_move(arr);
 	return (0);
 }

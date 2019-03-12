@@ -6,7 +6,7 @@
 /*   By: coremart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:18:56 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/09 01:20:15 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/12 14:56:57 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ unsigned long	ft_pwr(unsigned long nb, unsigned int exp);
 void			ft_putbfloat(float nb);
 void			ft_print_byte(const unsigned char byte, const unsigned int base);
 void			ft_quicksort(int arr[], int low, int high);
+int				ft_ceil(float nb);
 
 #endif
