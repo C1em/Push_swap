@@ -6,7 +6,7 @@
 #    By: aljacque <aljacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/20 18:29:57 by aljacque          #+#    #+#              #
-#    Updated: 2019/03/09 07:20:28 by coremart         ###   ########.fr        #
+#    Updated: 2019/03/13 08:51:32 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBA = $(LIB)/libft.a
 
 ### SOURCES ###
 SDIR = sources
-_SRCS = main.c sort_array.c parsing.c mark_the_ones_to_move.c
+_SRCS = main.c sort_array.c parsing.c
 SRC = $(patsubst %,$(SDIR)/%,$(_SRCS))
 
 ### OBJECTS ####

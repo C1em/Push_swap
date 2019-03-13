@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/12 15:03:46 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/13 09:47:37 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,24 @@ static int	usage(void)
 int		main(int ac, char **av)
 {
 	t_arr	*arr;
+	int		*lis;
 
 	if (ac < 2)
 		return (usage());
 	arr = pars((const char**)&av[1], ac - 1);
 
-	arr->size = 5;
-	arr->arr[0] = 10;
-	arr->arr[1] = 65;
-	arr->arr[2] = 351;
-	arr->arr[3] = -96;
-	arr->arr[4] = 0;
+	arr->size = 9;
+	arr->arr[0] = 0;
+	arr->arr[1] = 1;
+	arr->arr[2] = 2;
+	arr->arr[3] = 3;
+	arr->arr[4] = 4;
+	arr->arr[5] = 0;
+	arr->arr[6] = 1;
+	arr->arr[7] = 2;
+	arr->arr[8] = 3;
 
-
-//	printf("%d|%d|%d|%d|%d\n", arr->arr[0], arr->arr[1], arr->arr[2], arr->arr[3], arr->arr[4]);
-//	mark_the_ones_to_move(arr);
+	lis = get_lis(arr->arr, arr->size);
+	printf("%d, %d, %d, %d, %d\n", lis[0], lis[1], lis[2], lis[3], lis[4]);
 	return (0);
 }
