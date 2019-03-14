@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/14 12:42:26 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/14 15:25:56 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,17 @@ static inline int	binary_search_index(int len, int *arr, int index,
 	int lo;
 
 	lo = 1;
+//	printf("len :%d\n", len);
 	while (lo <= len)
 	{
-//		printf("beol :%d, index :%d, mid :%d\n",
-//			biggest_elem_of_len[ft_ceil((lo + len) / 2.0f)], index,
-//												ft_ceil((lo + len) / 2.0f));
-//		if (lo > 1)
-//			exit(0);
-		if (arr[biggest_elem_of_len[ft_ceil((lo + len) / 2.0f)]] <= arr[index])
+/*		printf("beol :%d, index :%d, mid :%d\n",
+			biggest_elem_of_len[ft_ceil((lo + len) / 2.0f)], index,
+												ft_ceil((lo + len) / 2.0f));
+*/		if (arr[biggest_elem_of_len[ft_ceil((lo + len) / 2.0f)]] <= arr[index])
 			lo = ft_ceil((lo + len) / 2.0f) + 1;
 		else
 			len = ft_ceil((lo + len) / 2.0f) - 1;
 	}
-//	printf("OK\n");
 	return (lo);
 }
 
@@ -59,22 +57,26 @@ static inline int	get_new_lis(t_beol_n_index_arr *beol_n_index_arr,
 {
 	int new_beol_last;
 
-	printf("beol_tmp :%d, %d, %d, %d, %d index_arr_tmp :%d, %d, %d, %d, %d\n",
+/*	printf("beol_tmp :%d, %d, %d, %d, %d index_arr_tmp :%d, %d, %d, %d, %d, %d, %d, %d, %d\n",
 	beol_n_index_arr->beol[0], beol_n_index_arr->beol[1],
 	beol_n_index_arr->beol[2], beol_n_index_arr->beol[3], beol_n_index_arr->beol[4],
 	beol_n_index_arr->index_arr[0], beol_n_index_arr->index_arr[1],
-	beol_n_index_arr->index_arr[2], beol_n_index_arr->index_arr[3], beol_n_index_arr->index_arr[4]);
-	new_beol_last = binary_search_index(beol_last, arr, index,
+	beol_n_index_arr->index_arr[2], beol_n_index_arr->index_arr[3], beol_n_index_arr->index_arr[4],
+	beol_n_index_arr->index_arr[5], beol_n_index_arr->index_arr[6], beol_n_index_arr->index_arr[7],
+	beol_n_index_arr->index_arr[8]);
+*/	new_beol_last = binary_search_index(beol_last, arr, index,
 														beol_n_index_arr->beol);
 	beol_n_index_arr->index_arr[index] =
 									beol_n_index_arr->beol[new_beol_last - 1];
-	printf("beol_tmp :%d, %d, %d, %d, %d index_arr_tmp :%d, %d, %d, %d, %d\n\n",
+	beol_n_index_arr->beol[new_beol_last] = index;
+/*	printf("beol_tmp :%d, %d, %d, %d, %d index_arr_tmp :%d, %d, %d, %d, %d, %d, %d, %d, %d\n\n",
 	beol_n_index_arr->beol[0], beol_n_index_arr->beol[1],
 	beol_n_index_arr->beol[2], beol_n_index_arr->beol[3], beol_n_index_arr->beol[4],
 	beol_n_index_arr->index_arr[0], beol_n_index_arr->index_arr[1],
-	beol_n_index_arr->index_arr[2], beol_n_index_arr->index_arr[3], beol_n_index_arr->index_arr[4]);
-	beol_n_index_arr->beol[new_beol_last] = index;
-	return (new_beol_last);
+	beol_n_index_arr->index_arr[2], beol_n_index_arr->index_arr[3], beol_n_index_arr->index_arr[4],
+	beol_n_index_arr->index_arr[5], beol_n_index_arr->index_arr[6], beol_n_index_arr->index_arr[7],
+	beol_n_index_arr->index_arr[8]);
+*/	return (new_beol_last);
 }
 
 static int			*continue_lis(t_beol_n_index_arr *beol_n_index_arr,
@@ -102,7 +104,7 @@ static int			*continue_lis(t_beol_n_index_arr *beol_n_index_arr,
 		beol_n_index_arr_tmp.beol[0] = -1;
 		beol_last_tmp--;
 	}
-	while (size + i++ - 1 < tot_size)
+	while (size + i++ < tot_size)
 	{
 		if ((new_beol_last = get_new_lis(&beol_n_index_arr_tmp, arr,
 									size + i - 1, beol_last_tmp)) > beol_last)
@@ -114,6 +116,8 @@ static int			*continue_lis(t_beol_n_index_arr *beol_n_index_arr,
 		}
 		else
 			rm_all(i, index_arr_tmp, size + i);
+		if (new_beol_last > beol_last_tmp)
+			beol_last_tmp = new_beol_last;
 		if (beol_n_index_arr_tmp.beol[1] == i)
 		{
 			beol_n_index_arr_tmp.beol = &beol_n_index_arr_tmp.beol[1];
