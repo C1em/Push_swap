@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/15 23:27:51 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/16 18:53:24 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,36 @@ static int			*continue_lis(t_beol_n_index_arr *beol_n_index_arr,
 			beol_n_index_arr->beol[beol_last], beol_last));
 }
 */
+/*
+static void			check_duplicates(int *index_arr, int *arr, int size_i)
+{
+	int i;
+	int index_next;
 
-static void			squeeze_lis(int *lis_index, int *arr, int size_li)
+	--size_i;
+	index_next = size_i;
+	while (size_i--)
+	{
+		if (arr[index_arr[size_i]] == arr[index_arr[size_i + 1]])
+		{
+			i = index_arr[size_i + 1];
+			while (arr[i] <= arr[index_arr[size_i]] && i < index_next)
+				i++;
+			index_arr[size_i + 1] = i;
+			index_next = index_arr[i];
+		}
+	}
+}
+*/
+static void			squeeze_lis(int *lis_index, int *arr, int size_li,
+															int last_st_part)
 {
 	int i;
 	int index_tmp;
 	int next_nb;
 	int previous_index;
 
+	printf("lis_index :%d, %d, %d, %d, %d\n", lis_index[0], lis_index[1], lis_index[2], lis_index[3], lis_index[4]);
 	if (size_li == 1)
 		return ;
 	i = 1;
@@ -141,12 +163,22 @@ static void			squeeze_lis(int *lis_index, int *arr, int size_li)
 		index_tmp = lis_index[i];
 		while (--index_tmp > previous_index)
 		{
-			printf("lis_index :%d, %d, %d, %d, %d\n", lis_index[0], lis_index[1], lis_index[2], lis_index[3], lis_index[4]);
 			if (arr[index_tmp] < next_nb && arr[index_tmp] > arr[previous_index])
+				lis_index[i] = index_tmp;
+			else if (arr[index_tmp] == next_nb
+							&& arr[lis_index[size_li - 1]] < arr[last_st_part])
 				lis_index[i] = index_tmp;
 		}
 		i++;
 	}
+	previous_index = lis_index[i - 1];
+	index_tmp = lis_index[i];
+	while (--index_tmp > previous_index)
+	{
+		if (arr[index_tmp] > arr[previous_index])
+			lis_index[i] = index_tmp;
+	}
+//	check_duplicates(lis_index, arr, size_li);
 }
 
 static int			*get_lis_index(int *index_arr, int last_elem, int size)
@@ -194,6 +226,6 @@ int					*get_lis(int *const arr, int size)
 	}
 	index_arr = get_lis_index(index_arr, biggest_elem_of_len[beol_last],
 																	beol_last);
-	squeeze_lis(index_arr, arr, beol_last);
+	squeeze_lis(index_arr, arr, beol_last, ((size + 1) >> 1) - 1);
 	return (index_arr);
 }
