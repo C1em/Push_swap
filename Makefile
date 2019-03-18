@@ -6,7 +6,7 @@
 #    By: aljacque <aljacque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/20 18:29:57 by aljacque          #+#    #+#              #
-#    Updated: 2019/03/14 09:04:39 by coremart         ###   ########.fr        #
+#    Updated: 2019/03/18 13:46:41 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBA = $(LIB)/libft.a
 
 ### SOURCES ###
 SDIR = sources
-_SRCS = main.c sort_array.c parsing.c tab_op.c
+_SRCS = main.c sort_array.c parsing.c
 SRC = $(patsubst %,$(SDIR)/%,$(_SRCS))
 
 ### OBJECTS ####
@@ -35,10 +35,10 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C $(LIB)
-	gcc -o $(NAME) $(LIBA) $(OBJ) $(FLAGS)
+	gcc -g -o $(NAME) $(LIBA) $(OBJ) $(FLAGS)
 
 $(ODIR)/%.o: $(SDIR)/%.c
-	gcc $(FLAGS) -o $@ -c $^ -I $(HDIR) -I $(LIBH)
+	gcc $(FLAGS) -g -o $@ -c $^ -I $(HDIR) -I $(LIBH)
 
 asan :
 	make -C $(LIB)
