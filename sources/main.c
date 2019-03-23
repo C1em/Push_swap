@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/17 17:18:02 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/23 22:04:12 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int		main(int ac, char **av)
 		return (0);
 	arr = pars((const char**)&av[1], ac - 1);
 	lis = get_lis(arr->arr, (arr->size + 1) >> 1);
-	int i = -1;
-	while(++i < 20)
-		printf("%d : %d\n", lis[i], arr->arr[lis[i]]);
-	return (0);
+/*	int i = -1;
+	while(++i < lis[-1])
+		printf("%d : %d \n", lis[i], arr->arr[lis[i]]);
+*/	return (0);
 }

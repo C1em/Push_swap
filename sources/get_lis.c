@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_array.c                                       :+:      :+:    :+:   */
+/*   get_lis.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/18 13:46:06 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/23 22:09:06 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 #include "libft.h"
 #include <stdlib.h>
 
-#include <stdio.h>
+//#include <stdio.h>
+
+static int			ft_max(int a, int b)
+{
+	return ((a > b) ? a : b);
+}
 
 static inline int	binary_search_index(int len, int *arr, int index,
 													int *biggest_elem_of_len)
@@ -31,95 +36,60 @@ static inline int	binary_search_index(int len, int *arr, int index,
 	}
 	return (lo);
 }
-/*
-static void			squeeze_lis(int *lis_index, int *arr, int size_li,
-																int arr_size)
+
+static void			shift_right(int *index_arr, int start, int *arr, int size_a)
 {
-	int i;
-	int index_tmp;
-	int next_nb;
-	int previous_index;
-
-	printf("lis_index :%d, %d, %d, %d, %d\n", lis_index[0], lis_index[1], lis_index[2], lis_index[3], lis_index[4]);
-	i = 1;
-	index_tmp = lis_index[0];
-	next_nb = arr[lis_index[1]];
-	while (--index_tmp >= lis_index[size_li - 1] - arr_size)
-		if (arr[index_tmp] < next_nb)
-			lis_index[0] = index_tmp;
-	while (i + 1 < size_li)
-	{
-		previous_index = lis_index[i - 1];
-		next_nb = arr[lis_index[i + 1]];
-		index_tmp = lis_index[i];
-		while (--index_tmp > previous_index && index_tmp != arr_size - 1)
-			if (arr[index_tmp] < next_nb && arr[index_tmp]
-														> arr[previous_index])
-				lis_index[i] = index_tmp;
-		i++;
-	}
-	previous_index = lis_index[i - 1];
-	index_tmp = lis_index[i];
-	while (--index_tmp > previous_index)
-		if (arr[index_tmp] > arr[previous_index])
-			lis_index[i] = index_tmp;
-}
-*/
-
-
-static void			shift_right(int *index_arr, int index, int size_a, int *arr)
-{
-	int next_nb;
-	int prev_nb;
 	int index_tmp;
 	int end;
-	int start;
+	int end_tmp;
+	int prev_nb;
+	int next_nb;
 
-	index_arr = &index_arr[1];
-	end = (index_arr[index] >= size_a) ? (size_a >> 1) + size_a : size_a >> 1;
-	start = (index_arr[index] >= size_a) ? size_a : 0;
-	while (index_arr[index] >= start)
+	end = (index_arr[start] >= size_a) ? size_a : 0;
+	end_tmp = (index_arr[start] >= size_a) ? ft_min((size_a >> 1) + size_a,
+									*index_arr + size_a - 1) : (size_a >> 1);
+	next_nb = (start + 1 < index_arr[-1])
+									? arr[index_arr[start + 1]] : 0x7FFFFFFF;
+	if (start + 1 >= index_arr[-1] || index_arr[start + 1] != end_tmp)
+		++end_tmp;
+	while (start + 1 && index_arr[start] >= end)
 	{
-		index_tmp = index_arr[index];
-		next_nb = (index + 1 < index_arr[-1]) ? arr[index_arr[index + 1]]
-																: 0x01111111;
-		prev_nb = (index > 0) ? arr[index_arr[index - 1]] : 0x10000000;
-		while (index_tmp < end)
-		{
-			if (arr[index_tmp] <= next_nb && arr[index_tmp] >= prev_nb)
-				index_arr[index] = index_tmp;
-			index_tmp++;
-		}
-		end = index_arr[index];
-		index--;
+		prev_nb = (start) ? arr[index_arr[start - 1]] : 0x7FFFFFFF + 1;
+		index_tmp = index_arr[start];
+		while (++index_tmp < end_tmp)
+			if (arr[index_tmp] >= prev_nb && arr[index_tmp] <= next_nb)
+				index_arr[start] = index_tmp;
+		end_tmp = index_arr[start];
+		next_nb = arr[end_tmp];
+		--start;
 	}
 }
 
-static void			shift_left(int *index_arr, int index, int size_a, int *arr)
+static void			shift_left(int *index_arr, int start, int *arr, int size_a)
 {
-	int next_nb;
-	int prev_nb;
 	int index_tmp;
 	int end;
-	int start;
+	int end_tmp;
+	int next_nb;
+	int prev_nb;
 
-	index_arr = &index_arr[1];
-	start = (index_arr[index] >= size_a) ? (size_a >> 1) + size_a : size_a >> 1;
-	end = (index_arr[index] >= size_a) ? (size_a + 1) << 1: size_a;
-	while (index_arr[index] < end)
+	end = (index_arr[start] >= size_a) ? (size_a << 1) - 1 : size_a;
+	end_tmp = (index_arr[start] >= size_a) ? (size_a >> 1) + size_a
+		: ft_max(size_a >> 1, index_arr[index_arr[-1] - 1] - size_a + 1);
+	prev_nb = (start) ? arr[index_arr[start - 1]] : 0x7FFFFFFF + 1;
+	if (!start || index_arr[start - 1] != end_tmp)
+		--end_tmp;
+	while (start < index_arr[-1] && index_arr[start] < end)
 	{
-		index_tmp = index_arr[index];
-		next_nb = (index + 1 < index_arr[-1]) ? arr[index_arr[index + 1]]
-																: 0x01111111;
-		prev_nb = (index > 0) ? arr[index_arr[index - 1]] : 0x10000000;
-		while (index_tmp > start)
-		{
-			if (arr[index_tmp] <= next_nb && arr[index_tmp] >= prev_nb)
-				index_arr[index] = index_tmp;
-			index_tmp--;
-		}
-		start = index_arr[index];
-		index++;
+		next_nb = (start + 1 < index_arr[-1])
+									? arr[index_arr[start + 1]] : 0x7FFFFFFF;
+		index_tmp = index_arr[start];
+		while (--index_tmp > end_tmp)
+			if (arr[index_tmp] >= prev_nb && arr[index_tmp] <= next_nb)
+				index_arr[start] = index_tmp;
+		end_tmp = index_arr[start];
+		prev_nb = arr[end_tmp];
+		++start;
 	}
 }
 
@@ -131,40 +101,29 @@ static void			squeeze_lis(int *arr, int size, int *index_arr)
 	int size_ia;
 
 	size_ia = *index_arr;
-	index_arr = &index_arr[1];
+	++index_arr;
 	mid = size >> 1;
-	left_index = size_ia - 1;
 	right_index = size_ia - 1;
-	while (left_index && index_arr[left_index] > mid)
-		--left_index;
 	while (index_arr[right_index] > mid + size)
 		--right_index;
-/*	int i = -1;
-	while(++i < 20)
-		printf("%d : %d\n", index_arr[i], arr[index_arr[i]]);
-*/	shift_right(&index_arr[-1], left_index, size, arr);
-/*	i = -1;
-	while(++i < 20)
-		printf("%d : %d\n", index_arr[i], arr[index_arr[i]]);
-*/	shift_right(&index_arr[-1], right_index, size, arr);
-/*	i = -1;
-	while(++i < 20)
-		printf("%d : %d\n", index_arr[i], arr[index_arr[i]]);
-*/	shift_left(&index_arr[-1], left_index + 1, size, arr);
-/*	i = -1;
-	while(++i < 20)
-		printf("%d : %d\n", index_arr[i], arr[index_arr[i]]);
-*/	shift_left(&index_arr[-1], right_index + 1, size, arr);
-/*	i = -1;
-	while(++i < 20)
-		printf("%d : %d\n", index_arr[i], arr[index_arr[i]]);
-*/}
+	left_index = right_index;
+	while (left_index + 1 && index_arr[left_index] > mid)
+		--left_index;
+	if (left_index > -1)
+		shift_right(index_arr, left_index, arr, size);
+	if (left_index  + 1 < size_ia && index_arr[left_index + 1] < size)
+		shift_left(index_arr, left_index + 1, arr, size);
+	if (index_arr[right_index] >= size)
+		shift_right(index_arr, right_index, arr, size);
+	if (right_index + 1 != size_ia
+						&& index_arr[right_index + 1] > (size >> 1) + size)
+		shift_left(index_arr, right_index + 1, arr, size);
+}
 
 static int			*get_lis_index(int *index_arr, int last_elem, int size)
 {
 	int		*lis_endex;
 
-	printf("size :%d\n", size);
 	if (!(lis_endex = (int*)malloc(sizeof(int) * size)))
 		return (NULL);
 	size--;
