@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/09 02:42:46 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/24 18:34:57 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,18 @@ static int	partition(int arr[], int low, int high)
 	return (swapable);
 }
 
-void		ft_quicksort(int arr[], int low, int high)
+void		ft_qsort(int arr[], int low, int high)
 {
 	int	pivot_index;
 
 	if (low >= high)
 		return ;
 	pivot_index = partition(arr, low, high);
-	ft_quicksort(arr, low, pivot_index - 1);
-	ft_quicksort(arr, pivot_index + 1, high);
+	ft_qsort(arr, low, pivot_index - 1);
+	ft_qsort(arr, pivot_index + 1, high);
+}
+
+void		ft_quicksort(int *arr, int size)
+{
+	return (ft_qsort(arr, 0, size - 1));
 }

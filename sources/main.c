@@ -6,11 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/23 22:04:12 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/25 21:01:33 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
+#include "libft.h"
 #include <stdlib.h>
 
 #include <stdio.h>
@@ -22,17 +23,26 @@ static int	usage(void)
 
 int		main(int ac, char **av)
 {
-	t_arr	*arr;
-	int		*lis;
+	t_arr		*arr;
+	int			*lis;
+	t_list_head	*head;
+	int			*info_arr;
 
 	if (ac < 2)
 		return (usage());
 	if (ac == 2)
 		return (0);
-	arr = pars((const char**)&av[1], ac - 1);
-	lis = get_lis(arr->arr, (arr->size + 1) >> 1);
-/*	int i = -1;
-	while(++i < lis[-1])
-		printf("%d : %d \n", lis[i], arr->arr[lis[i]]);
-*/	return (0);
+	if (!(arr = pars((const char**)&av[1], ac - 1)))
+		return (1);
+	if (!(lis = get_lis_index(arr->arr, (arr->size + 1) >> 1)))
+		return (1);
+	if (!(head = transform_to_llist(arr, lis)))
+		return (1);
+	info_arr = transform_to_info_arr(arr, lis);
+	while (head)
+	{
+		printf("%d\n", *(int*)(head + 1));
+		head = head->next;
+	}
+	return (0);
 }

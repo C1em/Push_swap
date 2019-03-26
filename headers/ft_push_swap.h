@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/14 10:57:09 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/25 20:58:44 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,30 @@ typedef struct	s_arr
 {
 	int		*arr;
 	int		size;
-	char	padding[4];
 }				t_arr;
 
-typedef struct	s_beol_n_index_arr
+typedef struct	s_list_head
 {
-	int		*beol;
-	int		*index_arr;
-}				t_beol_n_index_arr;
+	struct	s_list_head	*next;
+	struct	s_list_head	*prev;
+}				t_list_head;
+
+typedef struct	s_llist
+{
+	t_list_head	head;
+	int			nb;
+}				t_llist;
+
+typedef struct	s_lis_nb
+{
+	int	nb;
+	int	lis;
+}				t_lis_nb;
+
 
 t_arr		*pars(const char *const *const tab, const int nb_elem);
-int			*get_lis(int *arr, int size);
-extern void	ft_tabcpy_and_rm_all(int nb,
-									t_beol_n_index_arr *beol_n_index_arr_dst,
-							t_beol_n_index_arr *beol_n_index_arr_src, int size);
+int			*get_lis_index(int *const arr, int size);
 extern void	rm_all(int nb, int *arr, int size);
+t_list_head		*transform_to_llist(t_arr *arr, int *lis);
 
 #endif

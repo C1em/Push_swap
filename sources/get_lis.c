@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/23 22:09:06 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/24 20:25:15 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static void			squeeze_lis(int *arr, int size, int *index_arr)
 		shift_left(index_arr, right_index + 1, arr, size);
 }
 
-static int			*get_lis_index(int *index_arr, int last_elem, int size)
+static int			*get_lis(int *index_arr, int last_elem, int size)
 {
 	int		*lis_endex;
 
@@ -172,13 +172,13 @@ static inline int	*get_part_lis(int *const arr, int size, int *actual_max_len)
 	if (beol_last > *actual_max_len)
 	{
 		*actual_max_len = beol_last;
-		return (get_lis_index(index_arr, biggest_elem_of_len[beol_last],
+		return (get_lis(index_arr, biggest_elem_of_len[beol_last],
 																	beol_last));
 	}
 	return (NULL);
 }
 
-int					*get_lis(int *const arr, int size)
+int					*get_lis_index(int *const arr, int size)
 {
 	int *actual_lis;
 	int *actual_lis_len;
