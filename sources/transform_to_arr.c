@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:02:21 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/25 21:47:30 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/26 20:39:42 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ t_lis_nb	*transform_to_info_arr(t_arr *arr, int *lis)
 	}
 	i = lis[-1];
 	while (i--)
-		info_arr[lis[i] % ((arr->size + 1) >> 1)].nb = 1;
+		info_arr[lis[i] % ((arr->size + 1) >> 1)].lis = 1;
 	return (info_arr);
 }

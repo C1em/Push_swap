@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/25 21:01:33 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/26 22:28:34 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		main(int ac, char **av)
 	t_arr		*arr;
 	int			*lis;
 	t_list_head	*head;
-	int			*info_arr;
+	t_lis_nb	*info_arr;
 
 	if (ac < 2)
 		return (usage());
@@ -39,10 +39,6 @@ int		main(int ac, char **av)
 	if (!(head = transform_to_llist(arr, lis)))
 		return (1);
 	info_arr = transform_to_info_arr(arr, lis);
-	while (head)
-	{
-		printf("%d\n", *(int*)(head + 1));
-		head = head->next;
-	}
+	order_pile(info_arr, (arr->size + 1) >> 1, head);
 	return (0);
 }

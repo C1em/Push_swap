@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/25 20:58:44 by coremart         ###   ########.fr       */
+/*   Updated: 2019/03/26 22:28:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ t_arr		*pars(const char *const *const tab, const int nb_elem);
 int			*get_lis_index(int *const arr, int size);
 extern void	rm_all(int nb, int *arr, int size);
 t_list_head		*transform_to_llist(t_arr *arr, int *lis);
+t_lis_nb	*transform_to_info_arr(t_arr *arr, int *lis);
 
 #endif
