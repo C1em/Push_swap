@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/30 22:32:01 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/01 02:50:45 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,17 @@ typedef struct	s_piles
 
 typedef struct	s_data_buff
 {
-	size_t		index;
 	char		buff[2048];
+	size_t		index;
 }				t_data_buff;
+
+typedef struct	s_all_data
+{
+	t_data_buff *buff;
+	t_piles		*piles;
+	t_llist		*lis;
+}				t_all_data;
+
 
 t_arr		*pars(const char *const *const tab, const int nb_elem);
 int			*get_lis_index(int *const arr, int size);
