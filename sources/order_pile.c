@@ -6,12 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/01 09:22:29 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/02 09:08:07 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 #include <string.h>
+#include <stdlib.h>
 
 static void		rot_a(t_all_data *all_data, int max_greater_nb)
 {
@@ -32,7 +33,7 @@ static void		rot_a(t_all_data *all_data, int max_greater_nb)
 	}
 	tmp_dest = tmp_piles->a;
 	offset_from_dest = 0;
-	while (tmp_dest != tmp_piles->b->dest)
+	while (tmp_dest->nb != tmp_piles->b->dest)
 	{
 		tmp_dest = tmp_dest->next;
 		++offset_from_dest;
@@ -54,7 +55,7 @@ static void		push_a_tab_reverse_rot(size_t len_arr, int *arr, size_t len_b,
 	size_t rot_count;
 	size_t i;
 
-	i - len_arr;
+	i = len_arr;
 	while (i--)
 	{
 		rot_count = len_b - arr[i];
@@ -64,7 +65,8 @@ static void		push_a_tab_reverse_rot(size_t len_arr, int *arr, size_t len_b,
 			all_data->buff->buff[++all_data->buff->index] = RRB;
 		}
 		rot_a(all_data, len_arr - i);
-		push_a(all_data->piles->b);
+		push_a(all_data->piles, all_data->buff);
+		add_to_lis(all_data->lis, all_data->piles->a->nb);
 		len_b = arr[i];
 	}
 }
@@ -86,7 +88,8 @@ static void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data)
 			all_data->buff->buff[all_data->buff->index] = RB;
 		}
 		rot_a(all_data, i);
-		push_a(all_data->piles->b);
+		push_a(all_data->piles, all_data->buff);
+		add_to_lis(all_data->lis, all_data->piles->a->nb);
 		next = arr[i];
 		++i;
 	}
@@ -95,22 +98,30 @@ static void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data)
 static int		push_a_tab(int *arr, int size_b, t_all_data *all_data)
 {
 	size_t len;
+	int tmp_dest;
 
 	len = 0;
 	while (arr[len] != -1)
 		++len;
 	if (!len)
-		return ;
+		return (0);
+	tmp_dest = all_data->piles->b->dest;
 	if (arr[0] > size_b - arr[len - 1])
 		push_a_tab_reverse_rot(len, arr, size_b, all_data);
 	else
 		push_a_tab_rot(len, arr, all_data);
+	while (all_data->piles->a->nb != tmp_dest)
+	{
+		all_data->piles->a = all_data->piles->a->next;
+		++all_data->buff->index;
+		all_data->buff->buff[all_data->buff->index] = RA;
+	}
 	return (len);
 }
 
 static int		pusha_if_destof(t_all_data *all_data, int max_elem)
 {
-	t_llist		*end_b;
+	t_llist_tmp	*end_b;
 	t_llist_tmp	*tmp_b;
 	int			r_count;
 	int			*tmp_arr;
@@ -123,7 +134,7 @@ static int		pusha_if_destof(t_all_data *all_data, int max_elem)
 	end_b = tmp_b->prev;
 	r_count = 0;
 	i = 0;
-	while (tmp_b != end_b)// change to take account of the last elem
+	while (tmp_b != end_b)
 	{
 		if (tmp_b->dest == all_data->piles->a->nb)
 		{
@@ -134,6 +145,14 @@ static int		pusha_if_destof(t_all_data *all_data, int max_elem)
 		tmp_b = tmp_b->next;
 		++r_count;
 	}
+	if (tmp_b->dest == all_data->piles->a->nb)
+	{
+		tmp_arr[i] = r_count;
+		++i;
+		tmp_arr[i] = -1;
+	}
+	tmp_b = tmp_b->next;
+	++r_count;
 	r_count = push_a_tab(tmp_arr, r_count, all_data);
 	free(tmp_arr);
 	return (r_count);
@@ -146,29 +165,42 @@ static void		go_through_pile(t_all_data *all_data)
 
 	end_a = all_data->piles->a->prev;
 	max_elem = 0;
-	while (all_data->piles->a != end_a) // change to take account of the last elem
+	while (all_data->piles->a != end_a)
 	{
-		max_elem = pusha_if_destof(all_data, max_elem);
+		max_elem -= pusha_if_destof(all_data, max_elem);
 		if (all_data->piles->a->nb == all_data->lis->nb)
-			all_data->lis = all_data->lis->next; // caution if pusha before
+			all_data->lis = all_data->lis->next;
 		else
 		{
-			push_b(all_data->piles);
+			push_b(all_data);
 			++max_elem;
 		}
 		all_data->piles->a = all_data->piles->a->next;
 		all_data->buff->buff[all_data->buff->index] = RA;
 	}
+	max_elem -= pusha_if_destof(all_data, max_elem);
+	if (all_data->piles->a->nb == all_data->lis->nb)
+		all_data->lis = all_data->lis->next;
+	else
+	{
+		push_b(all_data);
+		++max_elem;
+	}
+	all_data->piles->a = all_data->piles->a->next;
+	all_data->buff->buff[all_data->buff->index] = RA;
 }
 
-static void		empty_b(t_piles *piles, t_llist *lis, t_data_buff *buff)
+static void		empty_b(t_all_data *all_data)
 {
-	int dest;
+	t_llist *end_a;
+	t_llist *tmp_a;
 
-	while (piles->b)
+	tmp_a = all_data->piles->a;
+	end_a = tmp_a->prev;
+	while (tmp_a != end_a)
 	{
-		dest = get_the_nearest_dest(piles->b, lis);
-		put_to_dest(piles, dest);
+
+		tmp_a = tmp_a->next;
 	}
 }
 
@@ -182,5 +214,5 @@ void			order_pile(t_piles *piles, t_llist *ll_lis)
 	all_data.piles = piles;
 	all_data.lis = ll_lis;
 	go_through_pile(&all_data);
-	empty_b(piles, ll_lis, &data_buff);
+	empty_b(&all_data);
 }

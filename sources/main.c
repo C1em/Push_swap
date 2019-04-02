@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/30 19:15:23 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/02 07:35:39 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ int		main(int ac, char **av)
 	if (!(piles = transform_to_pile(arr)))
 		return (1);
 	order_pile(piles, ll_lis);
+	// rot_pile
 	return (0);
 }
