@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/04 04:56:15 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/04 10:15:36 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,18 @@ void		push_a(t_piles *piles, t_data_buff *buff)
 {
 	t_llist *new;
 
+	printf("\n\nbefore push a :\n\n");
+	print_list((void*)piles->a);
 	if (!piles->b)
 		return ;
 	if (!(new = (t_llist*)malloc(sizeof(t_llist))))
 		exit(1) ;
-	piles->a->next->prev = new;
-	new->next = piles->a->next;
-	piles->a->next = new;
-	new->prev = piles->a;
 	new->nb = piles->b->nb;
-	piles->a = piles->a->next;
+	piles->a->prev->next = new;
+	new->next = piles->a;
+	new->prev = piles->a->prev;
+	piles->a->prev = new;
+	piles->a = new;
 	if (piles->b == piles->b->next)
 	{
 		free(piles->b);
@@ -63,16 +65,20 @@ void		push_a(t_piles *piles, t_data_buff *buff)
 		--buff->index;
 		return ;
 	}
+	printf("\n\nafter push a :\n\n");
+	print_list((void*)piles->a);
 	++buff->index;
 	buff->buff[buff->index] = PA;
 }
 
 static int	get_dest(int nb, t_llist *lis)
 {
-	while (nb < lis->nb)
-		lis = lis->prev;
-	while (nb > lis->nb)
+	while (nb > lis->nb || nb < lis->prev->nb)
+	{
+		if (lis->nb > lis->next->nb && (nb > lis->nb || nb < lis->next->nb))
+			return (lis->next->nb);
 		lis = lis->next;
+	}
 	return (lis->nb);
 }
 
@@ -98,13 +104,13 @@ void		push_b(t_all_data *all_data)
 	{
 		if (!(new = (t_llist_tmp*)malloc(sizeof(t_llist_tmp))))
 			exit (1);
-		all_data->piles->b->next->prev = new;
-		new->next = all_data->piles->b->next;
-		all_data->piles->b->next = new;
-		new->prev = all_data->piles->b;
-		new->nb =all_data-> piles->a->nb;
-		all_data->piles->b = all_data->piles->b->next;
+		new->nb = all_data->piles->a->nb;
+		all_data->piles->b->prev->next = new;
+		new->next = all_data->piles->b;
+		new->prev = all_data->piles->b->prev;
+		all_data->piles->b->prev = new;
 		new->dest = get_dest(new->nb, all_data->lis);
+		all_data->piles->b = new;
 	}
 	all_data->piles->a = all_data->piles->a->prev;
 	all_data->piles->a->next = all_data->piles->a->next->next;
@@ -118,19 +124,17 @@ void		push_b(t_all_data *all_data)
 	}
 }
 
-void		rot_a(t_llist *a, int len, t_data_buff *buff)
+void		rot_a(t_llist **ptr_a, int len, t_data_buff *buff)
 {
 
 	int rot_count;
 
 	rot_count = 0;
-	while (a->nb > a->next->nb)
+	while ((*ptr_a)->nb > (*ptr_a)->prev->nb)
 	{
-		a = a->next;
+		*ptr_a = (*ptr_a)->next;
 		++rot_count;
 	}
-	a = a->next;
-	++rot_count;
 	if (rot_count > (len >> 1))
 	{
 		rot_count = len - rot_count;
@@ -144,19 +148,16 @@ void		rot_a(t_llist *a, int len, t_data_buff *buff)
 				buff->buff[buff->index] = RRA;
 			}
 		}
+		return ;
 	}
-	else
+	while (rot_count--)
 	{
-		while (rot_count--)
+		if (buff->buff[buff->index] == RRA)
+			--buff->index;
+		else
 		{
-			if (buff->buff[buff->index] == RRA)
-				--buff->index;
-			else
-			{
-				++buff->index;
-				buff->buff[buff->index] = RA;
-			}
+			++buff->index;
+			buff->buff[buff->index] = RA;
 		}
 	}
-
 }
