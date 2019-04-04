@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/02 23:50:52 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/04 04:56:31 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@
 
 enum
 {
-	SA = 1,
-	SB,
-	SS,
-	PA,
-	PB,
-	RA,
-	RB,
-	RR,
-	RRA,
-	RRB,
-	RRR
+	SA = 1, //1
+	SB,		//2
+	SS,		//3
+	PA,		//4
+	PB,		//5
+	RA,		//6
+	RB,		//7
+	RR,		//8
+	RRA,	//9
+	RRB,	//10
+	RRR		//11
 };
 
 typedef struct	s_arr
@@ -90,6 +90,7 @@ void	add_to_lis(t_llist *lis, int nb);
 void		push_a(t_piles *piles, t_data_buff *buff);
 void		push_b(t_all_data *all_data);
 void		rot_a(t_llist *a, int len, t_data_buff *buff);
+int			len_b(t_llist_tmp *b);
 /*
 **	order_pile.c
 */

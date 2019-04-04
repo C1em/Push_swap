@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/03 01:51:42 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/04 04:56:15 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 #include <stdlib.h>
 
 #include <stdio.h>
+
+int			len_b(t_llist_tmp *b)
+{
+	t_llist_tmp *end_b;
+	int i;
+
+	if (!b)
+		return (0);
+	end_b = b->prev;
+	i = 0;
+	while (end_b != b)
+	{
+		++i;
+		b = b->next;
+	}
+	return (i + 1);
+}
 
 void		push_a(t_piles *piles, t_data_buff *buff)
 {
@@ -29,10 +46,18 @@ void		push_a(t_piles *piles, t_data_buff *buff)
 	new->prev = piles->a;
 	new->nb = piles->b->nb;
 	piles->a = piles->a->next;
-	piles->b = piles->b->prev;
-	piles->b->next = piles->b->next->next;
-	free(piles->b->next->prev);
-	piles->b->next->prev = piles->b;
+	if (piles->b == piles->b->next)
+	{
+		free(piles->b);
+		piles->b = NULL;
+	}
+	else
+	{
+		piles->b = piles->b->prev;
+		piles->b->next = piles->b->next->next;
+		free(piles->b->next->prev);
+		piles->b->next->prev = piles->b;
+	}
 	if (buff->buff[buff->index] == PB)
 	{
 		--buff->index;
@@ -85,12 +110,12 @@ void		push_b(t_all_data *all_data)
 	all_data->piles->a->next = all_data->piles->a->next->next;
 	all_data->piles->a->next->prev = all_data->piles->a;
 	if (all_data->buff->buff[all_data->buff->index] == PA)
-	{
 		--all_data->buff->index;
-		return ;
+	else
+	{
+		++all_data->buff->index;
+		all_data->buff->buff[all_data->buff->index] = PB;
 	}
-	++all_data->buff->index;
-	all_data->buff->buff[all_data->buff->index] = PB;
 }
 
 void		rot_a(t_llist *a, int len, t_data_buff *buff)

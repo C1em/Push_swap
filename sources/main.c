@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/03 04:14:19 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/04 04:18:36 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@ int		main(int ac, char **av)
 	all_data.buff = &data_buff;
 	all_data.piles = piles;
 	all_data.lis = ll_lis;
+
+/*	t_llist *end_lis = all_data.lis;
+	do
+	{
+		printf("lis :%d\n", all_data.lis->nb);
+		all_data.lis = all_data.lis->next;
+	}
+	while (all_data.lis != end_lis);
+*/
 	order_pile(&all_data);
 	rot_a(piles->a, (arr->size + 1) >> 1, &data_buff);
 
