@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/24 20:25:15 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/03 04:03:27 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-//#include <stdio.h>
+#include <stdio.h>
 
 static int			ft_max(int a, int b)
 {
@@ -54,7 +54,7 @@ static void			shift_right(int *index_arr, int start, int *arr, int size_a)
 		++end_tmp;
 	while (start + 1 && index_arr[start] >= end)
 	{
-		prev_nb = (start) ? arr[index_arr[start - 1]] : 0x7FFFFFFF + 1;
+		prev_nb = (start) ? arr[index_arr[start - 1]] : -0x7FFFFFFF - 1;
 		index_tmp = index_arr[start];
 		while (++index_tmp < end_tmp)
 			if (arr[index_tmp] >= prev_nb && arr[index_tmp] <= next_nb)
@@ -76,7 +76,7 @@ static void			shift_left(int *index_arr, int start, int *arr, int size_a)
 	end = (index_arr[start] >= size_a) ? (size_a << 1) - 1 : size_a;
 	end_tmp = (index_arr[start] >= size_a) ? (size_a >> 1) + size_a
 		: ft_max(size_a >> 1, index_arr[index_arr[-1] - 1] - size_a + 1);
-	prev_nb = (start) ? arr[index_arr[start - 1]] : 0x7FFFFFFF + 1;
+	prev_nb = (start) ? arr[index_arr[start - 1]] : -0x7FFFFFFF - 1;
 	if (!start || index_arr[start - 1] != end_tmp)
 		--end_tmp;
 	while (start < index_arr[-1] && index_arr[start] < end)
@@ -153,7 +153,7 @@ static inline int	*get_part_lis(int *const arr, int size, int *actual_max_len)
 
 	if (!(index_arr = (int*)malloc(sizeof(int) * size)))
 		return (NULL);
-	if (!(biggest_elem_of_len = (int*)malloc(sizeof(int) * size + 1)))
+	if (!(biggest_elem_of_len = (int*)malloc(sizeof(int) * (size + 1))))
 		return (NULL);
 	beol_last = 1;
 	i = 0;

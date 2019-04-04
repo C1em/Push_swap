@@ -6,12 +6,14 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 20:37:54 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/02 05:17:15 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/03 04:13:02 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 #include <stdlib.h>
+
+#include <stdio.h>
 
 t_llist		*transform_to_ll_lis(t_arr *arr, int *lis)
 {
@@ -19,9 +21,9 @@ t_llist		*transform_to_ll_lis(t_arr *arr, int *lis)
 	t_llist		*ll_lis;
 
 	i = lis[-1] - 1;
-	if (!(ll_lis = (t_llist*)malloc(sizeof(ll_lis) * i)))
+	if (!(ll_lis = (t_llist*)malloc(sizeof(t_llist) * lis[-1])))
 		return (NULL);
-	ll_lis[i].nb = arr->arr[lis[i]];
+	(ll_lis + i)->nb = arr->arr[lis[i]];
 	ll_lis[i].next = ll_lis;
 	ll_lis->prev = &ll_lis[i];
 	while (i--)
@@ -40,9 +42,9 @@ t_piles		*transform_to_pile(t_arr *arr)
 
 	i = (arr->size + 1) >> 1;
 	if (!(piles = (t_piles*)malloc(sizeof(t_piles))))
-		return (NULL);
+		exit(1);
 	if (!(piles->a = (t_llist*)malloc(sizeof(t_llist) * i)))
-		return (NULL);
+		exit(1);
 	piles->b = NULL;
 	--i;
 	piles->a[i].nb = arr->arr[i];

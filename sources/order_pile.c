@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/02 09:08:07 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/03 04:14:33 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-static void		rot_a(t_all_data *all_data, int max_greater_nb)
+#include <stdio.h>
+
+static void		rot_a_to_match_the_push(t_all_data *all_data,
+															int max_greater_nb)
 {
 	t_llist	*tmp_dest;
 	size_t	offset_from_dest;
@@ -64,7 +67,7 @@ static void		push_a_tab_reverse_rot(size_t len_arr, int *arr, size_t len_b,
 			all_data->piles->b = all_data->piles->b->prev;
 			all_data->buff->buff[++all_data->buff->index] = RRB;
 		}
-		rot_a(all_data, len_arr - i);
+		rot_a_to_match_the_push(all_data, len_arr - i);
 		push_a(all_data->piles, all_data->buff);
 		add_to_lis(all_data->lis, all_data->piles->a->nb);
 		len_b = arr[i];
@@ -87,7 +90,7 @@ static void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data)
 			all_data->piles->b = all_data->piles->b->next;
 			all_data->buff->buff[all_data->buff->index] = RB;
 		}
-		rot_a(all_data, i);
+		rot_a_to_match_the_push(all_data, i);
 		push_a(all_data->piles, all_data->buff);
 		add_to_lis(all_data->lis, all_data->piles->a->nb);
 		next = arr[i];
@@ -101,8 +104,10 @@ static int		push_a_tab(int *arr, int size_b, t_all_data *all_data)
 	int tmp_dest;
 
 	len = 0;
+	printf("WOW!\n");
 	while (arr[len] != -1)
 		++len;
+	printf("WOW!\n");
 	if (!len)
 		return (0);
 	tmp_dest = all_data->piles->b->dest;
@@ -127,10 +132,13 @@ static int		pusha_if_destof(t_all_data *all_data, int max_elem)
 	int			*tmp_arr;
 	int			i;
 
+	if (!max_elem)
+		return (0);
 	if (!(tmp_b = all_data->piles->b))
 		return (0);
 	if (!(tmp_arr = (int*)malloc(sizeof(int) * max_elem)))
-		return (0);
+		exit(1);
+	tmp_arr[0] = -1;
 	end_b = tmp_b->prev;
 	r_count = 0;
 	i = 0;
@@ -167,7 +175,9 @@ static void		go_through_pile(t_all_data *all_data)
 	max_elem = 0;
 	while (all_data->piles->a != end_a)
 	{
+		printf("OK1\n");
 		max_elem -= pusha_if_destof(all_data, max_elem);
+		printf("a :%d =? lis :%d\n", all_data->piles->a->nb, all_data->lis->nb);
 		if (all_data->piles->a->nb == all_data->lis->nb)
 			all_data->lis = all_data->lis->next;
 		else
@@ -190,29 +200,19 @@ static void		go_through_pile(t_all_data *all_data)
 	all_data->buff->buff[all_data->buff->index] = RA;
 }
 
-static void		empty_b(t_all_data *all_data)
+void			order_pile(t_all_data *all_data)
 {
-	t_llist *end_a;
-	t_llist *tmp_a;
-
-	tmp_a = all_data->piles->a;
-	end_a = tmp_a->prev;
-	while (tmp_a != end_a)
+/*	t_llist *end_lis;
+	end_lis = all_data->lis;
+	do
 	{
-
-		tmp_a = tmp_a->next;
+		printf("lis :%d\n",  all_data->lis->nb);
+		all_data->lis =  all_data->lis->next;
+		printf("lis :%p, end :%p\n", all_data->lis, end_lis);
 	}
-}
-
-void			order_pile(t_piles *piles, t_llist *ll_lis)
-{
-	t_data_buff data_buff;
-	t_all_data	all_data;
-
-	data_buff.index = 0;
-	all_data.buff = &data_buff;
-	all_data.piles = piles;
-	all_data.lis = ll_lis;
-	go_through_pile(&all_data);
-	empty_b(&all_data);
+	while (all_data->lis != end_lis);
+*/
+	go_through_pile(all_data);
+	all_data->lis = all_data->lis->next;
+	go_through_pile(all_data);
 }

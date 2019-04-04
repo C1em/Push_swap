@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/02 06:04:04 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/02 23:50:52 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ void	add_to_lis(t_llist *lis, int nb);
 */
 void		push_a(t_piles *piles, t_data_buff *buff);
 void		push_b(t_all_data *all_data);
+void		rot_a(t_llist *a, int len, t_data_buff *buff);
 /*
 **	order_pile.c
 */
-void			order_pile(t_piles *piles, t_llist *ll_lis);
+void			order_pile(t_all_data *all_data);
 
 #endif
