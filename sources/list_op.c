@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 20:37:54 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/04 07:26:01 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/05 03:14:36 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,30 @@
 t_llist		*transform_to_ll_lis(t_arr *arr, int *lis)
 {
 	int			i;
+	int			min_index;
 	t_llist		*ll_lis;
+	t_llist		*ll_lis_res;
 
 	i = lis[-1] - 1;
 	if (!(ll_lis = (t_llist*)malloc(sizeof(t_llist) * lis[-1])))
 		return (NULL);
-	(ll_lis + i)->nb = arr->arr[lis[i]];
+	ll_lis[i].nb = arr->arr[lis[i]];
 	ll_lis[i].next = ll_lis;
 	ll_lis->prev = &ll_lis[i];
+	ll_lis_res = &ll_lis[i];
+	min_index = lis[i] % ((arr->size + 1) >> 1);
 	while (i--)
 	{
 		ll_lis[i].nb = arr->arr[lis[i]];
 		ll_lis[i + 1].prev = &ll_lis[i];
 		ll_lis[i].next = &ll_lis[i + 1];
+		if (lis[i] % ((arr->size + 1) >> 1) < min_index)
+		{
+			min_index = lis[i] % ((arr->size + 1) >> 1);
+			ll_lis_res = &ll_lis[i];
+		}
 	}
-	return (ll_lis);
+	return (ll_lis_res);
 }
 
 t_piles		*transform_to_pile(t_arr *arr)

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/04 10:15:36 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/05 06:09:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void		push_a(t_piles *piles, t_data_buff *buff)
 {
 	t_llist *new;
 
-	printf("\n\nbefore push a :\n\n");
+/*	printf("\n\nbefore push a :\n\n");
 	print_list((void*)piles->a);
-	if (!piles->b)
+*/	if (!piles->b)
 		return ;
 	if (!(new = (t_llist*)malloc(sizeof(t_llist))))
 		exit(1) ;
@@ -55,19 +55,19 @@ void		push_a(t_piles *piles, t_data_buff *buff)
 	}
 	else
 	{
-		piles->b = piles->b->prev;
-		piles->b->next = piles->b->next->next;
-		free(piles->b->next->prev);
-		piles->b->next->prev = piles->b;
+		piles->b->next->prev = piles->b->prev;
+		piles->b = piles->b->next;
+		free(piles->b->prev->next);
+		piles->b->prev->next = piles->b;
 	}
 	if (buff->buff[buff->index] == PB)
 	{
 		--buff->index;
 		return ;
 	}
-	printf("\n\nafter push a :\n\n");
+/*	printf("\n\nafter push a :\n\n");
 	print_list((void*)piles->a);
-	++buff->index;
+*/	++buff->index;
 	buff->buff[buff->index] = PA;
 }
 
