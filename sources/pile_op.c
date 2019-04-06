@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/05 06:09:51 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/06 12:12:44 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include <stdlib.h>
 
 #include <stdio.h>
+
+/*
+**	return the nb of elems in b
+*/
 
 int			len_b(t_llist_tmp *b)
 {
@@ -31,6 +35,10 @@ int			len_b(t_llist_tmp *b)
 	}
 	return (i + 1);
 }
+
+/*
+**	put the first elem of b and put it on a
+*/
 
 void		push_a(t_piles *piles, t_data_buff *buff)
 {
@@ -60,16 +68,12 @@ void		push_a(t_piles *piles, t_data_buff *buff)
 		free(piles->b->prev->next);
 		piles->b->prev->next = piles->b;
 	}
-	if (buff->buff[buff->index] == PB)
-	{
-		--buff->index;
-		return ;
-	}
-/*	printf("\n\nafter push a :\n\n");
-	print_list((void*)piles->a);
-*/	++buff->index;
-	buff->buff[buff->index] = PA;
+	fill_buffer(buff, PA);
 }
+
+/*
+**	get the elem of lis that the new pushed b elem have to get put
+*/
 
 static int	get_dest(int nb, t_llist *lis)
 {
@@ -82,6 +86,10 @@ static int	get_dest(int nb, t_llist *lis)
 	return (lis->nb);
 }
 
+/*
+**	allocate the first elem of b
+*/
+
 static void init_b(t_all_data *all_data)
 {
 	if (!(all_data->piles->b = (t_llist_tmp*)malloc(sizeof(t_llist_tmp))))
@@ -91,6 +99,11 @@ static void init_b(t_all_data *all_data)
 	all_data->piles->b->prev = all_data->piles->b;
 	all_data->piles->b->dest = get_dest(all_data->piles->b->nb, all_data->lis);
 }
+
+/*
+**	remove the first elem of a and put it on b
+**	call get_dest and init_b if b is empty
+*/
 
 void		push_b(t_all_data *all_data)
 {
@@ -115,49 +128,18 @@ void		push_b(t_all_data *all_data)
 	all_data->piles->a = all_data->piles->a->prev;
 	all_data->piles->a->next = all_data->piles->a->next->next;
 	all_data->piles->a->next->prev = all_data->piles->a;
-	if (all_data->buff->buff[all_data->buff->index] == PA)
-		--all_data->buff->index;
-	else
-	{
-		++all_data->buff->index;
-		all_data->buff->buff[all_data->buff->index] = PB;
-	}
+	fill_buffer(all_data->buff, PB);
 }
+
+/*
+**	rotate a to get the first elem in the first position
+*/
 
 void		rot_a(t_llist **ptr_a, int len, t_data_buff *buff)
 {
-
-	int rot_count;
-
-	rot_count = 0;
 	while ((*ptr_a)->nb > (*ptr_a)->prev->nb)
 	{
 		*ptr_a = (*ptr_a)->next;
-		++rot_count;
-	}
-	if (rot_count > (len >> 1))
-	{
-		rot_count = len - rot_count;
-		while (rot_count--)
-		{
-			if (buff->buff[buff->index] == RA)
-				--buff->index;
-			else
-			{
-				++buff->index;
-				buff->buff[buff->index] = RRA;
-			}
-		}
-		return ;
-	}
-	while (rot_count--)
-	{
-		if (buff->buff[buff->index] == RRA)
-			--buff->index;
-		else
-		{
-			++buff->index;
-			buff->buff[buff->index] = RA;
-		}
+		fill_buffer(buff, RA);
 	}
 }

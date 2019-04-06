@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 20:37:54 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/05 03:14:36 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/06 12:18:22 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include <stdlib.h>
 
 #include <stdio.h>
+
+/*
+**	take the int* lis and return it as a doubly linked list
+*/
 
 t_llist		*transform_to_ll_lis(t_arr *arr, int *lis)
 {
@@ -44,6 +48,11 @@ t_llist		*transform_to_ll_lis(t_arr *arr, int *lis)
 	return (ll_lis_res);
 }
 
+/*
+**	take the array of nb and return a t_piles within a doubly linked list
+**	a that have all the nb in it
+*/
+
 t_piles		*transform_to_pile(t_arr *arr)
 {
 	int		i;
@@ -67,6 +76,12 @@ t_piles		*transform_to_pile(t_arr *arr)
 	}
 	return (piles);
 }
+
+/*
+**	add an elem the lis
+**	this function is called after a push_a to because the elem is now at his place
+**	and won't move after
+*/
 
 void	add_to_lis(t_llist *lis, int nb)
 {

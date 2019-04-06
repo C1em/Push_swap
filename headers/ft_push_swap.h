@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/04 10:08:50 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/06 13:09:08 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,17 @@
 
 # include <string.h>
 
-enum
-{
-	SA = 1, //1
-	SB,		//2
-	SS,		//3
-	PA,		//4
-	PB,		//5
-	RA,		//6
-	RB,		//7
-	RR,		//8
-	RRA,	//9
-	RRB,	//10
-	RRR		//11
-};
+# define SA 0x1
+# define SB 0x2
+# define SS 0x4
+# define PA 0x8
+# define PB 0x10
+# define RA 0x20
+# define RB 0x40
+# define RR 0x80
+# define RRA 0x100
+# define RRB 0x200
+# define RRR 0x400
 
 typedef struct	s_arr
 {
@@ -59,8 +56,11 @@ typedef struct	s_piles
 
 typedef struct	s_data_buff
 {
-	char		buff[2048];
+	char		buff[1024];
 	size_t		index;
+	size_t		nb_same_rot;
+	size_t		tot_size;
+	int			rot;
 }				t_data_buff;
 
 typedef struct	s_all_data
@@ -83,7 +83,7 @@ int			*get_lis_index(int *const arr, int size);
 */
 t_llist		*transform_to_ll_lis(t_arr *arr, int *lis);
 t_piles		*transform_to_pile(t_arr *arr);
-void	add_to_lis(t_llist *lis, int nb);
+void		add_to_lis(t_llist *lis, int nb);
 /*
 **	pile_op.c
 */
@@ -94,8 +94,15 @@ int			len_b(t_llist_tmp *b);
 /*
 **	order_pile.c
 */
-void			order_pile(t_all_data *all_data);
-
+void		order_pile(t_all_data *all_data);
+/*
+**	fill_buffer.c
+*/
+void		fill_buffer(t_data_buff *buff, char op);
+/*
+**	write_buff.c
+*/
+void		write_buff(t_data_buff *buff);
 
 void		print_list(void *list);
 

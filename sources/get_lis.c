@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/03 04:03:27 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/06 12:23:21 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,13 @@ static inline int	*get_part_lis(int *const arr, int size, int *actual_max_len)
 	}
 	return (NULL);
 }
+
+/*
+**	longest increasing sequence algorithm adapted to get it from an array
+**	consedered as a loop (56123 has for lis : 12356) then squeeze the lis
+**	to get the one with the max. of elem at the middle of the array
+**	when they are multiple lis
+*/
 
 int					*get_lis_index(int *const arr, int size)
 {
