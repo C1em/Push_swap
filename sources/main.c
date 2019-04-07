@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/06 12:45:36 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/07 14:49:42 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,11 @@ int		main(int ac, char **av)
 		return (usage());
 	if (ac == 2)
 		return (0);
-	if (!(arr = pars((const char**)&av[1], ac - 1)))
-		return (1);
-	if (!(lis = get_lis_index(arr->arr, (arr->size + 1) >> 1)))
-		return (1);
-	if (!(ll_lis = transform_to_ll_lis(arr, lis)))
-		return (1);
+	arr = pars((const char**)&av[1], ac - 1);
+	lis = get_lis_index(arr->arr, (arr->size + 1) >> 1);
+	ll_lis = transform_to_ll_lis(arr, lis);
 	piles = transform_to_pile(arr);
 	data_buff.index = -1;
-	data_buff.nb_same_rot = 0;
-	data_buff.rot = RA;
-	data_buff.tot_size = (arr->size + 1) >> 1;
 	all_data.buff = &data_buff;
 	all_data.piles = piles;
 	all_data.lis = ll_lis;
@@ -57,9 +51,10 @@ int		main(int ac, char **av)
 	}
 	while (all_data.lis != end_lis);
 */
-	order_pile(&all_data);
+	put_non_lis_on_b(&all_data);
+	empty_b(&all_data);
 	rot_a(&piles->a, (arr->size + 1) >> 1, &data_buff);
-	write_buff();
+	write_buff(&data_buff);
 
 	t_llist *end_a = piles->a;
 	do

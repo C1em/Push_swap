@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/06 13:09:08 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/07 14:48:58 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define RRA 0x100
 # define RRB 0x200
 # define RRR 0x400
+# define ROT 0x7E0
 
 typedef struct	s_arr
 {
@@ -56,11 +57,8 @@ typedef struct	s_piles
 
 typedef struct	s_data_buff
 {
-	char		buff[1024];
+	int			buff[1024];
 	size_t		index;
-	size_t		nb_same_rot;
-	size_t		tot_size;
-	int			rot;
 }				t_data_buff;
 
 typedef struct	s_all_data
@@ -69,6 +67,13 @@ typedef struct	s_all_data
 	t_piles		*piles;
 	t_llist		*lis;
 }				t_all_data;
+
+typedef struct	s_fun_match_op
+{
+	void		(*p)(t_data_buff *buff);
+	int			op;
+}				t_fun_match_op;
+
 
 /*
 **	parsing.c
@@ -92,9 +97,10 @@ void		push_b(t_all_data *all_data);
 void		rot_a(t_llist **ptr_a, int len, t_data_buff *buff);
 int			len_b(t_llist_tmp *b);
 /*
-**	order_pile.c
+**	put_non_lis_on_b.c
 */
-void		order_pile(t_all_data *all_data);
+void		put_non_lis_on_b(t_all_data *all_data);
+int			pusha_if_destof(t_all_data *all_data, int max_elem);
 /*
 **	fill_buffer.c
 */
@@ -103,6 +109,22 @@ void		fill_buffer(t_data_buff *buff, char op);
 **	write_buff.c
 */
 void		write_buff(t_data_buff *buff);
+/*
+**	fun_fill_rot.c
+*/
+void	fill_rot_a(t_data_buff *buff);
+void	fill_rot_b(t_data_buff *buff);
+void	fill_rev_rot_a(t_data_buff *buff);
+void	fill_rev_rot_b(t_data_buff *buff);
+/*
+**	fun_fill_push.c
+*/
+void	fill_push_a(t_data_buff *buff);
+void	fill_push_b(t_data_buff *buff);
+/*
+**	empty_b.c
+*/
+void			empty_b(t_all_data *data);
 
 void		print_list(void *list);
 
