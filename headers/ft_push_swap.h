@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/07 14:48:58 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/08 09:05:57 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define RRA 0x100
 # define RRB 0x200
 # define RRR 0x400
-# define ROT 0x7E0
+# define ROT 0x360
 
 typedef struct	s_arr
 {
@@ -104,7 +104,7 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem);
 /*
 **	fill_buffer.c
 */
-void		fill_buffer(t_data_buff *buff, char op);
+void		fill_buffer(t_data_buff *buff, int op);
 /*
 **	write_buff.c
 */

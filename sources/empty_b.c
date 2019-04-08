@@ -6,11 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:05:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/07 13:50:33 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/08 09:45:49 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
+
+#include <stdio.h>
 
 static int			is_destof(t_llist_tmp *b, int dest)
 {
@@ -19,11 +21,11 @@ static int			is_destof(t_llist_tmp *b, int dest)
 	end_b = b->prev;
 	while (b != end_b)
 	{
-		if (b->dest = dest)
+		if (b->dest == dest)
 			return (1);
 		b = b->next;
 	}
-	if (b->dest = dest)
+	if (b->dest == dest)
 		return (1);
 	return (0);
 }

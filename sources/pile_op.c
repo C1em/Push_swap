@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/07 11:41:28 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:02:31 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,23 +141,18 @@ void		rot_a(t_llist **ptr_a, int len, t_data_buff *buff)
 
 	r_count = 0;
 	while ((*ptr_a)->nb > (*ptr_a)->prev->nb)
+	{
+		*ptr_a = (*ptr_a)->next;
 		++r_count;
+	}
 	if (r_count > (len >> 1))
 	{
 		r_count = len - r_count;
 		while (r_count--)
-		{
-			*ptr_a = (*ptr_a)->prev;
 			fill_buffer(buff, RRA);
-		}
 	}
 	else
-	{
 		while (r_count--)
-		{
-			*ptr_a = (*ptr_a)->next;
 			fill_buffer(buff, RA);
-		}
-	}
 
 }

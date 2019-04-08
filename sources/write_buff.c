@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 12:34:25 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/07 14:53:07 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:09:39 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,29 @@
 static inline size_t	write_op(char *dest, int op)
 {
 	int		*op_arr;
-	char	**str_op;
+	char	*str_op;
 	int		i;
 
 	op_arr = (int[11]){RA, RB, PB, PA, RR, SA, SB, SS, RRR, RRA, RRB};
 	i = 0;
-	str_op = (char[11][4]){"RA", "RB", "PB", "PA", "RR", "SA", "SB", "SS",
-														"RRR", "RRA", "RRB"};
+	str_op = (char[26]){"RARBPBPARRSASBSSRRRRRARRB"};
 	while (op != op_arr[i])
 		++i;
-	while (*str_op)
+	if (i < 8)
 	{
-		*dest = *(str_op[i]);
-		++str_op[i];
-		++dest;
+		dest[0] = str_op[i << 1];
+		dest[1] = str_op[(i << 1) + 1];
+		return (2);
 	}
-	return ((i < 8) ? 2 : 3);
+	dest[0] = str_op[16 + ((i - 8) << 1) + (i - 8)];
+	dest[1] = str_op[17 + ((i - 8) << 1) + (i - 8)];
+	dest[2] = str_op[18 + ((i - 8) << 1) + (i - 8)];
+	return (3);
 }
 
 void					write_buff(t_data_buff *buff)
 {
-	char	chain[1536];
+	char	chain[2048];
 	size_t	i;
 	size_t	j;
 	size_t max;
@@ -47,7 +49,8 @@ void					write_buff(t_data_buff *buff)
 	max = (buff->index > 512) ? 512 : buff->index;
 	while (i < max)
 	{
-		j += write_op(&chain[j], buff->buff[i]);
+		j += write_op(&chain[j], buff->buff[i]) + 1;
+		chain[j - 1] = '\n';
 		++i;
 	}
 	if (max == 512)

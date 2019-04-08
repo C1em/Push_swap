@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/07 14:49:42 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/08 10:04:38 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		main(int ac, char **av)
 	rot_a(&piles->a, (arr->size + 1) >> 1, &data_buff);
 	write_buff(&data_buff);
 
+	printf("a :\n");
 	t_llist *end_a = piles->a;
 	do
 	{
@@ -63,6 +64,10 @@ int		main(int ac, char **av)
 		piles->a = piles->a->next;
 	}
 	while (piles->a != end_a);
+	if (!piles->b)
+		printf("b's empty !!!!!!!");
+	else
+		printf("NOOOOOOOOOOOOO\n");
 
 	return (0);
 }
