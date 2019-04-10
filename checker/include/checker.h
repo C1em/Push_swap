@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:48:02 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/09 09:45:13 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/10 11:52:11 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,66 @@ typedef struct	s_pile
 	struct s_pile	*prev;
 }				t_pile;
 
-typedef void (*fun)(t_pile *pile) t_fun_op;
+typedef struct	s_piles
+{
+	t_pile	*a;
+	t_pile	*b;
+}				t_piles;
+
+
+typedef void (*t_fun_op)(t_piles *piles);
 
 /*
 **	pars_pile.c
 */
-t_pile					*pars_pile(char **arr, int size);
+t_pile		*pars_pile(char **arr, int size);
+
+/*
+**	get_op.c
+*/
+t_pile			*get_op(void);
+
+/*
+**	apply_to_pile.c
+*/
+t_piles			*apply_op_to_pile(t_pile *a, t_pile *op_list);
+
 /*
 **	pile_op.c
 */
 t_pile	*pile_init(int nb);
 t_pile	*add_elem(t_pile *pile, int nb);
+void	rm_elem(t_pile *elem);
+
+/*
+**	rot_op.c
+*/
+void	rot_ab(t_piles *piles);
+void	rot_b(t_piles *piles);
+void	rot_a(t_piles *piles);
+
+/*
+**	rev_rot_op.c
+*/
+void	rev_rot_ab(t_piles *piles);
+void	rev_rot_b(t_piles *piles);
+void	rev_rot_a(t_piles *piles);
+
+/*
+**	swap_op.c
+*/
+void	swap_a(t_piles *piles);
+void	swap_b(t_piles *piles);
+void	swap_ab(t_piles *piles);
+
+/*
+**	push_op.c
+*/
+void	push_b(t_piles *piles);
+void	push_a(t_piles *piles);
+/*
+**	check_if_order.c
+*/
+void	check_if_order(t_piles *piles);
 
 #endif
