@@ -6,7 +6,7 @@
 #    By: coremart <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
-#    Updated: 2019/04/11 18:01:11 by coremart         ###   ########.fr        #
+#    Updated: 2019/04/11 18:17:21 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,3 +27,5 @@ $(CHECKERBIN):
 $(PUSHSWAPBIN):
 	make -C $(PUSHSWAPDIR)
 	cp $(PUSHSWAPDIR)/$(PUSHSWAPBIN) .
+
+.PHONY: all $(CHECKERBIN) $(PUSHSWAPBIN)
