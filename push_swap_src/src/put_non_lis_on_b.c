@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/11 14:33:03 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:41:26 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,7 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem)
 	int			*tmp_arr;
 	int			i;
 
-	if (!max_elem)
-		return (0);
-	if (!(tmp_b = all_data->piles->b))
+	if (!max_elem || !(tmp_b = all_data->piles->b))
 		return (0);
 	if (!(tmp_arr = (int*)malloc(sizeof(int) * (max_elem + 1))))
 		exit(1);
@@ -180,7 +178,7 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem)
 **					call pusha_if_destof at each iteration
 */
 
-void		put_non_lis_on_b(t_all_data *all_data)
+static void		put_non_lis_on_b(t_all_data *all_data)
 {
 	t_llist		*end_a;
 	int			max_elem;
@@ -210,4 +208,32 @@ void		put_non_lis_on_b(t_all_data *all_data)
 	}
 	all_data->piles->a = all_data->piles->a->next;
 	fill_buffer(all_data->buff, RA);
+}
+
+void		start_sort_pile(t_all_data *data)
+{
+	size_t	rot_count;
+	t_llist	*tmp_a_rot;
+	t_llist	*tmp_a_rev_rot;
+
+	if (!data->piles->b)
+		return ;
+	rot_count = 0;
+	tmp_a_rev_rot = data->piles->a;
+	tmp_a_rot = data->piles->a;
+	// return if size of lis == size of a
+	// while nothing to push instead of is_destof
+	while (!is_destof(data->piles->b, tmp_a_rot->nb))
+	{
+		if (is_destof(data->piles->b, tmp_a_rev_rot->nb))
+		{
+			data->piles->a = tmp_a_rev_rot;
+			return (put_non_lis_on_b(data, rot_count, 1));
+		}
+		tmp_a_rot = tmp_a_rot->next;
+		tmp_a_rev_rot = tmp_a_rev_rot->prev;
+		++rot_count;
+	}
+	data->piles->a = tmp_a_rot;
+	return (put_non_lis_on_b(data, rot_count, 0));
 }

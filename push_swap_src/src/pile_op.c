@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/11 14:32:48 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:42:12 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,9 @@ void		rot_a(t_llist **ptr_a, int len, t_data_buff *buff)
 		*ptr_a = (*ptr_a)->next;
 		++r_count;
 	}
+	printf("rot :%d, len :%d\n", r_count, len >> 1);
+	write_buff(buff);
+	printf("--------------\n");
 	if (r_count > (len >> 1))
 	{
 		r_count = len - r_count;

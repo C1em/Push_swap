@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 12:34:25 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/12 15:22:02 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:35:00 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,15 @@ void					write_buff(t_data_buff *buff)
 		chain[j - 1] = '\n';
 		++i;
 	}
-	if (buff->index == 1023)
-	{
-		ft_memmove((void*)buff->buff, (void*)&buff->buff[512], (size_t)512);
-		buff->index = 511;
-	}
-	else if (max == 512)
+	if (max == 512)
 	{
 		ft_memmove((void*)buff->buff, (void*)&buff->buff[512], (size_t)512);
 		buff->index -= 512;
-		write(1, chain, (size_t)j);
-		return (write_buff(buff));
+		if (buff->index < 511)
+		{
+			write(1, chain, (size_t)j);
+			return (write_buff(buff));
+		}
 	}
 	write(1, chain, (size_t)j);
 }

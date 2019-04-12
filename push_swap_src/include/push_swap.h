@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/12 14:30:20 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:25:08 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int			len_b(t_llist_tmp *b);
 /*
 **	put_non_lis_on_b.c
 */
-void		put_non_lis_on_b(t_all_data *all_data);
+void		start_sort_pile(t_all_data *data);
 int			pusha_if_destof(t_all_data *all_data, int max_elem);
 /*
 **	fill_buffer.c
@@ -124,6 +124,7 @@ void	fill_push_b(t_data_buff *buff);
 /*
 **	empty_b.c
 */
+int				is_destof(t_llist_tmp *b, int dest);
 void			empty_b(t_all_data *data);
 
 void		print_list(void *list);
