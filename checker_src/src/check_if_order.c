@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 10:43:10 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/11 18:17:59 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/12 11:23:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	check_if_order(t_piles *piles)
 
 	if (piles->b)
 		return ((void)write(1, "KO\n", 3));
+	if (!piles->a)
+		return ((void)write(1, "OK\n", 3));
 	end_pile = piles->a->prev;
 	print_list(piles->a);
 	while (piles->a != end_pile)
