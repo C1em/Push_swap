@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:22:20 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/11 14:33:53 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/12 14:39:36 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void				fill_rev_rot_a(t_data_buff *buff)
 	if (((buff->buff[i] & PB) << 1) & buff->buff[i - 1] & RA)
 	{
 		buff->buff[i - 1] = SA;
-		buff->buff[i] = PB;
 		return ;
 	}
 	if (buff->buff[buff->index] & RA)
@@ -71,7 +70,6 @@ void				fill_rev_rot_b(t_data_buff *buff)
 	if (((buff->buff[i] & PA) << 3) & buff->buff[i - 1] & RB)
 	{
 		buff->buff[i - 1] = SB;
-		buff->buff[i] = PA;
 		return ;
 	}
 	if (buff->buff[buff->index] & RB)

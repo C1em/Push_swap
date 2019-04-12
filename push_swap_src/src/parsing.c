@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/12 13:44:31 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/12 13:55:55 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,5 @@ t_arr				*pars(const char *const *const entry, int nb_elem)
 	arr->arr = &arr->arr[len];
 	while (nb_elem_tmp--)
 		add_nb(entry[nb_elem_tmp], &arr->arr, len);
-	len = 0;
-	while (len < arr->size)
-	{
-		printf("arr :%d\n", arr->arr[len]);
-		++len;
-	}
-	printf("OK\n");
 	return (arr);
 }

@@ -6,11 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 09:37:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/11 14:33:40 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/12 14:20:03 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+#include <stdio.h>
 
 static inline void		dispatch_rot(t_data_buff *buff, int op)
 {

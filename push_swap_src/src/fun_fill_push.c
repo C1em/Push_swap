@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:22:17 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/11 14:34:09 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/12 15:43:13 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,14 @@ void	fill_push_a(t_data_buff *buff)
 	{
 		if (buff->buff[buff->index] & RA)
 		{
-			buff->buff[buff->index - 1] = (buff->index > 1UL
-						&& buff->buff[buff->index - 2UL] & SB) ? SS : SA;
-			buff->buff[buff->index] = RA;
+			if (buff->index > 1 && buff->buff[buff->index - 2] & SB)
+			{
+				buff->buff[buff->index - 2] = SS;
+				buff->buff[buff->index - 1] = RA;
+				--buff->index;
+			}
+			else
+				buff->buff[buff->index - 1] = SA;
 		}
 		else if (buff->buff[buff->index] & RRA)
 		{
@@ -46,13 +51,18 @@ void	fill_push_b(t_data_buff *buff)
 {
 	if (buff->buff[buff->index] & PA)
 		--buff->index;
-	else if (buff->index && buff->buff[buff->index - 1UL] & PA)
+	else if (buff->index && buff->buff[buff->index - 1] & PA)
 	{
 		if (buff->buff[buff->index] & RB)
 		{
-			buff->buff[buff->index - 1] = (buff->index > 1UL
-						&& buff->buff[buff->index - 2UL] & SA) ? SS : SB;
-			buff->buff[buff->index] = RB;
+			if (buff->index > 1 && buff->buff[buff->index - 2] & SA)
+			{
+				buff->buff[buff->index - 2] = SS;
+				buff->buff[buff->index - 1] = RB;
+				--buff->index;
+			}
+			else
+				buff->buff[buff->index - 1] = SB;
 		}
 		else if (buff->buff[buff->index] & RRB)
 		{
