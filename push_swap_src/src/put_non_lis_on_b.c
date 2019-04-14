@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/12 17:41:26 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/14 15:03:11 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,62 +178,75 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem)
 **					call pusha_if_destof at each iteration
 */
 
-static void		put_non_lis_on_b(t_all_data *all_data)
+static void		put_non_lis_on_b(t_all_data *all_data, size_t rot_count, int rev)
 {
 	t_llist		*end_a;
 	int			max_elem;
+	int		op;
+	size_t	offset;
 
-	end_a = all_data->piles->a->prev;
-	max_elem = 0;
-	while (all_data->piles->a != end_a)
-	{
-		max_elem -= pusha_if_destof(all_data, max_elem);
-		if (all_data->piles->a->nb == all_data->lis->nb)
-			all_data->lis = all_data->lis->next;
-		else
-		{
-			push_b(all_data);
-			++max_elem;
-		}
-		all_data->piles->a = all_data->piles->a->next;
-		fill_buffer(all_data->buff, RA);
-	}
-	max_elem -= pusha_if_destof(all_data, max_elem);
+	op = (rev) ? RRA : RA;
+	offset = (rev) ? sizeof(t_llist*) : 0;
+	end_a = all_data->piles->a;
+	while (rot_count--)
+		fill_buffer(all_data->buff, op);
+	max_elem = -pusha_if_destof(all_data, 0);
 	if (all_data->piles->a->nb == all_data->lis->nb)
-		all_data->lis = all_data->lis->next;
+		all_data->lis = *(t_llist**)((char*)all_data->lis + offset);
 	else
 	{
 		push_b(all_data);
 		++max_elem;
 	}
-	all_data->piles->a = all_data->piles->a->next;
-	fill_buffer(all_data->buff, RA);
+	all_data->piles->a = *(t_llist**)((char*)all_data->piles->a + offset);
+	fill_buffer(all_data->buff, op);
+	while (all_data->piles->a != end_a)
+	{
+		max_elem -= pusha_if_destof(all_data, max_elem);
+		if (all_data->piles->a->nb == all_data->lis->nb)
+			all_data->lis = *(t_llist**)((char*)all_data->lis + offset);
+		else
+		{
+			push_b(all_data);
+			++max_elem;
+		}
+		all_data->piles->a = *(t_llist**)((char*)all_data->piles->a + offset);
+		fill_buffer(all_data->buff, op);
+	}
 }
 
-void		start_sort_pile(t_all_data *data)
+void		start_sort_pile(t_all_data *data, size_t size)
 {
 	size_t	rot_count;
 	t_llist	*tmp_a_rot;
 	t_llist	*tmp_a_rev_rot;
+	t_llist *tmp_lis_rot;
+	t_llist *tmp_lis_rev_rot;
 
-	if (!data->piles->b)
+	if (!data->piles->a)
 		return ;
 	rot_count = 0;
 	tmp_a_rev_rot = data->piles->a;
 	tmp_a_rot = data->piles->a;
-	// return if size of lis == size of a
-	// while nothing to push instead of is_destof
-	while (!is_destof(data->piles->b, tmp_a_rot->nb))
+	tmp_lis_rot = data->lis;
+	tmp_lis_rev_rot = data->lis;
+	while (tmp_a_rot->nb == tmp_lis_rot->nb)
 	{
-		if (is_destof(data->piles->b, tmp_a_rev_rot->nb))
+		if (rot_count > size >> 1)
+			return ;
+		if (tmp_a_rev_rot->nb == tmp_lis_rev_rot->nb)
 		{
 			data->piles->a = tmp_a_rev_rot;
+			data->lis = tmp_lis_rev_rot;
 			return (put_non_lis_on_b(data, rot_count, 1));
 		}
 		tmp_a_rot = tmp_a_rot->next;
 		tmp_a_rev_rot = tmp_a_rev_rot->prev;
+		tmp_lis_rot = tmp_lis_rot->next;
+		tmp_lis_rev_rot = tmp_lis_rev_rot->prev;
 		++rot_count;
 	}
+	data->lis = tmp_lis_rot;
 	data->piles->a = tmp_a_rot;
 	return (put_non_lis_on_b(data, rot_count, 0));
 }

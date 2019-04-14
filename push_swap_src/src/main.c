@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/12 17:25:25 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/14 14:59:33 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		main(int ac, char **av)
 	}
 	while (all_data.lis != end_lis);
 */
-	start_sort_pile(&all_data);
+	start_sort_pile(&all_data, (arr->size + 1) >> 1);
 	empty_b(&all_data);
 	rot_a(&piles->a, (arr->size + 1) >> 1, &data_buff);
 	write_buff(&data_buff);
