@@ -6,13 +6,15 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/14 15:03:11 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/25 20:09:55 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <string.h>
 #include <stdlib.h>
+
+#include <stdio.h>
 
 /*
 **	rotate to get the good number a the top of a before the push a
@@ -178,43 +180,43 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem)
 **					call pusha_if_destof at each iteration
 */
 
-static void		put_non_lis_on_b(t_all_data *all_data, size_t rot_count, int rev)
+static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
+													size_t rot_count, int rev)
 {
-	t_llist		*end_a;
-	int			max_elem;
+	int		max_elem;
 	int		op;
 	size_t	offset;
 
 	op = (rev) ? RRA : RA;
 	offset = (rev) ? sizeof(t_llist*) : 0;
-	end_a = all_data->piles->a;
 	while (rot_count--)
 		fill_buffer(all_data->buff, op);
-	max_elem = -pusha_if_destof(all_data, 0);
-	if (all_data->piles->a->nb == all_data->lis->nb)
-		all_data->lis = *(t_llist**)((char*)all_data->lis + offset);
-	else
-	{
-		push_b(all_data);
-		++max_elem;
-	}
-	all_data->piles->a = *(t_llist**)((char*)all_data->piles->a + offset);
-	fill_buffer(all_data->buff, op);
+	max_elem = 1;
+	push_b(all_data);
 	while (all_data->piles->a != end_a)
 	{
 		max_elem -= pusha_if_destof(all_data, max_elem);
 		if (all_data->piles->a->nb == all_data->lis->nb)
+		{
+			if (!end_a)
+				end_a = all_data->piles->a;
 			all_data->lis = *(t_llist**)((char*)all_data->lis + offset);
+			all_data->piles->a = *(t_llist**)((char*)all_data->piles->a + offset);
+			fill_buffer(all_data->buff, op);
+		}
 		else
 		{
 			push_b(all_data);
 			++max_elem;
 		}
-		all_data->piles->a = *(t_llist**)((char*)all_data->piles->a + offset);
-		fill_buffer(all_data->buff, op);
 	}
 }
 
+/*
+**	find the first elem of a that is not in lis and call put_non_lis_on_b
+**	with rev = 1 if the first elem is in the "reverse" order or rev = 0 if
+**	the first elem is in the "normal" order
+*/
 void		start_sort_pile(t_all_data *data, size_t size)
 {
 	size_t	rot_count;
@@ -234,11 +236,12 @@ void		start_sort_pile(t_all_data *data, size_t size)
 	{
 		if (rot_count > size >> 1)
 			return ;
-		if (tmp_a_rev_rot->nb == tmp_lis_rev_rot->nb)
+		if (tmp_a_rev_rot->nb != tmp_lis_rev_rot->nb)
 		{
 			data->piles->a = tmp_a_rev_rot;
+			tmp_lis_rot = data->piles->a;
 			data->lis = tmp_lis_rev_rot;
-			return (put_non_lis_on_b(data, rot_count, 1));
+			return (put_non_lis_on_b(data, tmp_lis_rot, rot_count, 1));
 		}
 		tmp_a_rot = tmp_a_rot->next;
 		tmp_a_rev_rot = tmp_a_rev_rot->prev;
@@ -246,7 +249,8 @@ void		start_sort_pile(t_all_data *data, size_t size)
 		tmp_lis_rev_rot = tmp_lis_rev_rot->prev;
 		++rot_count;
 	}
+	tmp_lis_rev_rot = (!rot_count) ? NULL : data->piles->a;
 	data->lis = tmp_lis_rot;
 	data->piles->a = tmp_a_rot;
-	return (put_non_lis_on_b(data, rot_count, 0));
+	return (put_non_lis_on_b(data, tmp_lis_rev_rot, rot_count, 0));
 }
