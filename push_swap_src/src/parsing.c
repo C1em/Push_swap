@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/12 13:55:55 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/25 23:33:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ static void inline	add_nb(const char *const entry, int **arr, size_t size)
 			break ;
 		while (i + 1 && ft_isdigit(entry[i]))
 			--i;
+		if (entry[i] == '-' || entry[i] == '+')
+			--i;
 		if (tmp_i == i)
 		{
 			write(1, "Error\n", 6);
 			exit(1);
 		}
 		*(--*arr) = ft_atoi(&entry[i + 1]);
-		*(*(arr) + size) = **arr;
+		*(*arr + size) = **arr;
 	}
 }
 

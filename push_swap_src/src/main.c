@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/25 20:09:01 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/25 23:03:48 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 #include <stdlib.h>
 
 #include <stdio.h>
+
+void		print_arr(t_arr *arr)
+{
+	int size;
+	int i;
+
+	size = (arr->size + 1) >> 1;
+	i = 0;
+	while (i < size)
+		printf("%d\n", arr->arr[i++]);
+}
 
 static int	usage(void)
 {
@@ -33,6 +44,7 @@ int		main(int ac, char **av)
 	if (ac < 2)
 		return (usage());
 	arr = pars((const char**)&av[1], ac - 1);
+	print_arr(arr);
 	lis = get_lis_index(arr->arr, (arr->size + 1) >> 1);
 	ll_lis = transform_to_ll_lis(arr, lis);
 	piles = transform_to_pile(arr);
@@ -51,10 +63,15 @@ int		main(int ac, char **av)
 	exit(0);
 */
 	start_sort_pile(&all_data, (arr->size + 1) >> 1);
+//	printf("before empty_b :\n");
+//	write_buff(&data_buff);
 	empty_b(&all_data);
-	rot_a(&piles->a, (arr->size + 1) >> 1, &data_buff);
-	printf("res :\n");
+//	printf("before rot_a :\n");
+//	write_buff(&data_buff);
+	rot_a_til_order(&piles->a, (arr->size + 1) >> 1, &data_buff);
+	printf("\nres :\n");
 	write_buff(&data_buff);
+	printf("\n");
 
 	printf("a :\n");
 	t_llist *end_a = piles->a;

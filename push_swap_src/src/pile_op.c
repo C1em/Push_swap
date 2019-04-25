@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/25 20:10:25 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/25 23:03:37 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void		push_b(t_all_data *all_data)
 **	rotate a to get the first elem in the first position
 */
 
-void		rot_a(t_llist **ptr_a, int len, t_data_buff *buff)
+void		rot_a_til_order(t_llist **ptr_a, int len, t_data_buff *buff)
 {
 	int	r_count;
 
@@ -154,4 +154,18 @@ void		rot_a(t_llist **ptr_a, int len, t_data_buff *buff)
 	else
 		while (r_count--)
 			fill_buffer(buff, RA);
+}
+
+void	rm_useless_rot(t_all_data *data, int rev)
+{
+	size_t	offset;
+	int		op;
+
+	offset = (rev) ? 0 : sizeof(t_llist*);
+	op = (rev) ? RRA : RA;
+	while (data->buff->buff[data->buff->index] == op)
+	{
+		--data->buff->index;
+		data->piles->a = *(t_llist**)((char*)data->piles->a + offset);
+	}
 }

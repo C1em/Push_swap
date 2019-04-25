@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/25 17:11:10 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/25 21:47:07 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,10 @@ void		add_to_lis(t_llist *lis, int nb);
 */
 void		push_a(t_piles *piles, t_data_buff *buff);
 void		push_b(t_all_data *all_data);
-void		rot_a(t_llist **ptr_a, int len, t_data_buff *buff);
+void		rot_a_til_order(t_llist **ptr_a, int len, t_data_buff *buff);
 int			len_b(t_llist_tmp *b);
+void		rm_useless_rot(t_all_data *data, int rev);
+
 /*
 **	put_non_lis_on_b.c
 */

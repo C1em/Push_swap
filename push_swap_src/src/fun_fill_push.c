@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:22:17 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/12 15:43:13 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/25 23:03:17 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	fill_push_a(t_data_buff *buff)
 			buff->buff[buff->index - 1] = RRA;
 			buff->buff[buff->index] = SA;
 		}
+		else
+			put_in_buff(buff, PA);
 	}
 	else
 		put_in_buff(buff, PA);
@@ -69,6 +71,8 @@ void	fill_push_b(t_data_buff *buff)
 			buff->buff[buff->index - 1] = RRB;
 			buff->buff[buff->index] = SB;
 		}
+		else
+			put_in_buff(buff, PB);
 	}
 	else
 		put_in_buff(buff, PB);

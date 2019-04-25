@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/25 20:09:55 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/25 22:47:07 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
 			++max_elem;
 		}
 	}
+	rm_useless_rot(all_data, rev);
 }
 
 /*
@@ -238,9 +239,9 @@ void		start_sort_pile(t_all_data *data, size_t size)
 			return ;
 		if (tmp_a_rev_rot->nb != tmp_lis_rev_rot->nb)
 		{
-			data->piles->a = tmp_a_rev_rot;
 			tmp_lis_rot = data->piles->a;
-			data->lis = tmp_lis_rev_rot;
+			data->piles->a = tmp_a_rev_rot;
+			data->lis = tmp_lis_rev_rot->next;
 			return (put_non_lis_on_b(data, tmp_lis_rot, rot_count, 1));
 		}
 		tmp_a_rot = tmp_a_rot->next;
@@ -249,7 +250,7 @@ void		start_sort_pile(t_all_data *data, size_t size)
 		tmp_lis_rev_rot = tmp_lis_rev_rot->prev;
 		++rot_count;
 	}
-	tmp_lis_rev_rot = (!rot_count) ? NULL : data->piles->a;
+	tmp_lis_rev_rot = (rot_count) ? data->piles->a : NULL;
 	data->lis = tmp_lis_rot;
 	data->piles->a = tmp_a_rot;
 	return (put_non_lis_on_b(data, tmp_lis_rev_rot, rot_count, 0));
