@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/25 23:03:48 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:21:07 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int		main(int ac, char **av)
 	if (ac < 2)
 		return (usage());
 	arr = pars((const char**)&av[1], ac - 1);
+	if (arr->size < 2)
+		return (0);
 	print_arr(arr);
+	printf("size :%d\n", (arr->size + 1) >> 1);
 	lis = get_lis_index(arr->arr, (arr->size + 1) >> 1);
 	ll_lis = transform_to_ll_lis(arr, lis);
 	piles = transform_to_pile(arr);

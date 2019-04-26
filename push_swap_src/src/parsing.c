@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/25 23:33:51 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:27:56 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static int			ft_isspace(char c)
 {
-	if (c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == 'f'
+	if (c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == '\f'
 																|| c == ' ')
 		return (1);
 	return (0);
@@ -36,7 +36,9 @@ static size_t		tot_len(const char *const *const entry, int nb_elem)
 	{
 		while (entry[nb_elem][i])
 		{
-			if (ft_isdigit(entry[nb_elem][i]))
+			if (ft_isdigit(entry[nb_elem][i])
+									&& (ft_isspace(entry[nb_elem][i + 1])
+											|| entry[nb_elem][i + 1] == '\0'))
 				++tot_len;
 			++i;
 		}
@@ -81,6 +83,7 @@ t_arr				*pars(const char *const *const entry, int nb_elem)
 		return (NULL);
 	if (!(len = tot_len(entry, nb_elem)))
 		return (NULL);
+	printf("len :%lu\n", len);
 	if (!(arr->arr = (int*)malloc(sizeof(int) * (len << 1) - 1)))
 		return (NULL);
 	arr->size = (len << 1) - 1;

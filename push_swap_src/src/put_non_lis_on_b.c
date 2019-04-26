@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/25 22:47:07 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/26 17:41:26 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,9 +192,16 @@ static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
 	while (rot_count--)
 		fill_buffer(all_data->buff, op);
 	max_elem = 1;
+	printf("top a :%d, top lis :%d\n", all_data->piles->a->nb, all_data->lis->nb);
 	push_b(all_data);
+	if (rev)
+	{
+		all_data->piles->a = all_data->piles->a->prev;
+		fill_buffer(all_data->buff, RRA);
+	}
 	while (all_data->piles->a != end_a)
 	{
+		printf("top a :%d, top lis :%d\n", all_data->piles->a->nb, all_data->lis->nb);
 		max_elem -= pusha_if_destof(all_data, max_elem);
 		if (all_data->piles->a->nb == all_data->lis->nb)
 		{
@@ -208,6 +215,11 @@ static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
 		{
 			push_b(all_data);
 			++max_elem;
+			if (rev)
+			{
+				all_data->piles->a = all_data->piles->a->prev;
+				fill_buffer(all_data->buff, RRA);
+			}
 		}
 	}
 	rm_useless_rot(all_data, rev);
@@ -239,9 +251,9 @@ void		start_sort_pile(t_all_data *data, size_t size)
 			return ;
 		if (tmp_a_rev_rot->nb != tmp_lis_rev_rot->nb)
 		{
-			tmp_lis_rot = data->piles->a;
+			tmp_lis_rot = (rot_count > 1) ? data->piles->a : NULL;
 			data->piles->a = tmp_a_rev_rot;
-			data->lis = tmp_lis_rev_rot->next;
+			data->lis = tmp_lis_rev_rot;
 			return (put_non_lis_on_b(data, tmp_lis_rot, rot_count, 1));
 		}
 		tmp_a_rot = tmp_a_rot->next;
