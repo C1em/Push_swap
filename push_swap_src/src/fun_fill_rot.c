@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:22:20 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/12 14:39:36 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/27 20:57:22 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void inline	put_in_buff(t_data_buff *buff, int op)
 {
 	if (buff->index == 1023)
-		return (write_buff(buff));
+		write_buff(buff);
 	++buff->index;
 	buff->buff[buff->index] = op;
 }

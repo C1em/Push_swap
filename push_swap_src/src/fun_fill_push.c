@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:22:17 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/25 23:03:17 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/27 20:24:20 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void inline	put_in_buff(t_data_buff *buff, int op)
 {
 	if (buff->index == 1023)
-		return (write_buff(buff));
+		write_buff(buff);
 	++buff->index;
 	buff->buff[buff->index] = op;
 }
@@ -30,9 +30,9 @@ void	fill_push_a(t_data_buff *buff)
 		{
 			if (buff->index > 1 && buff->buff[buff->index - 2] & SB)
 			{
-				buff->buff[buff->index - 2] = SS;
-				buff->buff[buff->index - 1] = RA;
 				--buff->index;
+				buff->buff[buff->index - 1] = SS;
+				buff->buff[buff->index] = RA;
 			}
 			else
 				buff->buff[buff->index - 1] = SA;

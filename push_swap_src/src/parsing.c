@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/26 18:27:56 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:43:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ t_arr				*pars(const char *const *const entry, int nb_elem)
 		return (NULL);
 	if (!(len = tot_len(entry, nb_elem)))
 		return (NULL);
-	printf("len :%lu\n", len);
 	if (!(arr->arr = (int*)malloc(sizeof(int) * (len << 1) - 1)))
 		return (NULL);
 	arr->size = (len << 1) - 1;

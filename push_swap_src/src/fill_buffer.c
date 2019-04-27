@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 09:37:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/25 22:48:58 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/26 20:53:54 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static inline void		dispatch_rot(t_data_buff *buff, int op)
 
 void				fill_buffer(t_data_buff *buff, int op)
 {
-	if (buff->index & (0x1 << 31))
+	if (buff->index == (ssize_t)-1)
 	{
-		buff->index = 0UL;
+		buff->index = (ssize_t)0;
 		buff->buff[0] = op;
 		return ;
 	}

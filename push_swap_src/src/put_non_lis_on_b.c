@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/26 17:41:26 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/27 20:44:40 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,6 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem)
 		tmp_b = tmp_b->next;
 		++r_count;
 	}
-	tmp_arr[i] = -1;
 	if (tmp_b->dest == all_data->piles->a->nb)
 	{
 		tmp_arr[i] = r_count;
@@ -192,7 +191,6 @@ static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
 	while (rot_count--)
 		fill_buffer(all_data->buff, op);
 	max_elem = 1;
-	printf("top a :%d, top lis :%d\n", all_data->piles->a->nb, all_data->lis->nb);
 	push_b(all_data);
 	if (rev)
 	{
@@ -201,7 +199,6 @@ static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
 	}
 	while (all_data->piles->a != end_a)
 	{
-		printf("top a :%d, top lis :%d\n", all_data->piles->a->nb, all_data->lis->nb);
 		max_elem -= pusha_if_destof(all_data, max_elem);
 		if (all_data->piles->a->nb == all_data->lis->nb)
 		{

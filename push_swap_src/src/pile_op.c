@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/26 16:37:45 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/27 22:18:12 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void		push_b(t_all_data *all_data)
 
 	if (!all_data->piles->a)
 		return ;
-	printf("push b :%d\n", all_data->piles->a->nb);
 	if (!all_data->piles->b)
 		init_b(all_data);
 	else
