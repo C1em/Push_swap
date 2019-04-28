@@ -6,14 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/27 22:18:12 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 17:14:08 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdlib.h>
-
-#include <stdio.h>
 
 /*
 **	return the nb of elems in b

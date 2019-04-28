@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # include <string.h>
-# define BUFF_SIZE 3
+# define BUFF_SIZE 1024
 
 typedef struct	s_list
 {

@@ -6,14 +6,29 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:38:43 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/11 12:55:37 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 18:32:05 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include <stdlib.h>
 
-#include "stdio.h"
+#include <stdio.h>
+
+static void				print_list(t_pile *pile)
+{
+	t_pile *end_pile;
+
+	if (!pile)
+		return ;
+	end_pile = pile->prev;
+	while (pile != end_pile)
+	{
+		printf("%d\n", pile->nb);
+		pile = pile->next;
+	}
+	printf("%d\n", pile->nb);
+}
 
 void	push_a(t_piles *piles)
 {
@@ -30,9 +45,14 @@ void	push_b(t_piles *piles)
 {
 	if (!piles->a)
 		return ;
-	if (!piles->b)
+	if (!piles->b && printf("OK\n"))
 		piles->b = pile_init(piles->a->nb);
 	else
 		piles->b = add_elem(piles->b, piles->a->nb);
+	printf("before rm elem :\n");
+	print_list(piles->a);
 	piles->a = rm_elem(piles->a);
+	printf("after rm elem :\n");
+	print_list(piles->a);
+	printf("-------------------\n");
 }

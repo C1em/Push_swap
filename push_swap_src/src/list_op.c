@@ -6,14 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 20:37:54 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/11 14:32:36 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 17:14:04 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdlib.h>
-
-#include <stdio.h>
 
 /*
 **	take the int* lis and return it as a doubly linked list

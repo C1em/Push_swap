@@ -6,15 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/27 20:44:40 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 17:14:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <string.h>
 #include <stdlib.h>
-
-#include <stdio.h>
 
 /*
 **	rotate to get the good number a the top of a before the push a

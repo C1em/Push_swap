@@ -6,13 +6,11 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:05:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/26 20:39:10 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 17:13:44 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-#include <stdio.h>
 
 int				is_destof(t_llist_tmp *b, int dest)
 {

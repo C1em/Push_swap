@@ -6,24 +6,24 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:48:02 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/11 12:55:07 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 18:10:32 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHECKER_H
 # define CHECKER_H
 
-# define SA 0x1
-# define SB 0x2
-# define SS 0x4
-# define PA 0x8
-# define PB 0x10
-# define RA 0x20
-# define RB 0x40
-# define RR 0x80
-# define RRA 0x100
-# define RRB 0x200
-# define RRR 0x400
+# define SA 0x1//1
+# define SB 0x2//2
+# define SS 0x4//4
+# define PA 0x8//8
+# define PB 0x10//16
+# define RA 0x20//32
+# define RB 0x40//64
+# define RR 0x80//128
+# define RRA 0x100//256
+# define RRB 0x200//512
+# define RRR 0x400//1024
 
 typedef struct	s_pile
 {

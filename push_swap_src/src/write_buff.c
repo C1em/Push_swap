@@ -6,15 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 12:34:25 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/27 23:51:03 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 17:14:19 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "push_swap.h"
 #include "libft.h"
-
-#include <stdio.h>
 
 static inline size_t	write_op(char *dest, int op)
 {

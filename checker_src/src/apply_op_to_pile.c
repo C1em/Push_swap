@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 08:49:48 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/12 11:16:59 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 18:39:04 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include <stdlib.h>
 
 #include <stdio.h>
-/*
-void				print_list(t_pile *pile)
+
+static void				print_list(t_pile *pile)
 {
 	t_pile *end_pile;
 
@@ -29,7 +29,7 @@ void				print_list(t_pile *pile)
 	}
 	printf("%d\n", pile->nb);
 }
-*/
+
 static void inline	do_pile_op(t_piles *piles, int op)
 {
 	int			*op_arr;
@@ -42,6 +42,7 @@ static void inline	do_pile_op(t_piles *piles, int op)
 		++i;
 	fun_op = (t_fun_op[11]){swap_a, swap_b, swap_ab, push_a, push_b, rot_a,
 							rot_b, rot_ab, rev_rot_a, rev_rot_b, rev_rot_ab};
+	printf("op : %d\n", op_arr[i]);
 	return(fun_op[i](piles));
 }
 
@@ -59,6 +60,8 @@ t_piles			*apply_op_to_pile(t_pile *a, t_pile *op_list)
 	end_op = op_list->next;
 	while (op_list != end_op)
 	{
+		print_list(piles->a);
+		printf("_______________________________\n");
 		do_pile_op(piles, op_list->nb);
 		op_list = op_list->prev;
 	}

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/26 18:43:14 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 17:13:59 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
-
-#include <stdio.h>
 
 static int			ft_isspace(char c)
 {

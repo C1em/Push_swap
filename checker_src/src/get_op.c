@@ -6,15 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:13:58 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/11 12:46:34 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 17:15:11 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include "libft.h"
 #include <stdlib.h>
-
-#include <stdio.h>
 
 static int inline	get_index_of(char *haystack, char *needle)
 {

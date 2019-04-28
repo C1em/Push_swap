@@ -6,14 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:47:33 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/12 11:16:43 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/28 17:15:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include <unistd.h>
-
-#include <stdio.h>
 
 int		main(int ac, char **av)
 {
