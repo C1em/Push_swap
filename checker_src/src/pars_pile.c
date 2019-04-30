@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:54:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 17:15:18 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/29 22:09:09 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_pile					*pars_pile(char **arr, int size)
 			if (i == (ssize_t)-1)
 				break ;
 			while (i + 1 && ft_isdigit(arr[size][i]))
+				--i;
+			if (arr[size][i] == '-' || arr[size][i] == '+')
 				--i;
 			if (tmp_i == i)
 			{

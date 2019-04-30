@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:13:58 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 17:15:11 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/29 21:32:53 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,54 @@
 #include "libft.h"
 #include <stdlib.h>
 
-static int inline	get_index_of(char *haystack, char *needle)
+static inline int rot_op_of(const char *str_op)
 {
-	size_t index_hay;
-	size_t index_needle;
-
-	if (!needle[0])
-		return (-1);
-	index_hay = (needle[0] == 'r') ? 10 : 0;
-	index_needle = 0;
-	while (haystack[index_hay])
+	if (str_op[2] == '\0')
 	{
-		if (!needle[index_needle])
-			return (index_hay - index_needle);
-		if (haystack[index_hay] == needle[index_needle])
-		{
-			++index_needle;
-			++index_hay;
-		}
-		else
-		{
-			index_needle = 0;
-			if (index_hay < 16)
-				index_hay += (index_hay & 1) ? 1 : 2;
-			else
-			{	if (index_hay == 16)
-					continue ;
-				if (index_hay <= 19)
-					index_hay = 19;
-				else if (index_hay <= 22)
-					index_hay = 22;
-				else
-					index_hay = 25;
-			}
-		}
+		if (str_op[1] == 'a')
+			return (RA);
+		if (str_op[1] == 'b')
+			return (RB);
+		if (str_op[1] == 'r')
+			return (RR);
+		return (0);
 	}
-	return (-1);
+	if (str_op[3] != '\0' || str_op[1] != 'r')
+		return (0);
+	if (str_op[2] == 'a')
+		return (RRA);
+	if (str_op[2] == 'b')
+		return (RRB);
+	if (str_op[2] == 'r')
+		return (RRR);
+	return (0);
+}
+
+static int op_of(const char *str_op)
+{
+	if (!str_op || !str_op[0] || !str_op[1])
+		return (0);
+	if (str_op[0] == 'r')
+		return (rot_op_of(str_op));
+	if (str_op[2] != '\0')
+		return (0);
+	if (str_op[0] == 's')
+	{
+		if (str_op[1] == 'a')
+			return (SA);
+		if (str_op[1] == 'b')
+			return (SB);
+		if (str_op[1] == 's')
+			return (SS);
+	}
+	else if (str_op[0] == 'p')
+	{
+		if (str_op[1] == 'a')
+			return (PA);
+		if (str_op[1] == 'b')
+			return (PB);
+	}
+	return (0);
 }
 
 t_pile					*get_op(void)
@@ -57,22 +69,15 @@ t_pile					*get_op(void)
 	int		*all_op_arr;
 	t_pile	*op_list;
 	char	*line;
-	size_t	index;
 
 	all_op_arr = (int[11]){SA, SB, SS, PA, PB, RA, RB, RR, RRA, RRB, RRR};
 	op_list = NULL;
 	if (get_next_line(0, &line) != 1)
 		return (NULL);
-	if ((index = get_index_of("sasbsspapbrarbrrrrarrbrrr", line)) == -1)
-		return (NULL);
-	op_list = pile_init(all_op_arr[(index <= 16) ? index >> 1
-												: (8 + (index - 16) % 3)]);
+	op_list = pile_init(op_of(line));
 	while (get_next_line(0, &line) == 1)
 	{
-		if ((index = get_index_of("sasbsspapbrarbrrrrarrbrrr", line)) == -1)
-			return (NULL);
-		op_list = add_elem(op_list, all_op_arr[(index <= 16) ? index >> 1
-												: (8 + (index - 16) % 3)]);
+		op_list = add_elem(op_list, op_of(line));
 		free(line);
 	}
 	return (op_list->prev);
