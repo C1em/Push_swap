@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 17:13:38 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/01 01:58:04 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int		main(int ac, char **av)
 	t_llist *end_lis = all_data.lis;
 	do
 	{
-		printf("lis :%d\n", all_data.lis->nb);
+		ft_putnbr(all_data.lis->nb);
+		ft_putchar('\n');
 		all_data.lis = all_data.lis->next;
 	}
 	while (all_data.lis != end_lis);

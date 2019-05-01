@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 17:14:14 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/01 01:51:08 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,38 +227,31 @@ static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
 */
 void		start_sort_pile(t_all_data *data, size_t size)
 {
-	size_t	rot_count;
-	t_llist	*tmp_a_rot;
-	t_llist	*tmp_a_rev_rot;
-	t_llist *tmp_lis_rot;
-	t_llist *tmp_lis_rev_rot;
+	size_t	rot_til_push;
+	size_t	rev_rot_til_push;
+	t_llist	*end_a;
 
-	if (!data->piles->a)
+	if ((rot_til_push = rot_count_til_push(data, size, 0)) == size)
 		return ;
-	rot_count = 0;
-	tmp_a_rev_rot = data->piles->a;
-	tmp_a_rot = data->piles->a;
-	tmp_lis_rot = data->lis;
-	tmp_lis_rev_rot = data->lis;
-	while (tmp_a_rot->nb == tmp_lis_rot->nb)
+	rev_rot_til_push = rot_count_til_push(data, size, 1);
+	if (rot_til_push <= rev_rot_til_push
+		|| rot_til_push - rev_rot_til_push < size - lst_len(data->lis))
 	{
-		if (rot_count > size >> 1)
-			return ;
-		if (tmp_a_rev_rot->nb != tmp_lis_rev_rot->nb)
-		{
-			tmp_lis_rot = (rot_count > 1) ? data->piles->a : NULL;
-			data->piles->a = tmp_a_rev_rot;
-			data->lis = tmp_lis_rev_rot;
-			return (put_non_lis_on_b(data, tmp_lis_rot, rot_count, 1));
-		}
-		tmp_a_rot = tmp_a_rot->next;
-		tmp_a_rev_rot = tmp_a_rev_rot->prev;
-		tmp_lis_rot = tmp_lis_rot->next;
-		tmp_lis_rev_rot = tmp_lis_rev_rot->prev;
-		++rot_count;
+		end_a = (rot_til_push) ? data->piles->a : NULL;
+		rev_rot_til_push = rot_til_push;
+		while (rev_rot_til_push--)
+			data->lis = data->lis->next;
+		rev_rot_til_push = rot_til_push;
+		while (rev_rot_til_push--)
+			data->piles->a = data->piles->a->next;
+		return (put_non_lis_on_b(data, end_a, rot_til_push, 0));
 	}
-	tmp_lis_rev_rot = (rot_count) ? data->piles->a : NULL;
-	data->lis = tmp_lis_rot;
-	data->piles->a = tmp_a_rot;
-	return (put_non_lis_on_b(data, tmp_lis_rev_rot, rot_count, 0));
+	end_a = (rev_rot_til_push) ? data->piles->a : NULL;
+	rot_til_push = rev_rot_til_push;
+	while (rot_til_push--)
+		data->lis = data->lis->prev;
+	rot_til_push = rev_rot_til_push;
+	while (rot_til_push--)
+		data->piles->a = data->piles->a->prev;
+	put_non_lis_on_b(data, end_a, rev_rot_til_push, 1);
 }

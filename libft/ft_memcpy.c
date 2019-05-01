@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 16:12:16 by coremart          #+#    #+#             */
-/*   Updated: 2018/11/16 13:45:53 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/27 23:48:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t i;
-
-	i = 0;
-	while (i < n)
-	{
-		*((unsigned char*)dst + i) = *((unsigned char*)src + i);
-		i++;
-	}
+	while (n--)
+		*((unsigned char*)dst + n) = *((unsigned char*)src + n);
 	return (dst);
 }

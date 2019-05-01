@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/25 21:47:07 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/01 01:26:21 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,12 @@ void	fill_push_b(t_data_buff *buff);
 */
 int				is_destof(t_llist_tmp *b, int dest);
 void			empty_b(t_all_data *data);
+
+/*
+**	rot_count.c
+*/
+size_t		rot_count_til_push(t_all_data *data, size_t size, int rev);
+size_t		lst_len(t_llist *lst);
 
 void		print_list(void *list);
 

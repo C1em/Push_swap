@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:22:20 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/27 20:57:22 by coremart         ###   ########.fr       */
+/*   Updated: 2019/04/30 19:55:44 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,34 @@ static void inline	put_in_buff(t_data_buff *buff, int op)
 
 void				fill_rot_a(t_data_buff *buff)
 {
+	size_t i;
+
 	if (buff->buff[buff->index] & RRA)
 		--buff->index;
 	else if (buff->buff[buff->index] & RB)
-		buff->buff[buff->index] = RR;
+	{
+		i = buff->index;
+		while (i + 1 && buff->buff[i] & RB)
+			--i;
+		buff->buff[i + 1] = RR;
+	}
 	else
 		put_in_buff(buff, RA);
 }
 
 void				fill_rot_b(t_data_buff *buff)
 {
+	size_t i;
+
 	if (buff->buff[buff->index] & RRB)
 		--buff->index;
 	else if (buff->buff[buff->index] & RA)
-		buff->buff[buff->index] = RR;
+	{
+		i = buff->index;
+		while (i + 1 && buff->buff[i] & RA)
+			--i;
+		buff->buff[i + 1] = RR;
+	}
 	else
 		put_in_buff(buff, RB);
 }
@@ -55,7 +69,12 @@ void				fill_rev_rot_a(t_data_buff *buff)
 	if (buff->buff[buff->index] & RA)
 		--buff->index;
 	else if (buff->buff[buff->index] & RRB)
-		buff->buff[buff->index] = RRR;
+	{
+		i = buff->index;
+		while (i + 1 && buff->buff[i] & RRB)
+			--i;
+		buff->buff[i + 1] = RRR;
+	}
 	else
 		put_in_buff(buff, RRA);
 }
@@ -75,7 +94,12 @@ void				fill_rev_rot_b(t_data_buff *buff)
 	if (buff->buff[buff->index] & RB)
 		--buff->index;
 	else if (buff->buff[buff->index] & RRA)
-		buff->buff[buff->index] = RRR;
+	{
+		i = buff->index;
+		while (i + 1 && buff->buff[i] & RRA)
+			--i;
+		buff->buff[i + 1] = RRR;
+	}
 	else
 		put_in_buff(buff, RRB);
 }
