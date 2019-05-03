@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/01 01:51:08 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/03 03:18:29 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
 			}
 		}
 	}
-	rm_useless_rot(all_data, rev);
+	rm_useless_rot(all_data, 1, rev);
 }
 
 /*
@@ -234,8 +234,9 @@ void		start_sort_pile(t_all_data *data, size_t size)
 	if ((rot_til_push = rot_count_til_push(data, size, 0)) == size)
 		return ;
 	rev_rot_til_push = rot_count_til_push(data, size, 1);
-	if (rot_til_push <= rev_rot_til_push
-		|| rot_til_push - rev_rot_til_push < size - lst_len(data->lis))
+	if (rev_rot_til_push >= rot_til_push
+		|| ((rot_til_push - rev_rot_til_push) << 1)
+		< size - lst_len(data->lis))
 	{
 		end_a = (rot_til_push) ? data->piles->a : NULL;
 		rev_rot_til_push = rot_til_push;

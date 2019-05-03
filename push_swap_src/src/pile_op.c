@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 17:14:08 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/03 02:32:01 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,16 +154,23 @@ void		rot_a_til_order(t_llist **ptr_a, int len, t_data_buff *buff)
 			fill_buffer(buff, RA);
 }
 
-void	rm_useless_rot(t_all_data *data, int rev)
+void	rm_useless_rot(t_all_data *data, int put_non_lis_on_b, int rev)
 {
 	size_t	offset;
 	int		op;
+	int		op2;
 
 	offset = (rev) ? 0 : sizeof(t_llist*);
 	op = (rev) ? RRA : RA;
-	while (data->buff->buff[data->buff->index] == op)
+	op2 = (put_non_lis_on_b) ? PA : 0;
+	while (data->buff->buff[data->buff->index] & (op | op2))
 	{
-		--data->buff->index;
-		data->piles->a = *(t_llist**)((char*)data->piles->a + offset);
+		if (data->buff->buff[data->buff->index] & op2)
+			push_b(data);
+		else
+		{
+			--data->buff->index;
+			data->piles->a = *(t_llist**)((char*)data->piles->a + offset);
+		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/01 01:26:21 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/03 02:32:06 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void		push_a(t_piles *piles, t_data_buff *buff);
 void		push_b(t_all_data *all_data);
 void		rot_a_til_order(t_llist **ptr_a, int len, t_data_buff *buff);
 int			len_b(t_llist_tmp *b);
-void		rm_useless_rot(t_all_data *data, int rev);
+void		rm_useless_rot(t_all_data *data, int put_non_lis_on_b, int rev);
 
 /*
 **	put_non_lis_on_b.c
@@ -126,8 +126,7 @@ void	fill_push_b(t_data_buff *buff);
 /*
 **	empty_b.c
 */
-int				is_destof(t_llist_tmp *b, int dest);
-void			empty_b(t_all_data *data);
+void			empty_b(t_all_data *data, size_t size);
 
 /*
 **	rot_count.c

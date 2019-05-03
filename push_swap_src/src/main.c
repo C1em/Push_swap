@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/01 01:58:04 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/02 21:18:13 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		main(int ac, char **av)
 /*	write_buff(&data_buff);
 	write_buff(&data_buff);
 	write(1, "-------------------------------\n", 32);
-*/	empty_b(&all_data);
+*/	empty_b(&all_data, (arr->size + 1) >> 1);
 /*	write_buff(&data_buff);
 	write_buff(&data_buff);
 	write(1, "-------------------------------\n", 32);
