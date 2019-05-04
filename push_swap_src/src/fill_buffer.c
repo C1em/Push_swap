@@ -6,12 +6,15 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 09:37:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 17:15:28 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/04 03:09:52 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+#include "libft.h"
+#include <stdio.h>
+/*
 static inline void		dispatch_rot(t_data_buff *buff, int op)
 {
 	t_fun_match_op	*fun_match_op;
@@ -26,9 +29,13 @@ static inline void		dispatch_rot(t_data_buff *buff, int op)
 		++i;
 	return (fun_match_op[i].p(buff));
 }
-
+*/
 void				fill_buffer(t_data_buff *buff, int op)
 {
+	ft_putnbr(op);
+	ft_putchar('\n');
+	buff->buff[++buff->index] = op;
+/*
 	if (buff->index == (ssize_t)-1)
 	{
 		buff->index = (ssize_t)0;
@@ -41,4 +48,4 @@ void				fill_buffer(t_data_buff *buff, int op)
 		return (fill_push_a(buff));
 	if (op & PB)
 		return (fill_push_b(buff));
-}
+*/}

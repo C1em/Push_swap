@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/03 03:18:29 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/04 03:48:32 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include <stdio.h>
+
 /*
 **	rotate to get the good number a the top of a before the push a
 **	especially when we have already pushed on a at this position,
 **	we need to rotate in consequence
 */
-
 static void		rot_a_to_match_the_push(t_all_data *all_data)
 {
 	while (all_data->piles->a->nb != all_data->piles->b->dest)
@@ -190,6 +191,8 @@ static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
 		fill_buffer(all_data->buff, op);
 	max_elem = 1;
 	push_b(all_data);
+	write_buff(all_data->buff);
+	printf("-------------------\n");
 	if (rev)
 	{
 		all_data->piles->a = all_data->piles->a->prev;
@@ -197,6 +200,8 @@ static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
 	}
 	while (all_data->piles->a != end_a)
 	{
+		write_buff(all_data->buff);
+		printf("-------------------\n");
 		max_elem -= pusha_if_destof(all_data, max_elem);
 		if (all_data->piles->a->nb == all_data->lis->nb)
 		{
@@ -217,7 +222,13 @@ static void		put_non_lis_on_b(t_all_data *all_data, const t_llist *end_a,
 			}
 		}
 	}
+	write_buff(all_data->buff);
+	printf("-------------------\n");
+	printf("OK\n");
 	rm_useless_rot(all_data, 1, rev);
+	write_buff(all_data->buff);
+	printf("-------------------\n");
+	printf("OK\n");
 }
 
 /*

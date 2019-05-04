@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/03 02:32:06 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/04 02:46:37 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 
 # include <string.h>
 
-# define SA 0x1
-# define SB 0x2
-# define SS 0x4
-# define PA 0x8
-# define PB 0x10
-# define RA 0x20
-# define RB 0x40
-# define RR 0x80
-# define RRA 0x100
-# define RRB 0x200
-# define RRR 0x400
-# define ROT 0x360
+# define SA 0x1		// 1
+# define SB 0x2		// 2
+# define SS 0x4		// 4
+# define PA 0x8		// 8
+# define PB 0x10	// 16
+# define RA 0x20	// 32
+# define RB 0x40	// 64
+# define RR 0x80	// 128
+# define RRA 0x100	// 256
+# define RRB 0x200	// 512
+# define RRR 0x400	// 1024
+# define ROT 0x360	// 2048
 
 typedef struct	s_arr
 {
