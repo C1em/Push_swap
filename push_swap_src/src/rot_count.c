@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 00:40:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/01 01:25:59 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/05 04:34:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,45 @@ size_t		lst_len(t_llist *lst)
 	return (i);
 }
 
-size_t		rot_count_til_push(t_all_data *data, size_t size, int rev)
+size_t		rot_count_til_push(t_llist *a, t_llist *lis, size_t size, int rev)
 {
 	size_t	rot_count;
 	int		offset;
-	t_llist	*tmp_a;
-	t_llist	*tmp_lis;
 
-	tmp_a = data->piles->a;
-	tmp_lis = data->lis;
 	rot_count = 0;
 	offset = (rev) ? sizeof(t_llist*) : 0;
-	while (tmp_a->nb == tmp_lis->nb)
+	while (a->nb == lis->nb)
 	{
-		tmp_lis = *(t_llist**)((char*)tmp_lis + offset);
-		tmp_a = *(t_llist**)((char*)tmp_a + offset);
+		lis = *(t_llist**)((char*)lis + offset);
+		a = *(t_llist**)((char*)a + offset);
 		if (++rot_count == size)
 			break ;
+	}
+	return (rot_count);
+}
+
+size_t		count_rot_to_next_pa(t_all_data *all_data, size_t rot_count,
+											t_llist *end_a, int rev_ab)
+{
+	t_llist		*tmp_a;
+	t_llist_tmp	*tmp_b;
+	t_llist		*tmp_lis;
+	size_t		offset_a;
+	size_t		offset_b;
+
+	tmp_a = all_data->piles->a;
+	tmp_b = all_data->piles->b;
+	tmp_lis = all_data->lis;
+	offset_a = (rev_ab & 2) ? sizeof(t_llist*) : 0;
+	offset_b = (rev_ab & 1) ? sizeof(t_llist_tmp*) : 0;
+	while (rot_count--)
+		tmp_b = *(t_llist_tmp**)((char*)tmp_b + offset_b);
+	rot_count = 0;
+	while (!is_destof(tmp_b, tmp_a->nb))
+	{
+		if ((tmp_a = *(t_llist**)((char*)tmp_a + offset_a)) == end_a)
+			return (0);
+		++rot_count;
 	}
 	return (rot_count);
 }

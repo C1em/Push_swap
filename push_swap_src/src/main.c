@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/04 02:54:46 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/05 00:58:16 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ int		main(int ac, char **av)
 	exit(0);
 */
 	start_sort_pile(&all_data, (arr->size + 1) >> 1);
-	write_buff(&data_buff);
-	write(1, "-------------------------------\n", 32);
+//	write_buff(&data_buff);
+//	write(1, "------------empty b------------\n", 32);
 	empty_b(&all_data, (arr->size + 1) >> 1);
-	write_buff(&data_buff);
-	write(1, "-------------------------------\n", 32);
+//	write_buff(&data_buff);
+//	write(1, "------------rot til order------\n", 32);
 	rot_a_til_order(&piles->a, (arr->size + 1) >> 1, &data_buff);
 	write_buff(&data_buff);
 
 //	write(1, "-------------------------------\n", 32);
-//	write_buff(&data_buff);
+	write_buff(&data_buff);
 //	write(1, "-------------------------------\n", 32);
 //	write_buff(&data_buff);
 /*	printf("\n");

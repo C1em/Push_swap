@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:22:20 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/04 02:23:16 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/05 01:21:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,23 @@ static void inline	put_in_buff(t_data_buff *buff, int op)
 
 void				fill_rot_a(t_data_buff *buff)
 {
-	size_t i;
+	ssize_t i;
 
 	if (buff->buff[buff->index] & RRA)
 		--buff->index;
 	else if (buff->buff[buff->index] & RB)
 	{
 		i = buff->index;
-		while (i + 1 && buff->buff[i] & RB)
+		while (i + (ssize_t)1 && buff->buff[i] & RB)
 			--i;
 		buff->buff[i + 1] = RR;
 	}
 	else
 	{
 		i = buff->index;
-		while (i + 1 && buff->buff[i] & (RRB | RB | SB))
+		while (i && buff->buff[i] & (RRB | RB | SB))
 			--i;
-		if (i + 1 && buff->buff[i] & RRR)
+		if (buff->buff[i] & RRR)
 			buff->buff[i] = RRB;
 		else
 			put_in_buff(buff, RA);
@@ -47,23 +47,23 @@ void				fill_rot_a(t_data_buff *buff)
 
 void				fill_rot_b(t_data_buff *buff)
 {
-	size_t i;
+	ssize_t i;
 
 	if (buff->buff[buff->index] & RRB)
 		--buff->index;
 	else if (buff->buff[buff->index] & RA)
 	{
 		i = buff->index;
-		while (i + 1 && buff->buff[i] & RA)
+		while (i + (ssize_t)1 && buff->buff[i] & RA)
 			--i;
 		buff->buff[i + 1] = RR;
 	}
 	else
 	{
 		i = buff->index;
-		while (i + 1 && buff->buff[i] & (RRA | RA | SA))
+		while (i && buff->buff[i] & (RRA | RA | SA))
 			--i;
-		if (i + 1 && buff->buff[i] & RRR)
+		if (buff->buff[i] & RRR)
 			buff->buff[i] = RRA;
 		else
 			put_in_buff(buff, RB);
@@ -72,12 +72,12 @@ void				fill_rot_b(t_data_buff *buff)
 
 void				fill_rev_rot_a(t_data_buff *buff)
 {
-	size_t i;
+	ssize_t i;
 
 	i = buff->index;
 	while (i && (buff->buff[i] & (RB | RRB | SB)))
 		--i;
-	if (((buff->buff[i] & PB) << 1) & buff->buff[i - 1] & RA)
+	if (buff->buff[i] & PB && i && buff->buff[i - 1] & RA)
 	{
 		buff->buff[i - 1] = SA;
 		return ;
@@ -87,11 +87,11 @@ void				fill_rev_rot_a(t_data_buff *buff)
 	else if (buff->buff[buff->index] & RRB)
 	{
 		i = buff->index;
-		while (i + 1 && buff->buff[i] & RRB)
+		while (i + (ssize_t)1 && buff->buff[i] & RRB)
 			--i;
 		buff->buff[i + 1] = RRR;
 	}
-	else if (i + 1 && buff->buff[i] & RR)
+	else if (buff->buff[i] & RR)
 		buff->buff[i] = RB;
 	else
 		put_in_buff(buff, RRA);
@@ -99,12 +99,12 @@ void				fill_rev_rot_a(t_data_buff *buff)
 
 void				fill_rev_rot_b(t_data_buff *buff)
 {
-	size_t i;
+	ssize_t i;
 
 	i = buff->index;
 	while (i && (buff->buff[i] & (RA | RRA | SA)))
 		--i;
-	if (((buff->buff[i] & PA) << 3) & buff->buff[i - 1] & RB)
+	if (buff->buff[i] & PA && i && buff->buff[i - 1] & RB)
 	{
 		buff->buff[i - 1] = SB;
 		return ;
@@ -114,11 +114,11 @@ void				fill_rev_rot_b(t_data_buff *buff)
 	else if (buff->buff[buff->index] & RRA)
 	{
 		i = buff->index;
-		while (i + 1 && buff->buff[i] & RRA)
+		while (i + (ssize_t)1 && buff->buff[i] & RRA)
 			--i;
 		buff->buff[i + 1] = RRR;
 	}
-	else if (i + 1 && buff->buff[i] & RR)
+	else if (buff->buff[i] & RR)
 		buff->buff[i] = RA;
 	else
 		put_in_buff(buff, RRB);
