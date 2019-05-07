@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/05 04:33:55 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/07 01:51:40 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void		rot_a_to_match_the_push(t_all_data *all_data)
 **	collect all elems that have to be push on a int the "reverse" order
 **				and call rot_a_to_match_the_push then call push_a and add_to_lis
 */
-
 static void		push_a_tab_reverse_rot(size_t len_arr, t_arr *arr, t_all_data *all_data)
 {
 	size_t rot_count;
@@ -70,7 +69,6 @@ static void		push_a_tab_reverse_rot(size_t len_arr, t_arr *arr, t_all_data *all_
 **	collect all elems that have to be push on a int the "normal" order
 **				and call rot_a_to_match_the_push then call push_a and add_to_lis
 */
-
 static void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data)
 {
 	int rot_count;
@@ -100,7 +98,6 @@ static void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data)
 **	array elements aiming to the least rotations to push all ements
 **	return array's lenghth
 */
-
 static int		push_a_tab(t_arr *arr, t_all_data *all_data, t_llist *end_a,
 																		int rev)
 {
@@ -118,9 +115,12 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, t_llist *end_a,
 	while (tmp_dest--)
 		tmp_b = tmp_b->next;
 	tmp_dest = tmp_b->dest;
+//	printf("%d + %lu > %d - %d + %lu + %lu\n---------------------------\n",arr->arr[len - 1],
+///	count_rot_to_next_pa(all_data, arr->size - arr->arr[len - 1], end_a, 1 + (rev << 1)),
+//	arr->size, arr->arr[0], count_rot_to_next_pa(all_data, arr->arr[0], end_a, rev << 1), len);
 	if (arr->arr[len - 1] + count_rot_to_next_pa(all_data, arr->size - arr->arr[len - 1],
 		end_a, 1 + (rev << 1)) > arr->size - arr->arr[0]
-		+ count_rot_to_next_pa(all_data, arr->arr[0], end_a, rev << 1) + len)
+		+ count_rot_to_next_pa(all_data, arr->arr[0], end_a, rev << 1) + len - 1)
 		push_a_tab_reverse_rot(len, arr, all_data);
 	else
 		push_a_tab_rot(len, arr->arr, all_data);
@@ -138,7 +138,6 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, t_llist *end_a,
 **					call push_a_tab with the array
 **					return the nb of of elems pushed on a
 */
-
 int			pusha_if_destof(t_all_data *all_data, int max_elem, t_llist *end_a,
 																		int rev)
 {
@@ -180,7 +179,6 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem, t_llist *end_a,
 **	go through a:	push b the one that aren't in lis
 **					call pusha_if_destof at each iteration
 */
-
 static void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
 													size_t rot_count, int rev)
 {
@@ -229,6 +227,8 @@ void		start_sort_pile(t_all_data *data, size_t size)
 
 	if ((rot_til_push = rot_count_til_push(data->piles->a, data->lis, size, 0)) == size)
 		return ;
+	if ((max_rot_bw_non_lis() << 1) > size)
+		return (custom_rot());
 	rev_rot_til_push = rot_count_til_push(data->piles->a->prev, data->lis->prev, size, 1) + 1;
 	if (rev_rot_til_push >= rot_til_push
 		|| ((rot_til_push - rev_rot_til_push) << 1)
