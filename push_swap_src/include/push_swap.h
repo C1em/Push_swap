@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/05 04:25:15 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/09 02:40:34 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,9 @@ int			len_b(t_llist_tmp *b);
 */
 void		start_sort_pile(t_all_data *data, size_t size);
 int			pusha_if_destof(t_all_data *all_data, int max_elem, t_llist *end_a,
-																		int rev);
+																	int rev);
+void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
+												size_t rot_count, int rev);
 /*
 **	fill_buffer.c
 */
@@ -136,6 +138,12 @@ size_t		rot_count_til_push(t_llist *a, t_llist *lis, size_t size, int rev);
 size_t		lst_len(t_llist *lst);
 size_t		count_rot_to_next_pa(t_all_data *all_data, size_t rot_count,
 											t_llist *end_a, int rev_ab);
+
+/*
+**	custom_rot.c
+*/
+void		ssp_custom_rot(t_all_data *data, size_t size);
+size_t		max_rot_bw_non_lis(t_llist *a, t_llist *lis);
 
 void		print_list(void *list);
 

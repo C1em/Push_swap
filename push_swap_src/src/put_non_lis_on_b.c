@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/07 01:51:40 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/09 05:58:46 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,8 +179,8 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem, t_llist *end_a,
 **	go through a:	push b the one that aren't in lis
 **					call pusha_if_destof at each iteration
 */
-static void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
-													size_t rot_count, int rev)
+void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
+												size_t rot_count, int rev)
 {
 	int		max_elem;
 	int		op;
@@ -227,8 +227,8 @@ void		start_sort_pile(t_all_data *data, size_t size)
 
 	if ((rot_til_push = rot_count_til_push(data->piles->a, data->lis, size, 0)) == size)
 		return ;
-	if ((max_rot_bw_non_lis() << 1) > size)
-		return (custom_rot());
+	if ((max_rot_bw_non_lis(data->piles->a, data->lis) << 1) > size)
+		return (ssp_custom_rot(data, size));
 	rev_rot_til_push = rot_count_til_push(data->piles->a->prev, data->lis->prev, size, 1) + 1;
 	if (rev_rot_til_push >= rot_til_push
 		|| ((rot_til_push - rev_rot_til_push) << 1)
@@ -239,10 +239,10 @@ void		start_sort_pile(t_all_data *data, size_t size)
 			end_a = end_a->prev;
 		rev_rot_til_push = rot_til_push;
 		while (rev_rot_til_push--)
-			data->lis = data->lis->next;
-		rev_rot_til_push = rot_til_push;
-		while (rev_rot_til_push--)
+		{
 			data->piles->a = data->piles->a->next;
+			data->lis = data->lis->next;
+		}
 		return (put_non_lis_on_b(data, end_a, rot_til_push, 0));
 	}
 	end_a = data->piles->a;
@@ -250,9 +250,9 @@ void		start_sort_pile(t_all_data *data, size_t size)
 		end_a = end_a->next;
 	rot_til_push = rev_rot_til_push;
 	while (rot_til_push--)
-		data->lis = data->lis->prev;
-	rot_til_push = rev_rot_til_push;
-	while (rot_til_push--)
+	{
 		data->piles->a = data->piles->a->prev;
+		data->lis = data->lis->prev;
+	}
 	put_non_lis_on_b(data, end_a, rev_rot_til_push, 1);
 }

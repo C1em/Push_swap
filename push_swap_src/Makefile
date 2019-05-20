@@ -25,7 +25,7 @@ LIBA = $(LIB)/libft.a
 SDIR = src
 _SRCS = main.c get_lis.c parsing.c list_op.c pile_op.c put_non_lis_on_b.c \
 		write_buff.c empty_b.c fill_buffer.c fun_fill_rot.c fun_fill_push.c \
-		rot_count.c
+		rot_count.c custom_rot.c
 SRC = $(patsubst %,$(SDIR)/%,$(_SRCS))
 
 ### OBJECTS ####
