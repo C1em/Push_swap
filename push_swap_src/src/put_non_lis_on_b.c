@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/09 05:58:46 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/22 09:05:52 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
 	offset = (rev) ? sizeof(t_llist*) : 0;
 	while (rot_count--)
 		fill_buffer(all_data->buff, op);
-	max_elem = 1;
+	max_elem = len_b(all_data->piles->b) + 1;
 	while (all_data->piles->a != end_a)
 	{
 		max_elem -= pusha_if_destof(all_data, max_elem, end_a, rev);

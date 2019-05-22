@@ -6,15 +6,22 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:13:58 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/29 21:32:53 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/22 13:20:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include "libft.h"
 #include <stdlib.h>
+#include <unistd.h>
 
-static inline int rot_op_of(const char *str_op)
+static int			error(void)
+{
+	write(1, "error\n", 6);
+	exit(0);
+}
+
+static inline int	rot_op_of(const char *str_op)
 {
 	if (str_op[2] == '\0')
 	{
@@ -24,7 +31,7 @@ static inline int rot_op_of(const char *str_op)
 			return (RB);
 		if (str_op[1] == 'r')
 			return (RR);
-		return (0);
+		return (error());
 	}
 	if (str_op[3] != '\0' || str_op[1] != 'r')
 		return (0);
@@ -34,17 +41,17 @@ static inline int rot_op_of(const char *str_op)
 		return (RRB);
 	if (str_op[2] == 'r')
 		return (RRR);
-	return (0);
+	return (error());
 }
 
 static int op_of(const char *str_op)
 {
 	if (!str_op || !str_op[0] || !str_op[1])
-		return (0);
+		return (error());
 	if (str_op[0] == 'r')
 		return (rot_op_of(str_op));
 	if (str_op[2] != '\0')
-		return (0);
+		return (error());
 	if (str_op[0] == 's')
 	{
 		if (str_op[1] == 'a')
@@ -61,7 +68,7 @@ static int op_of(const char *str_op)
 		if (str_op[1] == 'b')
 			return (PB);
 	}
-	return (0);
+	return (error());
 }
 
 t_pile					*get_op(void)

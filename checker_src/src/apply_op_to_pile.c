@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 08:49:48 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/29 21:33:21 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/21 07:11:43 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void inline	do_pile_op(t_piles *piles, int op)
 	t_fun_op	*fun_op;
 	size_t		i;
 
-	//printf("op :%d\n", op);
+//	printf("op :%d\n", op);
 	op_arr = (int[11]){SA, SB, SS, PA, PB, RA, RB, RR, RRA, RRB, RRR};
 	i = (op >= RA) ? 5 : 0;
 	while (~op_arr[i] & op)
