@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/22 09:05:52 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/22 15:09:17 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, t_llist *end_a,
 		tmp_b = tmp_b->next;
 	tmp_dest = tmp_b->dest;
 //	printf("%d + %lu > %d - %d + %lu + %lu\n---------------------------\n",arr->arr[len - 1],
-///	count_rot_to_next_pa(all_data, arr->size - arr->arr[len - 1], end_a, 1 + (rev << 1)),
+//	count_rot_to_next_pa(all_data, arr->size - arr->arr[len - 1], end_a, 1 + (rev << 1)),
 //	arr->size, arr->arr[0], count_rot_to_next_pa(all_data, arr->arr[0], end_a, rev << 1), len);
 	if (arr->arr[len - 1] + count_rot_to_next_pa(all_data, arr->size - arr->arr[len - 1],
 		end_a, 1 + (rev << 1)) > arr->size - arr->arr[0]
