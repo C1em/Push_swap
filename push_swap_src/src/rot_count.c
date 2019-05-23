@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 00:40:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/22 15:19:22 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/23 12:50:03 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,26 @@ size_t		rot_count_til_push(t_llist *a, t_llist *lis, size_t size, int rev)
 		a = *(t_llist**)((char*)a + offset);
 		if (++rot_count == size)
 			break ;
+	}
+	return (rot_count);
+}
+
+static size_t	count_rot_to_the_nearest_pa(t_llist_tmp *b, int dest)
+{
+	size_t		rot_count;
+	size_t		rev_rot_count;
+	t_llist_tmp	*rev_b;
+
+	rot_count = 0;
+	rev_rot_count = 0;
+	rev_b = b;
+	while (b->dest != dest)
+	{
+		b = b->next;
+		++rot_count;
+		++rev_rot_count;
+		if ((rev_b = rev_b->prev) == dest)
+			return (rev_rot_count);
 	}
 	return (rot_count);
 }

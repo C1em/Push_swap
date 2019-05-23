@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 23:57:49 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/22 14:31:41 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/23 14:58:16 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void		custom_ssp(t_all_data *data, size_t size, size_t rot_to_end_a,
 	return (put_non_lis_on_b(data, end_a, rot_til_push, rev));
 }
 
-void		rot_to_the_start(t_all_data *data, int tmp_top_lis, int rev)
+static void		rot_to_the_start(t_all_data *data, int tmp_top_lis, int rev)
 {
 	size_t	offset;
 	int		op;
@@ -137,20 +137,21 @@ void		ssp_custom_rot(t_all_data *data, size_t size)
 	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
 */	rot_to_last = rot_til_inverse_rot(data->piles->a, data->lis, size, 0);
 	rev_rot_to_last = rot_til_inverse_rot(data->piles->a->prev,
-												data->lis->prev, size, 1) + 1;
+												data->lis->prev, size, 1);
 	tmp_top_lis = data->lis->nb;
 //	printf("rot_to_last :%lu, rev_rot_to_last :%lu\n", rot_to_last, rev_rot_to_last);
-	if (rot_to_last > rev_rot_to_last)
+	if (rot_to_last > rev_rot_to_last + 1)
 	{
 /*		printf("top lis :%d\n", data->lis->nb);
 		printf("top a :%d\n", data->piles->a->nb);
-*/		if (rev_rot_to_last)
+*/		if (rev_rot_to_last != (ssize_t)-1)
 		{
 			data->lis = data->lis->prev;
 			data->piles->a = data->piles->a->prev;
 			fill_buffer(data->buff, RRA);
-			custom_ssp(data, size, rev_rot_to_last - 1, 1);
+			custom_ssp(data, size, rev_rot_to_last, 1);
 			data->lis = data->lis->next;
+			rot_to_the_start(data, tmp_top_lis, 0);
 		}
 /*		printf("top lis :%d\n", data->lis->nb);
 		printf("top a :%d\n", data->piles->a->nb);
@@ -165,6 +166,6 @@ void		ssp_custom_rot(t_all_data *data, size_t size)
 	if (rot_to_last != (ssize_t)-1)
 		custom_ssp(data, size, rot_to_last, 0);
 	rot_to_the_start(data, tmp_top_lis, 1);
-	if (rev_rot_to_last)
-		custom_ssp(data, size, rev_rot_to_last - 1, 1);
+	if (rev_rot_to_last != (ssize_t)-1)
+		custom_ssp(data, size, rev_rot_to_last, 1);
 }

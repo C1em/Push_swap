@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 14:33:13 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/22 14:34:46 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/23 15:35:03 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-size_t		max_rot_bw_non_pusha(t_llist *a, t_llist *lis)
+size_t		max_rot_bw_non_pusha(t_arr *arr)
 {
-	t_llist	*end_a;
-	size_t	max_rot_count;
-	size_t	rot_count;
+	size_t rot_count;
+	size_t	i;
 
-	end_a = a;
 	rot_count = 0;
-	max_rot_count = 0;
-	if (lis->nb == a->nb)
+	i = 0;
+	while (arr->arr[i + 1] != -1)
 	{
-		++rot_count;
-		lis = lis->next;
+		if (arr->arr[i + 1] - arr->arr[i] > rot_count)
+			rot_count = arr->arr[i] - arr->arr[i + 1];
+		++i;
 	}
-	a = a->next;
-	while (a != end_a)
-	{
-		if (lis->nb == a->nb)
-		{
-			++rot_count;
-			lis = lis->next;
-		}
-		else
-		{
-			if (rot_count > max_rot_count)
-				max_rot_count = rot_count;
-			rot_count = 0;
-		}
-		a = a->next;
-	}
-	if (rot_count > max_rot_count)
-		return (rot_count);
-	return (max_rot_count);
+	return (rot_count);
 }
 
 static ssize_t		rot_til_inverse_rot(t_llist *a, t_llist *lis, size_t size,
@@ -98,7 +79,7 @@ static void		custom_ssp(t_all_data *data, size_t size, size_t rot_to_end_a,
 	return (put_non_lis_on_b(data, end_a, rot_til_push, rev));
 }
 
-void		rot_to_the_start(t_all_data *data, int tmp_top_lis, int rev)
+static void		rot_to_the_start(t_all_data *data, int tmp_top_lis, int rev)
 {
 	size_t	offset;
 	int		op;
@@ -119,33 +100,51 @@ void		rot_to_the_start(t_all_data *data, int tmp_top_lis, int rev)
 	}
 }
 
-void		ssp_custom_rot(t_all_data *data, size_t size)
+static int	get_next_non_pusha(t_llist_tmp *b, t_arr *arr)
+{
+	int i;
+
+	i = 0;
+	while (arr->arr[i] == i)
+	{
+		b = b->next;
+		++i;
+	}
+	return (b->nb);
+}
+
+int		pusha_custom_rot(t_all_data *data, t_arr *arr, t_llist *end_a, int rev)
 {
 	ssize_t	rot_to_last;
 	ssize_t	rev_rot_to_last;
-	int		tmp_top_lis;
+	int		top_b;
 
+	//change to count on b
 	rot_to_last = rot_til_inverse_rot(data->piles->a, data->lis, size, 0);
 	rev_rot_to_last = rot_til_inverse_rot(data->piles->a->prev,
-												data->lis->prev, size, 1) + 1;
-	tmp_top_lis = data->lis->nb;
-	if (rot_to_last > rev_rot_to_last)
+												data->lis->prev, size, 1);
+	if (rev_rot_to_last + count_rot_to_next_pa(data, rot_to_last, end_a, rev << 1)
+		< rot_to_last
+		+ count_rot_to_next_pa(data, rev_rot_to_last, end_a, (rev << 1) + 1))
 	{
-		if (rev_rot_to_last)
+		top_b = data->piles->b->nb;
+		if (rev_rot_to_last != (ssize_t)-1)
 		{
-			data->lis = data->lis->prev;
-			data->piles->a = data->piles->a->prev;
-			fill_buffer(data->buff, RRA);
-			custom_ssp(data, size, rev_rot_to_last - 1, 1);
-			data->lis = data->lis->next;
+			data->piles->b = data->piles->b->prev;
+			fill_buffer(data->buff, RRB);
+			custom_pusha(data, size, rev_rot_to_last, 1);
+			//change
+			rot_to_the_start(data, top_b, 0);
 		}
 		if (rot_to_last != (ssize_t)-1)
-			return (custom_ssp(data, size, rot_to_last, 0));
+			return (custom_pusha(data, size, rot_to_last, 0));
 		return ;
 	}
+	top_b = get_next_non_pusha(data->piles->b, arr);
 	if (rot_to_last != (ssize_t)-1)
-		custom_ssp(data, size, rot_to_last, 0);
-	rot_to_the_start(data, tmp_top_lis, 1);
-	if (rev_rot_to_last)
-		custom_ssp(data, size, rev_rot_to_last - 1, 1);
+		custom_pusha(data, size, rot_to_last, 0);
+	//change
+	rot_to_the_start(data, top_b, 1);
+	if (rev_rot_to_last != (ssize_t)-1)
+		custom_ssp(data, size, rev_rot_to_last, 1);
 }
