@@ -6,7 +6,7 @@
 #    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/20 18:29:57 by aljacque          #+#    #+#              #
-#    Updated: 2019/05/22 14:32:07 by coremart         ###   ########.fr        #
+#    Updated: 2019/05/24 13:25:10 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBA = $(LIB)/libft.a
 SDIR = src
 _SRCS = main.c get_lis.c parsing.c list_op.c pile_op.c put_non_lis_on_b.c \
 		write_buff.c empty_b.c fill_buffer.c fun_fill_rot.c fun_fill_push.c \
-		rot_count.c ssp_custom_rot.c
+		rot_count.c ssp_custom_rot.c pusha_custom_rot.c
 SRC = $(patsubst %,$(SDIR)/%,$(_SRCS))
 
 ### OBJECTS ####

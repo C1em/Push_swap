@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/23 15:12:13 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/24 13:26:36 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ static void		rot_a_to_match_the_push(t_all_data *all_data)
 void		push_a_tab_reverse_rot(size_t len_arr, t_arr *arr, t_all_data *all_data)
 {
 	size_t rot_count;
-	size_t i;
 
-	i = len_arr;
-	while (i--)
+	while (len_arr--)
 	{
-		rot_count = arr->size - arr->arr[i];
+		rot_count = arr->size - arr->arr[len_arr];
 		while (rot_count--)
 		{
 			all_data->piles->b = all_data->piles->b->prev;
@@ -61,7 +59,7 @@ void		push_a_tab_reverse_rot(size_t len_arr, t_arr *arr, t_all_data *all_data)
 		rot_a_to_match_the_push(all_data);
 		push_a(all_data->piles, all_data->buff);
 		add_to_lis(all_data->lis, all_data->piles->a->nb);
-		arr->size = arr->arr[i];
+		arr->size = arr->arr[len_arr];
 	}
 }
 
@@ -110,8 +108,11 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, t_llist *end_a,
 		++len;
 	if (!len)
 		return (0);
-	if (max_rot_bw_non_pusha(arr) > (arr->size >> 1))
-		return (pusha_custom_rot(all_data, arr, end_a, rev));
+	if (max_rot_bw_non_pusha(arr->arr) > (size_t)(arr->size >> 1))
+	{
+		pusha_custom_rot(all_data, arr, end_a, rev);
+		return (len);
+	}
 	tmp_b = all_data->piles->b;
 	tmp_dest = arr->arr[0];
 	while (tmp_dest--)

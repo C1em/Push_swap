@@ -6,11 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 00:40:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/23 12:50:03 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/24 16:14:29 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+#include <stdio.h>
 
 size_t		lst_len(t_llist *lst)
 {
@@ -61,7 +63,7 @@ static size_t	count_rot_to_the_nearest_pa(t_llist_tmp *b, int dest)
 		b = b->next;
 		++rot_count;
 		++rev_rot_count;
-		if ((rev_b = rev_b->prev) == dest)
+		if ((rev_b = rev_b->prev)->dest == dest)
 			return (rev_rot_count);
 	}
 	return (rot_count);

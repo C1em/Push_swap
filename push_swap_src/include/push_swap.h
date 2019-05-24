@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/22 15:16:41 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/24 13:53:59 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem, t_llist *end_a,
 																	int rev);
 void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
 												size_t rot_count, int rev);
+void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data);
+void		push_a_tab_reverse_rot(size_t len_arr, t_arr *arr, t_all_data *all_data);
 /*
 **	fill_buffer.c
 */
@@ -140,10 +142,17 @@ size_t		count_rot_to_next_pa(t_all_data *all_data, size_t rot_count,
 											t_llist *end_a, int rev_ab);
 
 /*
-**	custom_rot.c
+**	ssp_custom_rot.c
 */
 void		ssp_custom_rot(t_all_data *data, size_t size);
 size_t		max_rot_bw_non_lis(t_llist *a, t_llist *lis);
+
+/*
+**	pusha_custom_rot.c
+*/
+size_t		max_rot_bw_non_pusha(int *arr);
+void		pusha_custom_rot(t_all_data *data, t_arr *arr, t_llist *end_a, int rev);
+
 
 void		print_list(void *list);
 
