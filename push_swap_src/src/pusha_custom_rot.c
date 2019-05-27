@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 14:33:13 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/24 16:18:15 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/27 19:11:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 size_t		max_rot_bw_non_pusha(int *arr)
 {
@@ -43,8 +44,8 @@ static ssize_t		rot_til_inverse_rot(t_arr *arr, int rev)
 	return ((ssize_t)arr->arr[i]);
 }
 
-static void		custom_pusha(t_all_data *data, t_arr *arr, ssize_t rot_count_to_end,
-																			int rev)
+static void		custom_pusha(t_all_data *data, t_arr *arr,
+							ssize_t rot_count_to_end, int rev)
 {
 	size_t	len;
 	size_t	i;
@@ -53,8 +54,11 @@ static void		custom_pusha(t_all_data *data, t_arr *arr, ssize_t rot_count_to_end
 
 	i = 0;
 	len = 0;
-	if (rev)
-		while (arr->arr[i] != rot_count_to_end)
+/*	printf("%lu\n", rot_count_to_end);
+	printf("arr->arr[0] : %d, arr->arr[1] : %d, arr->arr[2] : %d, arr->arr[3] : %d",
+	arr->arr[0], arr->arr[1], arr->arr[2], arr->arr[3]);
+*/	if (rev)
+		while (arr->arr[i] != arr->size - rot_count_to_end)
 			++i;
 	tmp_arr.arr = &arr->arr[i];
 	tmp_arr.size = arr->size;
@@ -62,10 +66,8 @@ static void		custom_pusha(t_all_data *data, t_arr *arr, ssize_t rot_count_to_end
 		while (tmp_arr.arr[len] != -1)
 			++len;
 	else
-	{
-		while (tmp_arr.arr[len] != rot_count_to_end)
-			++len;
-	}
+		while (tmp_arr.arr[len++] != rot_count_to_end)
+			;
 	if (rev)
 		return (push_a_tab_reverse_rot(len, &tmp_arr, data));
 	return (push_a_tab_rot(len, tmp_arr.arr, data));
@@ -104,6 +106,10 @@ void		pusha_custom_rot(t_all_data *data, t_arr *arr, t_llist *end_a, int rev)
 	ssize_t		rev_rot_to_last;
 	t_llist_tmp	*top_b;
 
+/*	printf("before custom rot :\n");
+	write_buff(data->buff);
+	printf("-------------------------------\n");
+*/
 	rot_to_last = rot_til_inverse_rot(arr, 0);
 	rev_rot_to_last = rot_til_inverse_rot(arr, 1);
 	if (rev_rot_to_last + count_rot_to_next_pa(data, rot_to_last, end_a, rev << 1)
@@ -120,12 +126,35 @@ void		pusha_custom_rot(t_all_data *data, t_arr *arr, t_llist *end_a, int rev)
 			return (custom_pusha(data, arr, rot_to_last, 0));
 		return ;
 	}
-	top_b = get_next_non_pusha(data->piles->b, arr);
-	if (rot_to_last != (ssize_t)-1)
+/*	printf("a :\n");
+	print_list(data->piles->a);
+	printf("b :\n");
+	print_list(data->piles->b);
+	printf("-------------------------------\n");
+*/	top_b = get_next_non_pusha(data->piles->b, arr);
+/*	printf("top_b : %d, rot_to_last : %lu, rev_rot_to_last :%lu\n",
+	top_b->nb, rot_to_last, rev_rot_to_last);
+*/	if (rot_to_last != (ssize_t)-1)
 		custom_pusha(data, arr, rot_to_last, 0);
-	rot_to_the_start(data, top_b, 1);
-	printf("OK\n");
-	if (rev_rot_to_last != (ssize_t)-1)
+/*	printf("a :\n");
+	print_list(data->piles->a);
+	printf("b :\n");
+	print_list(data->piles->b);
+	printf("-------------------------------\n");
+*/	rot_to_the_start(data, top_b, 1);
+/*	printf("a :\n");
+	print_list(data->piles->a);
+	printf("b :\n");
+	print_list(data->piles->b);
+	printf("-------------------------------\n");
+*/	if (rev_rot_to_last != (ssize_t)-1)
 		custom_pusha(data, arr, rev_rot_to_last, 1);
-	printf("OK\n");
-}
+/*	printf("a :\n");
+	print_list(data->piles->a);
+	printf("b :\n");
+	print_list(data->piles->b);
+	printf("-------------------------------\n");
+	printf("after custom rot :\n");
+	write_buff(data->buff);
+	printf("-------------------------------\n");
+*/}

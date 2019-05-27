@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/24 13:26:36 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/27 19:07:07 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,7 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, t_llist *end_a,
 		++len;
 	if (!len)
 		return (0);
-	if (max_rot_bw_non_pusha(arr->arr) > (size_t)(arr->size >> 1))
-	{
-		pusha_custom_rot(all_data, arr, end_a, rev);
-		return (len);
-	}
+
 	tmp_b = all_data->piles->b;
 	tmp_dest = arr->arr[0];
 	while (tmp_dest--)
@@ -121,7 +117,9 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, t_llist *end_a,
 //	printf("%d + %lu > %d - %d + %lu + %lu\n---------------------------\n",arr->arr[len - 1],
 //	count_rot_to_next_pa(all_data, arr->size - arr->arr[len - 1], end_a, 1 + (rev << 1)),
 //	arr->size, arr->arr[0], count_rot_to_next_pa(all_data, arr->arr[0], end_a, rev << 1), len);
-	if (arr->arr[len - 1] + count_rot_to_next_pa(all_data, arr->size - arr->arr[len - 1],
+	if (max_rot_bw_non_pusha(arr->arr) > (size_t)(arr->size >> 1))
+		pusha_custom_rot(all_data, arr, end_a, rev);
+	else if (arr->arr[len - 1] + count_rot_to_next_pa(all_data, arr->size - arr->arr[len - 1],
 		end_a, 1 + (rev << 1)) > arr->size - arr->arr[0]
 		+ count_rot_to_next_pa(all_data, arr->arr[0], end_a, rev << 1) + len - 1)
 		push_a_tab_reverse_rot(len, arr, all_data);

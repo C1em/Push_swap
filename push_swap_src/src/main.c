@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/22 10:52:49 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/27 18:40:24 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 #include <stdlib.h>
 
 #include <unistd.h>
+#include <stdio.h>
+
+void	print_list(void *list)
+{
+	void *end;
+
+	end = list;
+	printf("%d\n", ((t_llist*)list)->nb);
+	list = (void*)((t_llist*)list)->next;
+	while (list != end)
+	{
+		printf("%d\n", ((t_llist*)list)->nb);
+		list = (void*)((t_llist*)list)->next;
+	}
+}
+
 /*
 void		print_arr(t_arr *arr)
 {
