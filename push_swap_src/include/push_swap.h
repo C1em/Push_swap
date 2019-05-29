@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/24 13:53:59 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/29 21:22:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ size_t		rot_count_til_push(t_llist *a, t_llist *lis, size_t size, int rev);
 size_t		lst_len(t_llist *lst);
 size_t		count_rot_to_next_pa(t_all_data *all_data, size_t rot_count,
 											t_llist *end_a, int rev_ab);
+size_t		transformed_r_to_rr(int rot_to_first_pa, t_data_buff *buff, int rev);
 
 /*
 **	ssp_custom_rot.c

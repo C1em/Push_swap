@@ -1,9 +1,21 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    script.sh                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/05/29 15:37:02 by coremart          #+#    #+#              #
+#    Updated: 2019/05/29 15:38:40 by coremart         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 #!/bin/bash
 
 RES="OK"
 while [ "$RES" = "OK" ]
 do
-	RES=$(timeout 10s bash -c 'ARG=$(ruby -e "puts (0..100).to_a.shuffle.join('\'' '\'')"); echo $ARG > trace && ./push_swap $ARG | ./checker $ARG')
+	RES=$(timeout 10s bash -c 'ARG=$(ruby -e "puts (0..2).to_a.shuffle.join('\'' '\'')"); echo $ARG > trace && ./push_swap $ARG | ./checker $ARG')
 	if [ $? = 124 ]
 	then
 		echo "timout"
