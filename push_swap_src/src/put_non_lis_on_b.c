@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/29 20:17:01 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:06:02 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data)
 **	array elements aiming to the least rotations to push all ements
 **	return array's lenghth
 */
-static int		push_a_tab(t_arr *arr, t_all_data *all_data, t_llist *end_a,
-																		int rev)
+static int		push_a_tab(t_arr *arr, t_all_data *all_data, int rev)
 {
 	size_t len;
 	t_llist_tmp *tmp_b;
@@ -108,21 +107,24 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, t_llist *end_a,
 		++len;
 	if (!len)
 		return (0);
+	if (len > 5)
+		printf("len :%lu\n", len);
 	tmp_b = all_data->piles->b;
 	tmp_dest = arr->arr[0];
 	while (tmp_dest--)
 		tmp_b = tmp_b->next;
 	tmp_dest = tmp_b->dest;
-//	printf("%d + %lu > %d - %d + %lu + %lu\n---------------------------\n",arr->arr[len - 1],
-//	count_rot_to_next_pa(all_data, arr->size - arr->arr[len - 1], end_a, 1 + (rev << 1)),
-//	arr->size, arr->arr[0], count_rot_to_next_pa(all_data, arr->arr[0], end_a, rev << 1), len);
+//	printf("%lu, %lu\n", count_rot_to_end_of_pa(arr->arr, arr->arr[len - 1],
+//			all_data->piles->b, rev), count_rot_to_end_of_pa(arr->arr, arr->arr[0],
+//			all_data->piles->b, rev));
 	if (max_rot_bw_non_pusha(arr->arr) > (size_t)(arr->size >> 1))
-		pusha_custom_rot(all_data, arr, end_a, rev);
-	else if (arr->arr[len - 1] + count_rot_to_next_pa(all_data, arr->size
-			- arr->arr[len - 1], end_a, 1 + (rev << 1))
-			- transformed_r_to_rr(arr->arr[0], all_data->buff, 0) > arr->size - arr->arr[0]
-			+ count_rot_to_next_pa(all_data, arr->arr[0], end_a, rev << 1)
-			- transformed_r_to_rr(arr->size - arr->arr[len - 1], all_data->buff, 1) + len - 1)
+		pusha_custom_rot(all_data, arr, rev);
+	else if (arr->arr[len - 1] + count_rot_to_end_of_pa(arr->arr, arr->arr[len - 1],
+			all_data->piles->b, rev) - transformed_r_to_rr(arr->arr[0],
+			all_data->buff, 0) > arr->size - arr->arr[0]
+			+ count_rot_to_end_of_pa(arr->arr, arr->arr[0], all_data->piles->b, rev)
+			- transformed_r_to_rr(arr->size - arr->arr[len - 1], all_data->buff, 1)
+			+ len - 1)
 		push_a_tab_reverse_rot(len, arr, all_data);
 	else
 		push_a_tab_rot(len, arr->arr, all_data);
@@ -140,8 +142,7 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, t_llist *end_a,
 **					call push_a_tab with the array
 **					return the nb of of elems pushed on a
 */
-int			pusha_if_destof(t_all_data *all_data, int max_elem, t_llist *end_a,
-																		int rev)
+int			pusha_if_destof(t_all_data *all_data, int max_elem, int rev)
 {
 	t_llist_tmp	*end_b;
 	t_llist_tmp	*tmp_b;
@@ -172,7 +173,7 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem, t_llist *end_a,
 	}
 	++tmp_arr.size;
 	tmp_arr.arr[i] = -1;
-	tmp_arr.size = push_a_tab(&tmp_arr, all_data, end_a, rev);
+	tmp_arr.size = push_a_tab(&tmp_arr, all_data, rev);
 	free(tmp_arr.arr);
 	return (tmp_arr.size);
 }
@@ -195,7 +196,7 @@ void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
 	max_elem = len_b(all_data->piles->b) + 1;
 	while (all_data->piles->a != end_a)
 	{
-		max_elem -= pusha_if_destof(all_data, max_elem, end_a, rev);
+		max_elem -= pusha_if_destof(all_data, max_elem, rev);
 		if (all_data->piles->a->nb == all_data->lis->nb)
 		{
 			all_data->lis = *(t_llist**)((char*)all_data->lis + offset);

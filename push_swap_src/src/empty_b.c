@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:05:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/05 04:34:27 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/30 17:08:43 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ static void			push_all(t_all_data *data, t_llist *end_a,
 	while (rot_count--)
 		fill_buffer(data->buff, op);
 	max_elem = len_b(data->piles->b);
-	max_elem -= pusha_if_destof(data, max_elem, end_a, rev);
+	max_elem -= pusha_if_destof(data, max_elem, rev);
 	while (data->piles->a != end_a)
 	{
 		data->piles->a = *(t_llist**)((char*)data->piles->a + offset);
 		fill_buffer(data->buff, op);
-		max_elem -= pusha_if_destof(data, max_elem, end_a, rev);
+		max_elem -= pusha_if_destof(data, max_elem, rev);
 	}
-	(void)pusha_if_destof(data, max_elem, end_a, rev);
+	(void)pusha_if_destof(data, max_elem, rev);
 }
 
 void				empty_b(t_all_data *data, size_t size)
@@ -106,8 +106,8 @@ void				empty_b(t_all_data *data, size_t size)
 	rev_rot_to_smallest = rot_count_after_empty(data->piles->a, rev_rot_til_push,
 																		size, 1);
 	if (rot_til_push + rev_rot_to_smallest >= rev_rot_til_push + rot_to_smallest
-		|| ((rev_rot_til_push + rot_to_smallest - rot_til_push - rev_rot_to_smallest)
-		+ ((rev_rot_til_push + rot_to_smallest - rot_til_push - rev_rot_to_smallest) >> 1))
+		|| (rev_rot_til_push + rot_to_smallest - rot_til_push - rev_rot_to_smallest)
+		+ ((rev_rot_til_push + rot_to_smallest - rot_til_push - rev_rot_to_smallest) >> 1)
 		<= (size_t)len_b(data->piles->b))
 	{
 		end_a = data->piles->a;

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 14:33:13 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/27 19:11:51 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/30 16:52:06 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static t_llist_tmp	*get_next_non_pusha(t_llist_tmp *b, t_arr *arr)
 	return (b);
 }
 
-void		pusha_custom_rot(t_all_data *data, t_arr *arr, t_llist *end_a, int rev)
+void		pusha_custom_rot(t_all_data *data, t_arr *arr, int rev)
 {
 	ssize_t		rot_to_last;
 	ssize_t		rev_rot_to_last;
@@ -112,9 +112,9 @@ void		pusha_custom_rot(t_all_data *data, t_arr *arr, t_llist *end_a, int rev)
 */
 	rot_to_last = rot_til_inverse_rot(arr, 0);
 	rev_rot_to_last = rot_til_inverse_rot(arr, 1);
-	if (rev_rot_to_last + count_rot_to_next_pa(data, rot_to_last, end_a, rev << 1)
-		< rot_to_last
-		+ count_rot_to_next_pa(data, rev_rot_to_last, end_a, (rev << 1) + 1))
+	if (rev_rot_to_last + count_rot_to_end_of_pa(arr->arr, rot_to_last,
+		data->piles->b, rev) < rot_to_last
+		+ count_rot_to_end_of_pa(arr->arr, rev_rot_to_last, data->piles->b, rev))
 	{
 		top_b = data->piles->b;
 		if (rev_rot_to_last != (ssize_t)-1)

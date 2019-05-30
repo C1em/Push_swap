@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 00:40:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/29 21:42:00 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:05:39 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,44 +49,27 @@ size_t		rot_count_til_push(t_llist *a, t_llist *lis, size_t size, int rev)
 	return (rot_count);
 }
 
-static size_t	count_rot_to_the_nearest_pa(t_llist_tmp *b, int dest)
+size_t		count_rot_to_end_of_pa(int *arr, ssize_t rot_to_last,
+									t_llist_tmp *b, int rev)
 {
-	size_t		rot_count;
-	size_t		rev_rot_count;
-	t_llist_tmp	*rev_b;
+	size_t	count;
+	size_t	i;
+	int		last_b;
 
-	rot_count = 0;
-	rev_rot_count = 0;
-	rev_b = b;
-	while (b->dest != dest)
-	{
+	i = 0;
+	count = 0;
+	if (rot_to_last == -1)
+		return (0);
+	while (rot_to_last--)
 		b = b->next;
-		++rot_count;
-		++rev_rot_count;
-		if ((rev_b = rev_b->prev)->dest == dest)
-			return (rev_rot_count);
+	last_b = (rev) ? ~b->nb + 1 : b->nb;
+	while (arr[i] != -1)
+	{
+		if (((rev) ? ~arr[i] + 1 : arr[i]) > last_b)
+			++count;
+		++i;
 	}
-	return (rot_count);
-}
-
-size_t		count_rot_to_next_pa(t_all_data *all_data, size_t rot_count,
-											t_llist *end_a, int rev_ab)
-{
-	t_llist		*tmp_a;
-	t_llist_tmp	*tmp_b;
-	size_t		offset_a;
-	size_t		offset_b;
-
-	tmp_a = all_data->piles->a;
-	tmp_b = all_data->piles->b;
-	offset_a = (rev_ab & 2) ? sizeof(t_llist*) : 0;
-	offset_b = (rev_ab & 1) ? sizeof(t_llist_tmp*) : 0;
-	while (rot_count--)
-		tmp_b = *(t_llist_tmp**)((char*)tmp_b + offset_b);
-	while (!is_destof(tmp_b, tmp_a->nb))
-		if ((tmp_a = *(t_llist**)((char*)tmp_a + offset_a)) == end_a)
-			return (0);
-	return (count_rot_to_the_nearest_pa(tmp_b, tmp_a->nb));
+	return (count + !rev);
 }
 
 size_t		transformed_r_to_rr(int rot_to_first_pa, t_data_buff *buff, int rev)
