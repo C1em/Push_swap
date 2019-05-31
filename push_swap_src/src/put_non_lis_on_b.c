@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/30 18:06:02 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/31 19:08:46 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, int rev)
 		++len;
 	if (!len)
 		return (0);
-	if (len > 5)
-		printf("len :%lu\n", len);
 	tmp_b = all_data->piles->b;
 	tmp_dest = arr->arr[0];
 	while (tmp_dest--)

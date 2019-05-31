@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:48:02 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 18:10:32 by coremart         ###   ########.fr       */
+/*   Updated: 2019/05/31 16:53:56 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ typedef struct	s_piles
 	t_pile	*b;
 }				t_piles;
 
+typedef struct	s_str
+{
+	char	str[2048];
+	int		index;
+}				t_str;
+
+
 
 typedef void (*t_fun_op)(t_piles *piles);
 
@@ -54,7 +61,7 @@ t_pile			*get_op(void);
 /*
 **	apply_to_pile.c
 */
-t_piles			*apply_op_to_pile(t_pile *a, t_pile *op_list);
+t_piles			*apply_op_to_pile(t_pile *a, t_pile *op_list, int print_op);
 
 /*
 **	pile_op.c
