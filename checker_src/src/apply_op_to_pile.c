@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 08:49:48 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/31 19:11:09 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/03 01:00:45 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,14 @@ static void			add_header(t_str *str, int op)
 {
 	int index;
 
+	str->str[str->index] = '\n';
+	if (!op)
+	{
+		add_header_pile(str);
+		return ;
+	}
+	if (++str->index == 2048)
+		write_str(str);
 	index = (log2(op) << 1) + (op >= 512) + (op == 1024);
 	str->str[str->index] = "sasbsspapbrarbrrrrarrbrrr"[index];
 	if (++str->index == 2048)
@@ -179,10 +187,71 @@ static void			add_header(t_str *str, int op)
 	str->str[str->index] = '\n';
 	if (++str->index == 2048)
 		write_str(str);
+	add_header_pile(str);
+}
+
+static void			add_bottom(t_str *str)
+{
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
+	str->str[str->index] = '_';
+	if (++str->index == 2048)
+		write_str(str);
 	str->str[str->index] = '\n';
 	if (++str->index == 2048)
 		write_str(str);
-	add_header_pile(str);
 }
 
 static void			add_piles_to_str(t_piles *piles, int op, t_str *str)
@@ -208,19 +277,20 @@ static void			add_piles_to_str(t_piles *piles, int op, t_str *str)
 	add_nb_to_str(nb, str, 1);
 	while (piles->a != end_a || piles->b != end_b)
 	{
-		if (piles->a)
+		if (piles->a != end_a)
 		{
 			custom_itoa(piles->a->nb, nb);
 			piles->a = piles->a->next;
 		}
 		add_nb_to_str(nb, str, 0);
-		if (piles->b)
+		if (piles->b != end_b)
 		{
 			custom_itoa(piles->b->nb, nb);
 			piles->b = piles->b->next;
 		}
 		add_nb_to_str(nb, str, 1);
 	}
+	add_bottom(str);
 }
 
 static void inline	do_pile_op(t_piles *piles, int op)
@@ -254,7 +324,7 @@ t_piles			*apply_op_to_pile(t_pile *a, t_pile *op_list, int print_op)
 	end_op = op_list->next;
 	str.index = 0;
 	if (print_op)
-		add_piles_to_str(piles, op_list->nb, &str);
+		add_piles_to_str(piles, 0, &str);
 	while (op_list != end_op)
 	{
 		if (a)

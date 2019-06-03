@@ -6,19 +6,26 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:47:33 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/31 16:22:37 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/03 01:51:43 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include <unistd.h>
 
-static int	get_option(char **av, int size)
+#include <stdio.h>
+
+static int	get_option(char ***av, int *size)
 {
-	while (size--)
+	if ((*av)[*size - 1][0] == '-' && (*av)[*size - 1][1] == 'v' && !(*av)[*size - 1][2])
 	{
-		if (av[size][0] == '-' && av[size][1] == 'v' && !av[size][2])
-			return (1);
+		--*size;
+		return (1);
+	}
+	if ((*av)[1][0] == '-' && (*av)[1][1] == 'v' && !(*av)[1][2])
+	{
+		++*av;
+		return (1);
 	}
 	return (0);
 }
@@ -35,8 +42,7 @@ int		main(int ac, char **av)
 		write(1, "OK\n", 3);
 		return (0);
 	}
-	if ((print_op = get_option(&av[1], ac - 1)))
-		av = av + 1;
+	print_op = get_option(&av, &ac);
 	pile = pars_pile(&av[1], ac - 1);
 	op_pile = get_op();
 	piles = apply_op_to_pile(pile, op_pile, print_op);
