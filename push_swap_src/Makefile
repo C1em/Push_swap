@@ -6,7 +6,7 @@
 #    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/20 18:29:57 by aljacque          #+#    #+#              #
-#    Updated: 2019/05/24 13:25:10 by coremart         ###   ########.fr        #
+#    Updated: 2019/06/03 04:33:25 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ $(ODIR)/%.o: $(SDIR)/%.c
 
 -include $(DEPS)
 
-asan :
+asan:
 	make -C $(LIB)
 	gcc -g -fsanitize=address -o $(NAME) $(LIBA) $(SDIR)/*.c $(CFLAGS) -I $(HDIR) -I $(LIBH)
 	$(MAKE) clean
