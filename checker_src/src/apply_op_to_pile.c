@@ -6,13 +6,14 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 08:49:48 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/03 01:00:45 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/05 05:21:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <limits.h>
 
 #include <stdio.h>
 
@@ -38,17 +39,26 @@ static void			custom_itoa(int nb, char *str_nb)
 	{
 		str_nb[0] = '-';
 		str_nb = &str_nb[1];
+		if (nb == INT_MIN)
+		{
+			str_nb[0] = '2';
+			str_nb = &str_nb[1];
+			nb = -147483648;
+		}
 		nb = ~nb + 1;
 	}
 	tmp_nb = nb;
 	while (tmp_nb)
 	{
-		tmp_nb = tmp_nb / 10;
+		tmp_nb /= 10;
 		++len;
 	}
 	str_nb[len] = '\0';
 	while (len--)
+	{
 		str_nb[len] = (nb % 10) + '0';
+		nb /= 10;
+	}
 }
 
 static void			add_nb_to_str(char *nb, t_str *str, int eol)

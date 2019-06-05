@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:48:02 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/31 16:53:56 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/03 23:37:13 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ typedef struct	s_str
 	char	str[2048];
 	int		index;
 }				t_str;
-
-
 
 typedef void (*t_fun_op)(t_piles *piles);
 

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 17:13:59 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/05 05:41:50 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <limits.h>
+
+#include <stdio.h>
 
 static int			ft_isspace(char c)
 {
-	if (c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == '\f'
-																|| c == ' ')
+	if (c == '\t' || c == '\n' || c == '\r' || c == '\v'
+		|| c == '\f' || c == ' ')
 		return (1);
 	return (0);
 }
@@ -35,14 +38,55 @@ static size_t		tot_len(const char *const *const entry, int nb_elem)
 		while (entry[nb_elem][i])
 		{
 			if (ft_isdigit(entry[nb_elem][i])
-									&& (ft_isspace(entry[nb_elem][i + 1])
-											|| entry[nb_elem][i + 1] == '\0'))
+				&& (ft_isspace(entry[nb_elem][i + 1])
+				|| entry[nb_elem][i + 1] == '\0'))
 				++tot_len;
+			else if (!(ft_isdigit(entry[nb_elem][i]) || (ft_isspace(entry[nb_elem][i])
+					|| entry[nb_elem][i] == '\0' || ((entry[nb_elem][i] == '-'
+					|| entry[nb_elem][i] == '+') && (!i
+					|| ft_isspace(entry[nb_elem][i - 1]))))))
+			{
+				write(1, "Error\n", 6);
+				exit(1);
+			}
 			++i;
 		}
 		i = 0;
 	}
 	return (tot_len);
+}
+
+int		ft_custom_atoi(const char *str)
+{
+	int		i;
+	int		sign;
+	long	res;
+
+	i = 0;
+	sign = 0;
+	res = 0L;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+		if (str[i++] == '-')
+			sign = 1;
+	while (str[i] >= '0' && str[i] <= '9' && !(res & (long)0x100000000))
+		res = res * 10L + (long)(str[i++] - '0');
+	if (sign)
+	{
+		if (res > (long)INT_MAX + 1L)
+		{
+			write(1, "Error\n", 6);
+			exit(1);
+		}
+		return ((int)~res + 1);
+	}
+	if (res > INT_MAX)
+	{
+		write(1, "Error\n", 6);
+		exit(1);
+	}
+	return ((int)res);
 }
 
 static void inline	add_nb(const char *const entry, int **arr, size_t size)
@@ -66,27 +110,47 @@ static void inline	add_nb(const char *const entry, int **arr, size_t size)
 			write(1, "Error\n", 6);
 			exit(1);
 		}
-		*(--*arr) = ft_atoi(&entry[i + 1]);
+		*(--*arr) = ft_custom_atoi(&entry[i + 1]);
 		*(*arr + size) = **arr;
 	}
+}
+
+static int			test_duplicate(t_arr *arr)
+{
+	int	*arr_tmp;
+	size_t	i;
+
+	i = (arr->size + 1) >> 1;
+	if (!(arr_tmp = (int*)ft_memdup((void*)arr->arr, i * sizeof(int))))
+		return (0);
+	ft_quicksort(arr_tmp, i);
+	while (--i)
+	{
+		if (arr_tmp[i] == arr_tmp[i - 1])
+			return (1);
+	}
+	return (0);
 }
 
 t_arr				*pars(const char *const *const entry, int nb_elem)
 {
 	t_arr	*arr;
-	int		nb_elem_tmp;
 	ssize_t	len;
 
 	if (!(arr = (t_arr*)malloc(sizeof(t_arr))))
 		return (NULL);
 	if (!(len = tot_len(entry, nb_elem)))
 		return (NULL);
-	if (!(arr->arr = (int*)malloc(sizeof(int) * (len << 1) - 1)))
-		return (NULL);
 	arr->size = (len << 1) - 1;
-	nb_elem_tmp = nb_elem;
+	if (!(arr->arr = (int*)malloc(sizeof(int) * arr->size)))
+		return (NULL);
 	arr->arr = &arr->arr[len];
-	while (nb_elem_tmp--)
-		add_nb(entry[nb_elem_tmp], &arr->arr, len);
+	while (nb_elem--)
+		add_nb(entry[nb_elem], &arr->arr, len);
+	if(test_duplicate(arr))
+	{
+		write(1, "Error\n", 6);
+		exit(1);
+	}
 	return (arr);
 }
