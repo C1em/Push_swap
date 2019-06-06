@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 20:37:54 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/05 00:53:11 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/06 03:33:41 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 /*
 **	take the int* lis and return it as a doubly linked list
 */
-
 t_llist		*transform_to_ll_lis(t_arr *arr, int *lis)
 {
 	int			i;
@@ -28,7 +27,7 @@ t_llist		*transform_to_ll_lis(t_arr *arr, int *lis)
 
 	i = lis[-1] - 1;
 	if (!(ll_lis = (t_llist*)malloc(sizeof(t_llist) * lis[-1])))
-		return (NULL);
+		exit(1);
 	ll_lis[i].nb = arr->arr[lis[i]];
 	ll_lis[i].next = ll_lis;
 	ll_lis->prev = &ll_lis[i];

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/05 05:41:50 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/06 01:21:17 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static size_t		tot_len(const char *const *const entry, int nb_elem)
 					|| entry[nb_elem][i] == '+') && (!i
 					|| ft_isspace(entry[nb_elem][i - 1]))))))
 			{
-				write(1, "Error\n", 6);
+				write(2, "Error\n", 6);
 				exit(1);
 			}
 			++i;
@@ -76,14 +76,14 @@ int		ft_custom_atoi(const char *str)
 	{
 		if (res > (long)INT_MAX + 1L)
 		{
-			write(1, "Error\n", 6);
+			write(2, "Error\n", 6);
 			exit(1);
 		}
 		return ((int)~res + 1);
 	}
 	if (res > INT_MAX)
 	{
-		write(1, "Error\n", 6);
+		write(2, "Error\n", 6);
 		exit(1);
 	}
 	return ((int)res);
@@ -107,7 +107,7 @@ static void inline	add_nb(const char *const entry, int **arr, size_t size)
 			--i;
 		if (tmp_i == i)
 		{
-			write(1, "Error\n", 6);
+			write(2, "Error\n", 6);
 			exit(1);
 		}
 		*(--*arr) = ft_custom_atoi(&entry[i + 1]);
@@ -122,7 +122,7 @@ static int			test_duplicate(t_arr *arr)
 
 	i = (arr->size + 1) >> 1;
 	if (!(arr_tmp = (int*)ft_memdup((void*)arr->arr, i * sizeof(int))))
-		return (0);
+		exit(1);
 	ft_quicksort(arr_tmp, i);
 	while (--i)
 	{
@@ -138,18 +138,18 @@ t_arr				*pars(const char *const *const entry, int nb_elem)
 	ssize_t	len;
 
 	if (!(arr = (t_arr*)malloc(sizeof(t_arr))))
-		return (NULL);
+		exit(1);
 	if (!(len = tot_len(entry, nb_elem)))
 		return (NULL);
 	arr->size = (len << 1) - 1;
 	if (!(arr->arr = (int*)malloc(sizeof(int) * arr->size)))
-		return (NULL);
+		exit(1);
 	arr->arr = &arr->arr[len];
 	while (nb_elem--)
 		add_nb(entry[nb_elem], &arr->arr, len);
 	if(test_duplicate(arr))
 	{
-		write(1, "Error\n", 6);
+		write(2, "Error\n", 6);
 		exit(1);
 	}
 	return (arr);

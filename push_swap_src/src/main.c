@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/04 00:36:53 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/06 03:04:29 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ void		print_arr(t_arr *arr)
 	}
 }
 */
-static int	usage(void)
-{
-	return (0);
-}
 
 int		main(int ac, char **av)
 {
@@ -61,13 +57,14 @@ int		main(int ac, char **av)
 	t_all_data	all_data;
 
 	if (ac < 2)
-		return (usage());
+		return (0);
 	arr = pars((const char**)&av[1], ac - 1);
 	if (arr->size < 2)
 		return (0);
 //	print_arr(arr);
 	lis = get_lis_index(arr->arr, (arr->size + 1) >> 1);
 	ll_lis = transform_to_ll_lis(arr, lis);
+	free(&lis[-1]);
 	piles = transform_to_pile(arr);
 	data_buff.index = -1;
 	all_data.buff = &data_buff;
@@ -95,6 +92,8 @@ int		main(int ac, char **av)
 
 //	write(1, "-------------------------------\n", 32);
 	write_buff(&data_buff);
+	free(arr->arr);
+	free(arr);
 //	write(1, "-------------------------------\n", 32);
 //	write_buff(&data_buff);
 /*	printf("\n");

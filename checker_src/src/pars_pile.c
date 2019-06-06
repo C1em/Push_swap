@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:54:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/05 05:49:20 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/06 01:20:15 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,14 @@ int		ft_custom_atoi(const char *str)
 	{
 		if (res > (long)INT_MAX + 1L)
 		{
-			write(1, "Error\n", 6);
+			write(2, "Error\n", 6);
 			exit(1);
 		}
 		return ((int)~res + 1);
 	}
 	if (res > INT_MAX)
 	{
-		write(1, "Error\n", 6);
+		write(2, "Error\n", 6);
 		exit(1);
 	}
 	return ((int)res);
@@ -131,7 +131,7 @@ t_pile					*pars_pile(char **arr, int size)
 			}
 			if (tmp_i == i)
 			{
-				write(1, "Error\n", 6);
+				write(2, "Error\n", 6);
 				exit(1);
 			}
 			pile = (pile) ? add_elem(pile, ft_custom_atoi(&arr[size][i + 1]))
@@ -140,7 +140,7 @@ t_pile					*pars_pile(char **arr, int size)
 	}
 	if(test_duplicate(pile))
 	{
-		write(1, "Error\n", 6);
+		write(2, "Error\n", 6);
 		exit(1);
 	}
 	return (pile);

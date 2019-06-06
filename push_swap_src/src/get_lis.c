@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 17:13:48 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/06 03:01:12 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static int			*get_lis(int *index_arr, int last_elem, int size)
 	int		*lis_endex;
 
 	if (!(lis_endex = (int*)malloc(sizeof(int) * size)))
-		return (NULL);
+		exit(1);
 	size--;
 	lis_endex[size] = last_elem;
 	while (size--)
@@ -131,6 +131,7 @@ static int			*get_lis(int *index_arr, int last_elem, int size)
 		lis_endex[size] = index_arr[last_elem];
 		last_elem = index_arr[last_elem];
 	}
+	free(index_arr);
 	return (lis_endex);
 }
 
@@ -150,9 +151,9 @@ static inline int	*get_part_lis(int *const arr, int size, int *actual_max_len)
 	int		*index_arr;
 
 	if (!(index_arr = (int*)malloc(sizeof(int) * size)))
-		return (NULL);
+		exit(1);
 	if (!(biggest_elem_of_len = (int*)malloc(sizeof(int) * (size + 1))))
-		return (NULL);
+		exit(1);
 	beol_last = 1;
 	i = 0;
 	biggest_elem_of_len[1] = 0;
@@ -170,9 +171,12 @@ static inline int	*get_part_lis(int *const arr, int size, int *actual_max_len)
 	if (beol_last > *actual_max_len)
 	{
 		*actual_max_len = beol_last;
-		return (get_lis(index_arr, biggest_elem_of_len[beol_last],
-																	beol_last));
+		i = biggest_elem_of_len[beol_last];
+		free(biggest_elem_of_len);
+		return (get_lis(index_arr, i, beol_last));
 	}
+	free(biggest_elem_of_len);
+	free(index_arr);
 	return (NULL);
 }
 
@@ -192,13 +196,14 @@ int					*get_lis_index(int *const arr, int size)
 
 	i = 0;
 	if (!(actual_lis_len = (int*)malloc(sizeof(int) * (size + 1))))
-		return (NULL);
+		exit(1);
 	*actual_lis_len = 1;
 	actual_lis = &actual_lis_len[1];
 	while (i < size)
 	{
 		if ((tmp_lis = get_part_lis(&arr[i], size, actual_lis_len)))
 			ft_tabcpy_n_add(actual_lis, tmp_lis, *actual_lis_len, i);
+		free(tmp_lis);
 		i++;
 	}
 	squeeze_lis(arr, size, actual_lis_len);

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:13:58 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/22 13:20:51 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/06 01:19:41 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 static int			error(void)
 {
-	write(1, "error\n", 6);
-	exit(0);
+	write(2, "Error\n", 6);
+	exit(1);
 }
 
 static inline int	rot_op_of(const char *str_op)
