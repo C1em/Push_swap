@@ -6,12 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:47:33 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/03 01:51:43 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 01:23:03 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 #include <stdio.h>
 
@@ -28,6 +29,19 @@ static int	get_option(char ***av, int *size)
 		return (1);
 	}
 	return (0);
+}
+
+void	free_pile(t_pile *pile)
+{
+	if (!pile)
+		return ;
+	pile->prev->next = NULL;
+	while (pile->next)
+	{
+		pile = pile->next;
+		free(pile->prev);
+	}
+	free(pile);
 }
 
 int		main(int ac, char **av)
@@ -47,5 +61,8 @@ int		main(int ac, char **av)
 	op_pile = get_op();
 	piles = apply_op_to_pile(pile, op_pile, print_op);
 	check_if_order(piles);
+	free_pile(piles->a);
+	free_pile(piles->b);
+	free(piles);
 	return (0);
 }

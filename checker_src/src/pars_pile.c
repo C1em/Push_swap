@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:54:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/06 01:20:15 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 01:13:57 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,12 @@ static int			test_duplicate(t_pile *pile)
 	while (--len)
 	{
 		if (arr[len] == arr[len - 1])
+		{
+			free(arr);
 			return (1);
+		}
 	}
+	free(arr);
 	return (0);
 }
 

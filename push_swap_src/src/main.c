@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 01:04:06 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 01:22:39 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,19 @@ void	free_lst(t_llist *lst)
 	free(lst);
 }
 
+void	free_lst_tmp(t_llist_tmp *lst)
+{
+	if (!lst)
+		return ;
+	lst->prev->next = NULL;
+	while (lst->next)
+	{
+		lst = lst->next;
+		free(lst->prev);
+	}
+	free(lst);
+}
+
 int		main(int ac, char **av)
 {
 	t_arr		*arr;
@@ -69,7 +82,7 @@ int		main(int ac, char **av)
 	start_sort_pile(&all_data, (arr->size + 1) >> 1);
 	empty_b(&all_data, (arr->size + 1) >> 1);
 	free_lst(all_data.lis);
-	free_lst(all_data.piles->b);
+	free_lst_tmp(all_data.piles->b);
 	rot_a_til_order(&piles->a, (arr->size + 1) >> 1, &data_buff);
 	free_lst(all_data.piles->a);
 	free(all_data.piles);
