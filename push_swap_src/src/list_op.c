@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 20:37:54 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/07 22:19:07 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 00:34:55 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,9 @@ void	add_to_lis(t_llist *lis, int nb)
 
 	if (!(new = (t_llist*)malloc(sizeof(t_llist))))
 		exit(1);
-	printf("lis nb :%d\n", lis->nb);
-	printf("lis prev nb :%d\n", lis->prev->nb);
 	while (nb > lis->nb || nb < lis->prev->nb)
 	{
-	printf("WAW\n");
 		lis = lis->next;
-	printf("WAW\n");
 		if (lis->prev->nb > lis->nb && (nb > lis->prev->nb || nb < lis->nb))
 			break ;
 	}
