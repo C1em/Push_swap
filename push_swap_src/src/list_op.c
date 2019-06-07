@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 20:37:54 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/06 03:33:41 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/07 22:19:07 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,26 @@ t_llist		*transform_to_ll_lis(t_arr *arr, int *lis)
 	t_llist		*ll_lis_res;
 
 	i = lis[-1] - 1;
-	if (!(ll_lis = (t_llist*)malloc(sizeof(t_llist) * lis[-1])))
+	if (!(ll_lis = (t_llist*)malloc(sizeof(t_llist))))
 		exit(1);
-	ll_lis[i].nb = arr->arr[lis[i]];
-	ll_lis[i].next = ll_lis;
-	ll_lis->prev = &ll_lis[i];
-	ll_lis_res = &ll_lis[i];
+	ll_lis->nb = arr->arr[lis[i]];
+	ll_lis->next = ll_lis;
+	ll_lis->prev = ll_lis;
+	ll_lis_res = ll_lis;
 	min_index = lis[i] % ((arr->size + 1) >> 1);
 	while (i--)
 	{
-		ll_lis[i].nb = arr->arr[lis[i]];
-		ll_lis[i + 1].prev = &ll_lis[i];
-		ll_lis[i].next = &ll_lis[i + 1];
+		if (!(ll_lis->prev->next = (t_llist*)malloc(sizeof(t_llist))))
+			exit(1);
+		ll_lis->prev->next->prev = ll_lis->prev;
+		ll_lis->prev = ll_lis->prev->next;
+		ll_lis->prev->next = ll_lis;
+		ll_lis = ll_lis->prev;
+		ll_lis->nb = arr->arr[lis[i]];
 		if (lis[i] % ((arr->size + 1) >> 1) < min_index)
 		{
 			min_index = lis[i] % ((arr->size + 1) >> 1);
-			ll_lis_res = &ll_lis[i];
+			ll_lis_res = ll_lis;
 		}
 	}
 	return (ll_lis_res);
@@ -60,18 +64,22 @@ t_piles		*transform_to_pile(t_arr *arr)
 	i = (arr->size + 1) >> 1;
 	if (!(piles = (t_piles*)malloc(sizeof(t_piles))))
 		exit(1);
-	if (!(piles->a = (t_llist*)malloc(sizeof(t_llist) * i)))
+	if (!(piles->a = (t_llist*)malloc(sizeof(t_llist))))
 		exit(1);
 	piles->b = NULL;
 	--i;
-	piles->a[i].nb = arr->arr[i];
-	piles->a[i].next = piles->a;
-	piles->a->prev = &piles->a[i];
+	piles->a->nb = arr->arr[i];
+	piles->a->next = piles->a;
+	piles->a->prev = piles->a;
 	while (i--)
 	{
-		piles->a[i].nb = arr->arr[i];
-		piles->a[i].next = &piles->a[i + 1];
-		piles->a[i + 1].prev = &piles->a[i];
+		if (!(piles->a->prev->next = (t_llist*)malloc(sizeof(t_llist))))
+			exit(1);
+		piles->a->prev->next->prev = piles->a->prev;
+		piles->a->prev = piles->a->prev->next;
+		piles->a->prev->next = piles->a;
+		piles->a = piles->a->prev;
+		piles->a->nb = arr->arr[i];
 	}
 	return (piles);
 }
@@ -88,9 +96,13 @@ void	add_to_lis(t_llist *lis, int nb)
 
 	if (!(new = (t_llist*)malloc(sizeof(t_llist))))
 		exit(1);
+	printf("lis nb :%d\n", lis->nb);
+	printf("lis prev nb :%d\n", lis->prev->nb);
 	while (nb > lis->nb || nb < lis->prev->nb)
 	{
+	printf("WAW\n");
 		lis = lis->next;
+	printf("WAW\n");
 		if (lis->prev->nb > lis->nb && (nb > lis->prev->nb || nb < lis->nb))
 			break ;
 	}

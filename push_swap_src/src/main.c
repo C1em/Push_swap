@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/06 03:04:29 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/07 22:11:26 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,17 @@ void	print_list(void *list)
 	}
 }
 
-/*
-void		print_arr(t_arr *arr)
+void	free_lst(t_llist *lst)
 {
-	int size;
-	int i;
-
-	size = (arr->size + 1) >> 1;
-	i = 0;
-	while (i < size)
+	lst->prev->next = NULL;
+	while (lst->next)
 	{
-		ft_putnbr(arr->arr[i++]);
-		write(1, "\n", 1);
+		lst = lst->next;
+		free(lst->prev);
 	}
+	free(lst);
 }
-*/
+
 
 int		main(int ac, char **av)
 {
@@ -61,7 +57,6 @@ int		main(int ac, char **av)
 	arr = pars((const char**)&av[1], ac - 1);
 	if (arr->size < 2)
 		return (0);
-//	print_arr(arr);
 	lis = get_lis_index(arr->arr, (arr->size + 1) >> 1);
 	ll_lis = transform_to_ll_lis(arr, lis);
 	free(&lis[-1]);
@@ -70,45 +65,13 @@ int		main(int ac, char **av)
 	all_data.buff = &data_buff;
 	all_data.piles = piles;
 	all_data.lis = ll_lis;
-/*
-	t_llist *end_lis = all_data.lis;
-	do
-	{
-		ft_putnbr(all_data.lis->nb);
-		ft_putchar('\n');
-		all_data.lis = all_data.lis->next;
-	}
-	while (all_data.lis != end_lis);
-	exit(0);
-*/
 	start_sort_pile(&all_data, (arr->size + 1) >> 1);
-//	write_buff(&data_buff);
-//	write(1, "------------empty b------------\n", 32);
+	free_lst(all_data.lis);
 	empty_b(&all_data, (arr->size + 1) >> 1);
-//	write_buff(&data_buff);
-//	write(1, "------------rot til order------\n", 32);
 	rot_a_til_order(&piles->a, (arr->size + 1) >> 1, &data_buff);
-	write_buff(&data_buff);
-
-//	write(1, "-------------------------------\n", 32);
-	write_buff(&data_buff);
 	free(arr->arr);
 	free(arr);
-//	write(1, "-------------------------------\n", 32);
-//	write_buff(&data_buff);
-/*	printf("\n");
-
-	printf("a :\n");
-	t_llist *end_a = piles->a;
-	do
-	{
-		printf("%d\n", piles->a->nb);
-		piles->a = piles->a->next;
-	}
-	while (piles->a != end_a);
-	if (!piles->b)
-		printf("b's empty !!!!!!!");
-	else
-		printf("NOOOOOOOOOOOOO\n");
-*/	return (0);
+	write_buff(&data_buff);
+	write_buff(&data_buff);
+	return (0);
 }
