@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 20:37:54 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 00:34:55 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:14:10 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 /*
 **	take the int* lis and return it as a doubly linked list
 */
+
 t_llist		*transform_to_ll_lis(t_arr *arr, int *lis)
 {
 	int			i;
@@ -86,11 +87,11 @@ t_piles		*transform_to_pile(t_arr *arr)
 
 /*
 **	add an elem the lis
-**	this function is called after a push_a to because the elem is now at his place
-**	and won't move after
+**	this function is called after a push_a to because the elem is now at
+**	his place and won't move after
 */
 
-void	add_to_lis(t_llist *lis, int nb)
+void		add_to_lis(t_llist *lis, int nb)
 {
 	t_llist *new;
 

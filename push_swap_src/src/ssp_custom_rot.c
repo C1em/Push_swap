@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 23:57:49 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/23 14:58:16 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:38:45 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-size_t		max_rot_bw_non_lis(t_llist *a, t_llist *lis)
+size_t			max_rot_bw_non_lis(t_llist *a, t_llist *lis)
 {
 	t_llist	*end_a;
 	size_t	max_rot_count;
@@ -50,7 +50,7 @@ size_t		max_rot_bw_non_lis(t_llist *a, t_llist *lis)
 	return (max_rot_count);
 }
 
-static ssize_t		rot_til_inverse_rot(t_llist *a, t_llist *lis, size_t size,
+static ssize_t	rot_til_inverse_rot(t_llist *a, t_llist *lis, size_t size,
 																		int rev)
 {
 	size_t	offset;
@@ -59,7 +59,7 @@ static ssize_t		rot_til_inverse_rot(t_llist *a, t_llist *lis, size_t size,
 	ssize_t	res;
 
 	offset = (rev) ? sizeof(t_llist*) : 0;
-	rev_offset = (rev) ? 0 :sizeof(t_llist*);
+	rev_offset = (rev) ? 0 : sizeof(t_llist*);
 	rot_count = 0;
 	res = 0;
 	while ((rot_count << 1) < (ssize_t)size)
@@ -119,32 +119,19 @@ static void		rot_to_the_start(t_all_data *data, int tmp_top_lis, int rev)
 	}
 }
 
-void		ssp_custom_rot(t_all_data *data, size_t size)
+void			ssp_custom_rot(t_all_data *data, size_t size)
 {
 	ssize_t	rot_to_last;
 	ssize_t	rev_rot_to_last;
 	int		tmp_top_lis;
 
-/*	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
-	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
-	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
-	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
-	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
-	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
-	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
-	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
-	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
-	printf("OK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\nOK\n");
-*/	rot_to_last = rot_til_inverse_rot(data->piles->a, data->lis, size, 0);
+	rot_to_last = rot_til_inverse_rot(data->piles->a, data->lis, size, 0);
 	rev_rot_to_last = rot_til_inverse_rot(data->piles->a->prev,
 												data->lis->prev, size, 1);
 	tmp_top_lis = data->lis->nb;
-//	printf("rot_to_last :%lu, rev_rot_to_last :%lu\n", rot_to_last, rev_rot_to_last);
 	if (rot_to_last > rev_rot_to_last + 1)
 	{
-/*		printf("top lis :%d\n", data->lis->nb);
-		printf("top a :%d\n", data->piles->a->nb);
-*/		if (rev_rot_to_last != (ssize_t)-1)
+		if (rev_rot_to_last != (ssize_t)-1)
 		{
 			data->lis = data->lis->prev;
 			data->piles->a = data->piles->a->prev;
@@ -153,13 +140,7 @@ void		ssp_custom_rot(t_all_data *data, size_t size)
 			data->lis = data->lis->next;
 			rot_to_the_start(data, tmp_top_lis, 0);
 		}
-/*		printf("top lis :%d\n", data->lis->nb);
-		printf("top a :%d\n", data->piles->a->nb);
-		rot_to_the_start(data, tmp_top_lis, 0);
-		printf("after rot_to_the_start\n");
-		write_buff(data->buff);
-		printf("---------------------\n");
-*/		if (rot_to_last != (ssize_t)-1)
+		if (rot_to_last != (ssize_t)-1)
 			return (custom_ssp(data, size, rot_to_last, 0));
 		return ;
 	}

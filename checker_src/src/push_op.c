@@ -6,29 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:38:43 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/29 19:50:20 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:06:39 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include <stdlib.h>
 
-/*
-static void				print_list(t_pile *pile)
-{
-	t_pile *end_pile;
-
-	if (!pile)
-		return ;
-	end_pile = pile->prev;
-	while (pile != end_pile)
-	{
-		printf("%d\n", pile->nb);
-		pile = pile->next;
-	}
-	printf("%d\n", pile->nb);
-}
-*/
 void	push_a(t_piles *piles)
 {
 	if (!piles->b)

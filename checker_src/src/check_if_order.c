@@ -6,28 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 10:43:10 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 17:16:52 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:05:02 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include <unistd.h>
-/*
-void				print_list(t_pile *pile)
-{
-	t_pile *end_pile;
 
-	if (!pile)
-		return ;
-	end_pile = pile->prev;
-	while (pile != end_pile)
-	{
-		printf("%d\n", pile->nb);
-		pile = pile->next;
-	}
-	printf("%d\n", pile->nb);
-}
-*/
 void	check_if_order(t_piles *piles)
 {
 	t_pile *end_pile;

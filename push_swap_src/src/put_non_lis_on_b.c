@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 00:32:19 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:43:46 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 **	especially when we have already pushed on a at this position,
 **	we need to rotate in consequence
 */
-static void		rot_a_to_match_the_push(t_all_data *all_data)
+
+static void	rot_a_to_match_the_push(t_all_data *all_data)
 {
 	while (all_data->piles->a->nb != all_data->piles->b->dest)
 	{
@@ -34,7 +35,7 @@ static void		rot_a_to_match_the_push(t_all_data *all_data)
 		if (all_data->piles->a->prev->nb > all_data->piles->a->nb
 				&& (all_data->piles->b->nb > all_data->piles->a->prev->nb
 				|| all_data->piles->b->nb < all_data->piles->a->nb))
-			break;
+			break ;
 		all_data->piles->a = all_data->piles->a->prev;
 		fill_buffer(all_data->buff, RRA);
 	}
@@ -44,7 +45,9 @@ static void		rot_a_to_match_the_push(t_all_data *all_data)
 **	collect all elems that have to be push on a int the "reverse" order
 **				and call rot_a_to_match_the_push then call push_a and add_to_lis
 */
-void		push_a_tab_reverse_rot(size_t len_arr, t_arr *arr, t_all_data *all_data)
+
+void		push_a_tab_reverse_rot(size_t len_arr, t_arr *arr,
+									t_all_data *all_data)
 {
 	size_t rot_count;
 
@@ -67,11 +70,12 @@ void		push_a_tab_reverse_rot(size_t len_arr, t_arr *arr, t_all_data *all_data)
 **	collect all elems that have to be push on a int the "normal" order
 **				and call rot_a_to_match_the_push then call push_a and add_to_lis
 */
+
 void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data)
 {
-	int rot_count;
-	size_t i;
-	int next;
+	int		rot_count;
+	int		next;
+	size_t	i;
 
 	i = 0;
 	next = 0;
@@ -96,11 +100,12 @@ void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data)
 **	array elements aiming to the least rotations to push all ements
 **	return array's lenghth
 */
-static int		push_a_tab(t_arr *arr, t_all_data *all_data, int rev)
+
+static int	push_a_tab(t_arr *arr, t_all_data *all_data, int rev)
 {
-	size_t len;
-	t_llist_tmp *tmp_b;
-	int tmp_dest;
+	size_t		len;
+	t_llist_tmp	*tmp_b;
+	int			tmp_dest;
 
 	len = 0;
 	while (arr->arr[len] != -1)
@@ -112,17 +117,15 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, int rev)
 	while (tmp_dest--)
 		tmp_b = tmp_b->next;
 	tmp_dest = tmp_b->dest;
-//	printf("%lu, %lu\n", count_rot_to_end_of_pa(arr->arr, arr->arr[len - 1],
-//			all_data->piles->b, rev), count_rot_to_end_of_pa(arr->arr, arr->arr[0],
-//			all_data->piles->b, rev));
 	if (max_rot_bw_non_pusha(arr->arr) > (size_t)(arr->size >> 1))
 		pusha_custom_rot(all_data, arr, rev);
-	else if (arr->arr[len - 1] + count_rot_to_end_of_pa(arr->arr, arr->arr[len - 1],
-			all_data->piles->b, rev) - transformed_r_to_rr(arr->arr[0],
-			all_data->buff, 0) > arr->size - arr->arr[0]
-			+ count_rot_to_end_of_pa(arr->arr, arr->arr[0], all_data->piles->b, rev)
-			- transformed_r_to_rr(arr->size - arr->arr[len - 1], all_data->buff, 1)
-			+ len - 1)
+	else if (arr->arr[len - 1] + count_rot_to_end_of_pa(arr->arr,
+			arr->arr[len - 1], all_data->piles->b, rev)
+			- transformed_r_to_rr(arr->arr[0], all_data->buff, 0)
+			> arr->size - arr->arr[0]
+			+ count_rot_to_end_of_pa(arr->arr, arr->arr[0],
+			all_data->piles->b, rev) - transformed_r_to_rr(arr->size
+			- arr->arr[len - 1], all_data->buff, 1) + len - 1)
 		push_a_tab_reverse_rot(len, arr, all_data);
 	else
 		push_a_tab_rot(len, arr->arr, all_data);
@@ -140,6 +143,7 @@ static int		push_a_tab(t_arr *arr, t_all_data *all_data, int rev)
 **					call push_a_tab with the array
 **					return the nb of of elems pushed on a
 */
+
 int			pusha_if_destof(t_all_data *all_data, int max_elem, int rev)
 {
 	t_llist_tmp	*end_b;
@@ -180,8 +184,9 @@ int			pusha_if_destof(t_all_data *all_data, int max_elem, int rev)
 **	go through a:	push b the one that aren't in lis
 **					call pusha_if_destof at each iteration
 */
+
 void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
-												size_t rot_count, int rev)
+								size_t rot_count, int rev)
 {
 	int		max_elem;
 	int		op;
@@ -198,7 +203,8 @@ void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
 		if (all_data->piles->a->nb == all_data->lis->nb)
 		{
 			all_data->lis = *(t_llist**)((char*)all_data->lis + offset);
-			all_data->piles->a = *(t_llist**)((char*)all_data->piles->a + offset);
+			all_data->piles->a = *(t_llist**)((char*)all_data->piles->a
+												+ offset);
 			fill_buffer(all_data->buff, op);
 		}
 		else
@@ -220,17 +226,20 @@ void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
 **	with rev = 1 if the first elem is in the "reverse" order or rev = 0 if
 **	the first elem is in the "normal" order
 */
+
 void		start_sort_pile(t_all_data *data, size_t size)
 {
 	size_t	rot_til_push;
 	size_t	rev_rot_til_push;
 	t_llist	*end_a;
 
-	if ((rot_til_push = rot_count_til_push(data->piles->a, data->lis, size, 0)) == size)
+	if ((rot_til_push = rot_count_til_push(data->piles->a, data->lis, size, 0))
+						== size)
 		return ;
 	if ((max_rot_bw_non_lis(data->piles->a, data->lis) << 1) > size)
 		return (ssp_custom_rot(data, size));
-	rev_rot_til_push = rot_count_til_push(data->piles->a->prev, data->lis->prev, size, 1) + 1;
+	rev_rot_til_push = rot_count_til_push(data->piles->a->prev, data->lis->prev,
+											size, 1) + 1;
 	if (rev_rot_til_push >= rot_til_push
 		|| ((rot_til_push - rev_rot_til_push) << 1)
 		< size - lst_len(data->lis))

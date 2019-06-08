@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:13:58 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 04:29:40 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:06:23 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static inline int	rot_op_of(const char *str_op)
 	return (error());
 }
 
-static int op_of(const char *str_op)
+static int			op_of(const char *str_op)
 {
 	if (!str_op || !str_op[0] || !str_op[1])
 		return (error());
@@ -71,7 +71,7 @@ static int op_of(const char *str_op)
 	return (error());
 }
 
-t_pile					*get_op(void)
+t_pile				*get_op(void)
 {
 	int		*all_op_arr;
 	t_pile	*op_list;

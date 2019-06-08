@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/06 03:01:12 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:35:05 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static void			squeeze_lis(int *arr, int size, int *index_arr)
 		--left_index;
 	if (left_index > -1)
 		shift_right(index_arr, left_index, arr, size);
-	if (left_index  + 1 < size_ia && index_arr[left_index + 1] < size)
+	if (left_index + 1 < size_ia && index_arr[left_index + 1] < size)
 		shift_left(index_arr, left_index + 1, arr, size);
 	if (index_arr[right_index] >= size)
 		shift_right(index_arr, right_index, arr, size);
@@ -135,8 +135,8 @@ static int			*get_lis(int *index_arr, int last_elem, int size)
 	return (lis_endex);
 }
 
-static inline void			ft_tabcpy_n_add(int *const dst, const int *const src,
-													int size, const int add)
+static inline void	ft_tabcpy_n_add(int *const dst, const int *const src,
+										int size, const int add)
 {
 	while (size--)
 		dst[size] = src[size] + add;

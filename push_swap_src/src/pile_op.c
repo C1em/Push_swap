@@ -6,22 +6,23 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 03:33:07 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:33:56 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdlib.h>
 
-
 #include <stdio.h>
+
 /*
 **	return the nb of elems in b
 */
+
 int			len_b(t_llist_tmp *b)
 {
-	t_llist_tmp *end_b;
-	int i;
+	t_llist_tmp	*end_b;
+	int			i;
 
 	if (!b)
 		return (0);
@@ -43,12 +44,10 @@ void		push_a(t_piles *piles, t_data_buff *buff)
 {
 	t_llist *new;
 
-/*	printf("\n\nbefore push a :\n\n");
-	print_list((void*)piles->a);
-*/	if (!piles->b)
+	if (!piles->b)
 		return ;
 	if (!(new = (t_llist*)malloc(sizeof(t_llist))))
-		exit(1) ;
+		exit(1);
 	new->nb = piles->b->nb;
 	piles->a->prev->next = new;
 	new->next = piles->a;
@@ -89,7 +88,7 @@ static int	get_dest(int nb, t_llist *lis)
 **	allocate the first elem of b
 */
 
-static void init_b(t_all_data *all_data)
+static void	init_b(t_all_data *all_data)
 {
 	if (!(all_data->piles->b = (t_llist_tmp*)malloc(sizeof(t_llist_tmp))))
 		exit(1);
@@ -115,7 +114,7 @@ void		push_b(t_all_data *all_data)
 	else
 	{
 		if (!(new = (t_llist_tmp*)malloc(sizeof(t_llist_tmp))))
-			exit (1);
+			exit(1);
 		new->nb = all_data->piles->a->nb;
 		all_data->piles->b->prev->next = new;
 		new->next = all_data->piles->b;
@@ -124,7 +123,6 @@ void		push_b(t_all_data *all_data)
 		new->dest = get_dest(new->nb, all_data->lis);
 		all_data->piles->b = new;
 	}
-
 	all_data->piles->a->next->prev = all_data->piles->a->prev;
 	all_data->piles->a = all_data->piles->a->next;
 	free(all_data->piles->a->prev->next);

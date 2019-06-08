@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 08:25:21 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 18:30:37 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:05:59 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_pile	*rm_elem(t_pile *elem)
 		return (NULL);
 	}
 	elem = elem->next;
-	elem->prev= elem->prev->prev;
+	elem->prev = elem->prev->prev;
 	free(elem->prev->next);
 	elem->prev->next = elem;
 	return (elem);

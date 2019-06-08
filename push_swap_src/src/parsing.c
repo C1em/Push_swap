@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 04:14:07 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:37:00 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static size_t		tot_len(const char *const *const entry, int nb_elem)
 				&& (ft_isspace(entry[nb_elem][i + 1])
 				|| entry[nb_elem][i + 1] == '\0'))
 				++tot_len;
-			else if (!(ft_isdigit(entry[nb_elem][i]) || (ft_isspace(entry[nb_elem][i])
+			else if (!(ft_isdigit(entry[nb_elem][i])
+					|| (ft_isspace(entry[nb_elem][i])
 					|| entry[nb_elem][i] == '\0' || ((entry[nb_elem][i] == '-'
 					|| entry[nb_elem][i] == '+') && (!i
 					|| ft_isspace(entry[nb_elem][i - 1]))))))
@@ -56,7 +57,7 @@ static size_t		tot_len(const char *const *const entry, int nb_elem)
 	return (tot_len);
 }
 
-int		ft_custom_atoi(const char *str)
+int					ft_custom_atoi(const char *str)
 {
 	int		i;
 	int		sign;
@@ -120,7 +121,7 @@ static void inline	add_nb(const char *const entry, int **arr, size_t size)
 
 static int			test_duplicate(t_arr *arr)
 {
-	int	*arr_tmp;
+	int		*arr_tmp;
 	size_t	i;
 
 	i = (arr->size + 1) >> 1;
@@ -154,7 +155,7 @@ t_arr				*pars(const char *const *const entry, int nb_elem)
 	arr->arr = &arr->arr[len];
 	while (nb_elem--)
 		add_nb(entry[nb_elem], &arr->arr, len);
-	if(test_duplicate(arr))
+	if (test_duplicate(arr))
 	{
 		write(2, "Error\n", 6);
 		exit(1);

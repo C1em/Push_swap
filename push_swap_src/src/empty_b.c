@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:05:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 00:32:53 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:12:53 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int					is_destof(t_llist_tmp *b, int dest)
 	return (0);
 }
 
-static size_t		count_rot_til_dest_of(t_llist_tmp *b, t_llist *a, size_t size, int rev)
+static size_t		count_rot_til_dest_of(t_llist_tmp *b, t_llist *a,
+											size_t size, int rev)
 {
 	size_t	rot_count;
 	int		offset;
@@ -48,8 +49,8 @@ static size_t		count_rot_til_dest_of(t_llist_tmp *b, t_llist *a, size_t size, in
 	return (rot_count);
 }
 
-static size_t		rot_count_after_empty(t_llist *a, size_t rot_count, size_t size,
-																			int rev)
+static size_t		rot_count_after_empty(t_llist *a, size_t rot_count,
+											size_t size, int rev)
 {
 	int offset;
 
@@ -68,7 +69,7 @@ static size_t		rot_count_after_empty(t_llist *a, size_t rot_count, size_t size,
 }
 
 static void			push_all(t_all_data *data, t_llist *end_a,
-													size_t rot_count, int rev)
+												size_t rot_count, int rev)
 {
 	int		max_elem;
 	int		op;
@@ -101,13 +102,16 @@ void				empty_b(t_all_data *data, size_t size)
 		|| (rot_til_push = count_rot_til_dest_of(data->piles->b,
 		data->piles->a->next, size, 0) + 1) == size)
 		return ;
-	rev_rot_til_push = count_rot_til_dest_of(data->piles->b, data->piles->a, size, 1);
-	rot_to_smallest = rot_count_after_empty(data->piles->a, rot_til_push, size, 0);
-	rev_rot_to_smallest = rot_count_after_empty(data->piles->a, rev_rot_til_push,
-																		size, 1);
-	if (rot_til_push + rev_rot_to_smallest >= rev_rot_til_push + rot_to_smallest
-		|| (rev_rot_til_push + rot_to_smallest - rot_til_push - rev_rot_to_smallest)
-		+ ((rev_rot_til_push + rot_to_smallest - rot_til_push - rev_rot_to_smallest) >> 1)
+	rev_rot_til_push = count_rot_til_dest_of(data->piles->b, data->piles->a,
+											size, 1);
+	rot_to_smallest = rot_count_after_empty(data->piles->a, rot_til_push,
+											size, 0);
+	rev_rot_to_smallest = rot_count_after_empty(data->piles->a,
+												rev_rot_til_push, size, 1);
+	if (rot_til_push + rev_rot_to_smallest >= rev_rot_til_push
+		+ rot_to_smallest || (rev_rot_til_push + rot_to_smallest
+		- rot_til_push - rev_rot_to_smallest) + ((rev_rot_til_push
+		+ rot_to_smallest - rot_til_push - rev_rot_to_smallest) >> 1)
 		<= (size_t)len_b(data->piles->b))
 	{
 		end_a = data->piles->a;

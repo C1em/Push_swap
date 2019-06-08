@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:47:33 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 04:35:41 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:05:43 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 static int	get_option(char ***av, int *size)
 {
-	if ((*av)[*size - 1][0] == '-' && (*av)[*size - 1][1] == 'v' && !(*av)[*size - 1][2])
+	if ((*av)[*size - 1][0] == '-' && (*av)[*size - 1][1] == 'v'
+		&& !(*av)[*size - 1][2])
 	{
 		--*size;
 		return (1);
@@ -31,7 +32,7 @@ static int	get_option(char ***av, int *size)
 	return (0);
 }
 
-void	free_pile(t_pile *pile)
+void		free_pile(t_pile *pile)
 {
 	if (!pile)
 		return ;
@@ -44,7 +45,7 @@ void	free_pile(t_pile *pile)
 	free(pile);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_pile	*pile;
 	t_pile	*op_pile;

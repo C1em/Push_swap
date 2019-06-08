@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:22:17 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/05 00:19:53 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:11:11 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void inline	put_in_buff(t_data_buff *buff, int op)
 	buff->buff[buff->index] = op;
 }
 
-void	fill_push_a(t_data_buff *buff)
+void				fill_push_a(t_data_buff *buff)
 {
 	if (buff->buff[buff->index] & PB)
 		--buff->index;
@@ -51,7 +51,7 @@ void	fill_push_a(t_data_buff *buff)
 		put_in_buff(buff, PA);
 }
 
-void	fill_push_b(t_data_buff *buff)
+void				fill_push_b(t_data_buff *buff)
 {
 	if (buff->buff[buff->index] & PA)
 		--buff->index;

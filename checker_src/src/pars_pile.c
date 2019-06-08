@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:54:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 01:13:57 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:07:43 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include <stdio.h>
 
-int						ft_isspace(char c)
+int					ft_isspace(char c)
 {
 	if (c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == 'f'
 																|| c == ' ')
@@ -75,7 +75,7 @@ static int			test_duplicate(t_pile *pile)
 	return (0);
 }
 
-int		ft_custom_atoi(const char *str)
+int					ft_custom_atoi(const char *str)
 {
 	int		i;
 	int		sign;
@@ -108,11 +108,11 @@ int		ft_custom_atoi(const char *str)
 	return ((int)res);
 }
 
-t_pile					*pars_pile(char **arr, int size)
+t_pile				*pars_pile(char **arr, int size)
 {
-	t_pile *pile;
-	ssize_t i;
-	ssize_t tmp_i;
+	t_pile	*pile;
+	ssize_t	i;
+	ssize_t	tmp_i;
 
 	pile = NULL;
 	while (size--)
@@ -142,7 +142,7 @@ t_pile					*pars_pile(char **arr, int size)
 						: pile_init(ft_custom_atoi(&arr[size][i + 1]));
 		}
 	}
-	if(test_duplicate(pile))
+	if (test_duplicate(pile))
 	{
 		write(2, "Error\n", 6);
 		exit(1);

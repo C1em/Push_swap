@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 00:40:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/30 18:05:39 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 05:37:22 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,7 @@ size_t		count_rot_to_end_of_pa(int *arr, ssize_t rot_to_last,
 
 size_t		transformed_r_to_rr(int rot_to_first_pa, t_data_buff *buff, int rev)
 {
-/*	(void)rot_to_first_pa;
-	(void)buff;
-	(void)rev;
-	return (0);
-*/	ssize_t	index_tmp;
+	ssize_t	index_tmp;
 	int		op;
 
 	index_tmp = buff->index;
@@ -86,7 +82,5 @@ size_t		transformed_r_to_rr(int rot_to_first_pa, t_data_buff *buff, int rev)
 	while (index_tmp >= 0 && buff->buff[index_tmp] == op
 			&& buff->index - index_tmp != rot_to_first_pa)
 		--index_tmp;
-//	if (index_tmp - index_tmp)
-//		printf("%lu\n", buff->index - index_tmp);
 	return (buff->index - index_tmp);
 }
