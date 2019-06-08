@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:13:58 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/06 01:19:41 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 04:29:40 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_pile					*get_op(void)
 	if (get_next_line(0, &line) != 1)
 		return (NULL);
 	op_list = pile_init(op_of(line));
+	free(line);
 	while (get_next_line(0, &line) == 1)
 	{
 		op_list = add_elem(op_list, op_of(line));

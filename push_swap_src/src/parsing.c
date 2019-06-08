@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/06 01:21:17 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 04:14:07 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,10 @@ static void inline	add_nb(const char *const entry, int **arr, size_t size)
 {
 	ssize_t	i;
 	ssize_t	tmp_i;
+	int		*start;
 
 	i = ft_strlen(entry) - 1;
+	start = *arr - 1;
 	while ((tmp_i = i) != -1)
 	{
 		while (i + 1 && ft_isspace(entry[i]))
@@ -111,7 +113,8 @@ static void inline	add_nb(const char *const entry, int **arr, size_t size)
 			exit(1);
 		}
 		*(--*arr) = ft_custom_atoi(&entry[i + 1]);
-		*(*arr + size) = **arr;
+		if (*arr != start)
+			*(*arr + size) = **arr;
 	}
 }
 
@@ -127,8 +130,12 @@ static int			test_duplicate(t_arr *arr)
 	while (--i)
 	{
 		if (arr_tmp[i] == arr_tmp[i - 1])
+		{
+			free(arr_tmp);
 			return (1);
+		}
 	}
+	free(arr_tmp);
 	return (0);
 }
 

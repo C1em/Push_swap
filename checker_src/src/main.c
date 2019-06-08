@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:47:33 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 01:23:03 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 04:35:41 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int		main(int ac, char **av)
 	check_if_order(piles);
 	free_pile(piles->a);
 	free_pile(piles->b);
+	free_pile(op_pile);
 	free(piles);
 	return (0);
 }

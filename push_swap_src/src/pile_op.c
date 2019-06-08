@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/04 23:23:48 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/08 03:33:07 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,10 @@ void		push_b(t_all_data *all_data)
 		new->dest = get_dest(new->nb, all_data->lis);
 		all_data->piles->b = new;
 	}
+
+	all_data->piles->a->next->prev = all_data->piles->a->prev;
 	all_data->piles->a = all_data->piles->a->next;
-	all_data->piles->a->prev = all_data->piles->a->prev->prev;
+	free(all_data->piles->a->prev->next);
 	all_data->piles->a->prev->next = all_data->piles->a;
 	fill_buffer(all_data->buff, PB);
 }

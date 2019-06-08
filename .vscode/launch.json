@@ -8,7 +8,7 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/ft_push_swap",
+			"program": "${workspaceFolder}/push_swap",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
