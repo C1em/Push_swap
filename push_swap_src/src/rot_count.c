@@ -6,13 +6,29 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 00:40:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 05:37:22 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/10 01:03:30 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 #include <stdio.h>
+
+size_t				max_rot_bw_non_pusha(int *arr)
+{
+	size_t	rot_count;
+	size_t	i;
+
+	rot_count = 0;
+	i = 0;
+	while (arr[i + 1] != -1)
+	{
+		if (arr[i + 1] - arr[i] > (int)rot_count)
+			rot_count = arr[i + 1] - arr[i];
+		++i;
+	}
+	return (rot_count);
+}
 
 size_t		lst_len(t_llist *lst)
 {

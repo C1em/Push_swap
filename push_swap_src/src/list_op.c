@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 20:37:54 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 05:14:10 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/10 06:59:53 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 #include <stdlib.h>
 
 #include <stdio.h>
+
+t_llist		*add_elem(t_llist *pile, int nb)
+{
+	if (!(pile->prev->next = (t_llist*)malloc(sizeof(t_llist))))
+		exit(1);
+	pile->prev->next->prev = pile->prev;
+	pile->prev = pile->prev->next;
+	pile->prev->next = pile;
+	pile->prev->nb = nb;
+	return (pile->prev);
+}
 
 /*
 **	take the int* lis and return it as a doubly linked list
@@ -36,13 +47,7 @@ t_llist		*transform_to_ll_lis(t_arr *arr, int *lis)
 	min_index = lis[i] % ((arr->size + 1) >> 1);
 	while (i--)
 	{
-		if (!(ll_lis->prev->next = (t_llist*)malloc(sizeof(t_llist))))
-			exit(1);
-		ll_lis->prev->next->prev = ll_lis->prev;
-		ll_lis->prev = ll_lis->prev->next;
-		ll_lis->prev->next = ll_lis;
-		ll_lis = ll_lis->prev;
-		ll_lis->nb = arr->arr[lis[i]];
+		ll_lis = add_elem(ll_lis, arr->arr[lis[i]]);
 		if (lis[i] % ((arr->size + 1) >> 1) < min_index)
 		{
 			min_index = lis[i] % ((arr->size + 1) >> 1);
@@ -73,15 +78,7 @@ t_piles		*transform_to_pile(t_arr *arr)
 	piles->a->next = piles->a;
 	piles->a->prev = piles->a;
 	while (i--)
-	{
-		if (!(piles->a->prev->next = (t_llist*)malloc(sizeof(t_llist))))
-			exit(1);
-		piles->a->prev->next->prev = piles->a->prev;
-		piles->a->prev = piles->a->prev->next;
-		piles->a->prev->next = piles->a;
-		piles->a = piles->a->prev;
-		piles->a->nb = arr->arr[i];
-	}
+		piles->a = add_elem(piles->a, arr->arr[i]);
 	return (piles);
 }
 

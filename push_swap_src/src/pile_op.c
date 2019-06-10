@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 05:33:56 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/10 03:35:31 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,6 @@
 #include <stdlib.h>
 
 #include <stdio.h>
-
-/*
-**	return the nb of elems in b
-*/
-
-int			len_b(t_llist_tmp *b)
-{
-	t_llist_tmp	*end_b;
-	int			i;
-
-	if (!b)
-		return (0);
-	end_b = b->prev;
-	i = 0;
-	while (end_b != b)
-	{
-		++i;
-		b = b->next;
-	}
-	return (i + 1);
-}
 
 /*
 **	put the first elem of b and put it on a

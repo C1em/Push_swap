@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 05:37:00 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/10 06:12:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@
 #include <limits.h>
 
 #include <stdio.h>
-
-static int			ft_isspace(char c)
-{
-	if (c == '\t' || c == '\n' || c == '\r' || c == '\v'
-		|| c == '\f' || c == ' ')
-		return (1);
-	return (0);
-}
 
 static size_t		tot_len(const char *const *const entry, int nb_elem)
 {
@@ -46,10 +38,7 @@ static size_t		tot_len(const char *const *const entry, int nb_elem)
 					|| entry[nb_elem][i] == '\0' || ((entry[nb_elem][i] == '-'
 					|| entry[nb_elem][i] == '+') && (!i
 					|| ft_isspace(entry[nb_elem][i - 1]))))))
-			{
-				write(2, "Error\n", 6);
-				exit(1);
-			}
+				error();
 			++i;
 		}
 		i = 0;
@@ -76,28 +65,20 @@ int					ft_custom_atoi(const char *str)
 	if (sign)
 	{
 		if (res > (long)INT_MAX + 1L)
-		{
-			write(2, "Error\n", 6);
-			exit(1);
-		}
+			error();
 		return ((int)~res + 1);
 	}
 	if (res > INT_MAX)
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+		error();
 	return ((int)res);
 }
 
-static void inline	add_nb(const char *const entry, int **arr, size_t size)
+static void inline	add_nb(const char *const entry, int **arr, size_t size, int add_to_end)
 {
 	ssize_t	i;
 	ssize_t	tmp_i;
-	int		*start;
 
 	i = ft_strlen(entry) - 1;
-	start = *arr - 1;
 	while ((tmp_i = i) != -1)
 	{
 		while (i + 1 && ft_isspace(entry[i]))
@@ -109,12 +90,9 @@ static void inline	add_nb(const char *const entry, int **arr, size_t size)
 		if (entry[i] == '-' || entry[i] == '+')
 			--i;
 		if (tmp_i == i)
-		{
-			write(2, "Error\n", 6);
-			exit(1);
-		}
+			error();
 		*(--*arr) = ft_custom_atoi(&entry[i + 1]);
-		if (*arr != start)
+		if (add_to_end)
 			*(*arr + size) = **arr;
 	}
 }
@@ -153,12 +131,10 @@ t_arr				*pars(const char *const *const entry, int nb_elem)
 	if (!(arr->arr = (int*)malloc(sizeof(int) * arr->size)))
 		exit(1);
 	arr->arr = &arr->arr[len];
+	add_nb(entry[--nb_elem], &arr->arr, len, 0);
 	while (nb_elem--)
-		add_nb(entry[nb_elem], &arr->arr, len);
+		add_nb(entry[nb_elem], &arr->arr, len, 1);
 	if (test_duplicate(arr))
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+		error();
 	return (arr);
 }

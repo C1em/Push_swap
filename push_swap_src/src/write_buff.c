@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 12:34:25 by coremart          #+#    #+#             */
-/*   Updated: 2019/04/28 17:14:19 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/09 02:22:40 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void					write_buff(t_data_buff *buff)
 	char	chain[2048];
 	size_t	i;
 	size_t	j;
-	size_t max;
+	size_t	max;
 
 	i = 0;
 	j = 0;
-	max = (size_t)((buff->index > (ssize_t)511) ? 512 : buff->index + (ssize_t)1);
+	max = (size_t)((buff->index > 511) ? 512 : buff->index + 1);
 	while (i < max)
 	{
 		j += write_op(&chain[j], buff->buff[i]) + 1;
@@ -55,10 +55,11 @@ void					write_buff(t_data_buff *buff)
 	}
 	if (max == 512)
 	{
-		ft_memcpy((void*)buff->buff, (void*)&buff->buff[512], sizeof(int) * (size_t)512);
-		buff->index -= (ssize_t)512;
+		ft_memcpy((void*)buff->buff, (void*)&buff->buff[512],
+					sizeof(int) * 512);
+		buff->index -= 512;
 	}
 	else
-		buff->index = (ssize_t)-1;
-	write(1, chain, (size_t)j);
+		buff->index = -1;
+	write(1, chain, j);
 }

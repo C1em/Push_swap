@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 09:37:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/09 20:49:48 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/09 02:23:02 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft.h"
 #include <stdio.h>
 
-static inline void		dispatch_rot(t_data_buff *buff, int op)
+static inline void	dispatch_rot(t_data_buff *buff, int op)
 {
 	t_fun_match_op	*fun_match_op;
 	size_t			i;
@@ -32,9 +32,9 @@ static inline void		dispatch_rot(t_data_buff *buff, int op)
 
 void				fill_buffer(t_data_buff *buff, int op)
 {
-	if (buff->index == (ssize_t)-1)
+	if (buff->index == -1)
 	{
-		buff->index = (ssize_t)0;
+		buff->index = 0;
 		buff->buff[0] = op;
 		return ;
 	}
