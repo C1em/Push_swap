@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 00:40:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/10 01:03:30 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/11 00:54:08 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 
-size_t				max_rot_bw_non_pusha(int *arr)
+size_t	max_rot_bw_non_pusha(int *arr)
 {
 	size_t	rot_count;
 	size_t	i;
@@ -30,7 +30,7 @@ size_t				max_rot_bw_non_pusha(int *arr)
 	return (rot_count);
 }
 
-size_t		lst_len(t_llist *lst)
+size_t	lst_len(t_llist *lst)
 {
 	t_llist	*end_lst;
 	size_t	i;
@@ -48,7 +48,7 @@ size_t		lst_len(t_llist *lst)
 	return (i);
 }
 
-size_t		rot_count_til_push(t_llist *a, t_llist *lis, size_t size, int rev)
+size_t	rot_count_til_push(t_llist *a, t_llist *lis, size_t size, int rev)
 {
 	size_t	rot_count;
 	int		offset;
@@ -65,7 +65,7 @@ size_t		rot_count_til_push(t_llist *a, t_llist *lis, size_t size, int rev)
 	return (rot_count);
 }
 
-size_t		count_rot_to_end_of_pa(int *arr, ssize_t rot_to_last,
+size_t	count_rot_to_end_of_pa(int *arr, ssize_t rot_to_last,
 									t_llist_tmp *b, int rev)
 {
 	size_t	count;
@@ -88,7 +88,7 @@ size_t		count_rot_to_end_of_pa(int *arr, ssize_t rot_to_last,
 	return (count + !rev);
 }
 
-size_t		transformed_r_to_rr(int rot_to_first_pa, t_data_buff *buff, int rev)
+size_t	transformed_r_to_rr(int rot_to_first_pa, t_data_buff *buff, int rev)
 {
 	ssize_t	index_tmp;
 	int		op;
