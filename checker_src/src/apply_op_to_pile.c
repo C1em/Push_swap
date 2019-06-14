@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 08:49:48 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 05:09:18 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/14 07:02:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <limits.h>
+#include "libft.h"
 
 #include <stdio.h>
 
@@ -21,6 +22,17 @@ static void			write_str(t_str *str)
 {
 	write(1, str->str, str->index);
 	str->index = 0;
+}
+
+static void			add_string_to_str(t_str *str, char *string)
+{
+	while (*string)
+	{
+		str->str[str->index] = *string;
+		++string;
+		if (++str->index == 2048)
+			write_str(str);
+	}
 }
 
 static void			custom_itoa(int nb, char *str_nb)
@@ -65,27 +77,15 @@ static void			add_nb_to_str(char *nb, t_str *str, int eol)
 {
 	int i;
 
-	i = 0;
-	while (nb[i])
-	{
-		str->str[str->index] = nb[i];
-		if (++str->index == 2048)
-			write_str(str);
-		++i;
-	}
+	i = ft_strlen(nb);
+	add_string_to_str(str, nb);
 	if (eol)
-	{
-		str->str[str->index] = '\n';
-		if (++str->index == 2048)
-			write_str(str);
-	}
+		add_string_to_str(str, "\n");
 	else
 	{
 		while (i < 12)
 		{
-			str->str[str->index] = ' ';
-			if (++str->index == 2048)
-				write_str(str);
+			add_string_to_str(str, " ");
 			++i;
 		}
 	}
@@ -105,82 +105,13 @@ static inline int	log2(int nb)
 	return (res);
 }
 
-static inline void	add_header_pile(t_str *str)
-{
-	str->str[str->index] = 'P';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = 'i';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = 'l';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = 'e';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = ' ';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = 'a';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = ':';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = ' ';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = ' ';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = ' ';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = ' ';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = ' ';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = 'P';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = 'i';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = 'l';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = 'e';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = ' ';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = 'b';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = ':';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '\n';
-	if (++str->index == 2048)
-		write_str(str);
-}
-
 static void			add_header(t_str *str, int op)
 {
 	int index;
 
-	str->str[str->index] = '\n';
+	add_string_to_str(str, "\n");
 	if (!op)
-	{
-		add_header_pile(str);
-		return ;
-	}
-	if (++str->index == 2048)
-		write_str(str);
+		return (add_string_to_str(str, "Pile a:     Pile b:\n"));
 	index = (log2(op) << 1) + (op >= 512) + (op == 1024);
 	str->str[str->index] = "sasbsspapbrarbrrrrarrbrrr"[index];
 	if (++str->index == 2048)
@@ -194,74 +125,7 @@ static void			add_header(t_str *str, int op)
 		if (++str->index == 2048)
 			write_str(str);
 	}
-	str->str[str->index] = '\n';
-	if (++str->index == 2048)
-		write_str(str);
-	add_header_pile(str);
-}
-
-static void			add_bottom(t_str *str)
-{
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '_';
-	if (++str->index == 2048)
-		write_str(str);
-	str->str[str->index] = '\n';
-	if (++str->index == 2048)
-		write_str(str);
+	add_string_to_str(str, "\nPile a:     Pile b:\n");
 }
 
 static void			add_piles_to_str(t_piles *piles, int op, t_str *str)
@@ -273,34 +137,23 @@ static void			add_piles_to_str(t_piles *piles, int op, t_str *str)
 	end_a = piles->a;
 	end_b = piles->b;
 	add_header(str, op);
+	nb[0] = '\0';
 	if (piles->a)
-	{
-		custom_itoa(piles->a->nb, nb);
-		piles->a = piles->a->next;
-	}
+		custom_itoa((piles->a = piles->a->next)->prev->nb, nb);
 	add_nb_to_str(nb, str, 0);
 	if (piles->b)
-	{
-		custom_itoa(piles->b->nb, nb);
-		piles->b = piles->b->next;
-	}
+		custom_itoa((piles->b = piles->b->next)->prev->nb, nb);
 	add_nb_to_str(nb, str, 1);
 	while (piles->a != end_a || piles->b != end_b)
 	{
 		if (piles->a != end_a)
-		{
-			custom_itoa(piles->a->nb, nb);
-			piles->a = piles->a->next;
-		}
+			custom_itoa((piles->a = piles->a->next)->prev->nb, nb);
 		add_nb_to_str(nb, str, 0);
 		if (piles->b != end_b)
-		{
-			custom_itoa(piles->b->nb, nb);
-			piles->b = piles->b->next;
-		}
+			custom_itoa((piles->b = piles->b->next)->prev->nb, nb);
 		add_nb_to_str(nb, str, 1);
 	}
-	add_bottom(str);
+	add_string_to_str(str, "------------------\n");
 }
 
 static void inline	do_pile_op(t_piles *piles, int op)
@@ -326,9 +179,8 @@ t_piles				*apply_op_to_pile(t_pile *a, t_pile *op_list, int print_op)
 
 	if (!(piles = (t_piles*)malloc(sizeof(t_piles))))
 		exit(1);
-	piles->a = a;
 	piles->b = NULL;
-	if (!op_list)
+	if (!((piles->a = a) && op_list))
 		return (piles);
 	end_op = op_list->next;
 	str.index = 0;
@@ -336,8 +188,7 @@ t_piles				*apply_op_to_pile(t_pile *a, t_pile *op_list, int print_op)
 		add_piles_to_str(piles, 0, &str);
 	while (op_list != end_op)
 	{
-		if (a)
-			do_pile_op(piles, op_list->nb);
+		do_pile_op(piles, op_list->nb);
 		if (print_op)
 			add_piles_to_str(piles, op_list->nb, &str);
 		op_list = op_list->prev;

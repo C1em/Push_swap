@@ -6,7 +6,7 @@
 #    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
-#    Updated: 2019/06/14 00:55:50 by coremart         ###   ########.fr        #
+#    Updated: 2019/06/14 05:37:07 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC_PUSH_SWAP = $(patsubst %,$(SDIR_PUSH_SWAP)/%,$(_SRCS_PUSH_SWAP))
 PDIR_CHECKER = checker_src
 SDIR_CHECKER = $(PDIR_CHECKER)/src
 _SRCS_CHECKER = apply_op_to_pile.c check_if_order.c get_op.c main.c pars_pile.c \
-		pile_op.c push_op.c rev_rot_op.c rot_op.c swap_op.c
+		pile_op.c push_op.c rev_rot_op.c rot_op.c swap_op.c error.c
 SRC_CHECKER = $(patsubst %,$(SDIR_CHECKER)/%,$(_SRCS_CHECKER))
 
 ### OBJECTS PUSH SWAP ####

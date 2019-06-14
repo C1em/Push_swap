@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:48:02 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/03 23:37:13 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/14 05:36:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,9 @@ void	push_a(t_piles *piles);
 **	check_if_order.c
 */
 void	check_if_order(t_piles *piles);
+/*
+**	error.c
+*/
+void	error(void);
 
 #endif
