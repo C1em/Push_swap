@@ -6,14 +6,11 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 23:57:49 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/11 02:58:45 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:46:30 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-#include <stdio.h>
-#include <stdlib.h>
 
 size_t			max_rot_bw_non_lis(t_llist *a, t_llist *lis)
 {
@@ -93,21 +90,17 @@ static void		custom_ssp(t_all_data *data, size_t size, size_t rot_to_end_a,
 static void		rot_to_the_start(t_all_data *data, int tmp_top_lis, int rev)
 {
 	size_t	offset;
-	int		op;
 
 	offset = (rev) ? sizeof(t_llist*) : 0;
-	op = (rev) ? RRA : RA;
 	while (data->lis->nb != tmp_top_lis)
 	{
 		data->lis = *(t_llist**)((char*)data->lis + offset);
-		data->piles->a = *(t_llist**)((char*)data->piles->a + offset);
-		fill_buffer(data->buff, op);
+		rot_a(data, rev);
 	}
 	if (rev)
 	{
 		data->lis = data->lis->prev;
-		data->piles->a = data->piles->a->prev;
-		fill_buffer(data->buff, RRA);
+		rot_a(data, 1);
 	}
 }
 
@@ -125,8 +118,7 @@ void			ssp_custom_rot(t_all_data *data, size_t size)
 		if (rev_to_last != (ssize_t)-1)
 		{
 			data->lis = data->lis->prev;
-			data->piles->a = data->piles->a->prev;
-			fill_buffer(data->buff, RRA);
+			rot_a(data, 1);
 			custom_ssp(data, size, rev_to_last, 1);
 			data->lis = data->lis->next;
 			rot_to_the_start(data, tmp_top_lis, 0);

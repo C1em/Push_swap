@@ -6,15 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:47:33 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 05:05:43 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:50:27 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
-#include <unistd.h>
 #include <stdlib.h>
-
-#include <stdio.h>
+#include <unistd.h>
 
 static int	get_option(char ***av, int *size)
 {

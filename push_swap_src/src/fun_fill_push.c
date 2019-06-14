@@ -6,13 +6,11 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:22:17 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 05:11:11 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:44:19 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-#include <stdio.h>
 
 static void inline	put_in_buff(t_data_buff *buff, int op)
 {

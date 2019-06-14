@@ -6,14 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 20:37:54 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/14 02:06:44 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:44:52 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdlib.h>
-
-#include <stdio.h>
 
 t_llist		*add_elem(t_llist *pile, int nb)
 {

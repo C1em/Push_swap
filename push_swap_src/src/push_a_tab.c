@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 04:11:12 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/11 04:12:19 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:30:02 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,6 @@ int					push_a_tab(t_arr *arr, t_all_data *all_data, int rev)
 	else
 		push_a_tab_rot(len, arr->arr, all_data);
 	while (all_data->piles->a->nb != tmp_dest)
-	{
-		all_data->piles->a = all_data->piles->a->next;
-		fill_buffer(all_data->buff, RA);
-	}
+		rot_a(all_data, 0);
 	return (len);
 }

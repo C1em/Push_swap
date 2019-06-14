@@ -6,15 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/11 04:11:24 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:46:18 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <string.h>
 #include <stdlib.h>
-
-#include <stdio.h>
 
 /*
 **	go through b:	put the nb of rotation of the elems that

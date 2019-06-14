@@ -6,17 +6,14 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/14 02:24:24 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:45:38 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
 #include <stdlib.h>
-#include <unistd.h>
 #include <limits.h>
-
-#include <stdio.h>
 
 static size_t		tot_len(const char *const *const entry, int nb_elem)
 {

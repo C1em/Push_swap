@@ -6,16 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:52:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/14 04:18:53 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:45:11 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "libft.h"
 #include <stdlib.h>
-
-#include <unistd.h>
-#include <stdio.h>
 
 static void	free_lst(t_llist *lst)
 {

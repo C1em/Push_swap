@@ -6,25 +6,14 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:54:50 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 05:07:43 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:48:45 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 #include "libft.h"
 #include <stdlib.h>
-#include <unistd.h>
 #include <limits.h>
-
-#include <stdio.h>
-
-int					ft_isspace(char c)
-{
-	if (c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == 'f'
-																|| c == ' ')
-		return (1);
-	return (0);
-}
 
 static size_t		ft_pilelen(t_pile *pile)
 {
@@ -53,12 +42,13 @@ static void			fill_arr(int *arr, t_pile *pile, size_t len)
 	}
 }
 
-static int			test_duplicate(t_pile *pile)
+static void			test_duplicate(t_pile *pile)
 {
 	int		*arr;
 	size_t	len;
 
-	len = ft_pilelen(pile);
+	if (!(len = ft_pilelen(pile)))
+		return ;
 	if (!(arr = (int*)malloc(sizeof(int) * len)))
 		exit(1);
 	fill_arr(arr, pile, len);
@@ -68,11 +58,10 @@ static int			test_duplicate(t_pile *pile)
 		if (arr[len] == arr[len - 1])
 		{
 			free(arr);
-			return (1);
+			error();
 		}
 	}
 	free(arr);
-	return (0);
 }
 
 int					ft_custom_atoi(const char *str)
@@ -94,17 +83,11 @@ int					ft_custom_atoi(const char *str)
 	if (sign)
 	{
 		if (res > (long)INT_MAX + 1L)
-		{
-			write(2, "Error\n", 6);
-			exit(1);
-		}
+			error();
 		return ((int)~res + 1);
 	}
 	if (res > INT_MAX)
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+		error();
 	return ((int)res);
 }
 
@@ -122,30 +105,17 @@ t_pile				*pars_pile(char **arr, int size)
 		{
 			while (i + 1 && ft_isspace(arr[size][i]))
 				--i;
-			if (i == (ssize_t)-1)
-				break ;
 			while (i + 1 && ft_isdigit(arr[size][i]))
 				--i;
-			if (arr[size][i] == '-' || arr[size][i] == '+')
-			{
-				if (i > 0 && !ft_isspace(arr[size][i - 1]))
-					tmp_i = i;
-				else
-					--i;
-			}
+			if (i + 1 && (arr[size][i] == '-' || arr[size][i] == '+'))
+				if ((i-- && !ft_isspace(arr[size][i])))
+					error();
 			if (tmp_i == i)
-			{
-				write(2, "Error\n", 6);
-				exit(1);
-			}
+				error();
 			pile = (pile) ? add_elem(pile, ft_custom_atoi(&arr[size][i + 1]))
 						: pile_init(ft_custom_atoi(&arr[size][i + 1]));
 		}
 	}
-	if (test_duplicate(pile))
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+	test_duplicate(pile);
 	return (pile);
 }

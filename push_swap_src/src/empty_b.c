@@ -6,15 +6,11 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:05:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/14 04:30:16 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:44:01 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-#include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 static size_t		ct_rot_til_destof(t_llist_tmp *b, t_llist *a,
 											size_t size, int rev)
@@ -57,18 +53,15 @@ static void			push_all(t_all_data *data, t_llist *end_a,
 {
 	int		max_elem;
 	int		op;
-	size_t	offset;
 
 	op = (rev) ? RRA : RA;
-	offset = (rev) ? sizeof(t_llist*) : 0;
 	while (rot_count--)
 		fill_buffer(data->buff, op);
 	max_elem = len_b(data->piles->b);
 	max_elem -= pusha_if_destof(data, max_elem, rev);
 	while (data->piles->a != end_a)
 	{
-		data->piles->a = *(t_llist**)((char*)data->piles->a + offset);
-		fill_buffer(data->buff, op);
+		rot_a(data, rev);
 		max_elem -= pusha_if_destof(data, max_elem, rev);
 	}
 	(void)pusha_if_destof(data, max_elem, rev);

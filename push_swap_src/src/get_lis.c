@@ -6,15 +6,13 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/14 02:26:11 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:44:42 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "libft.h"
 #include <stdlib.h>
-
-#include <stdio.h>
 
 static inline int	binary_search_index(int len, int *arr, int index,
 													int *biggest_elem_of_len)

@@ -6,12 +6,11 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 09:38:43 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/08 05:06:39 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:49:32 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
-#include <stdlib.h>
 
 void	push_a(t_piles *piles)
 {

@@ -6,14 +6,12 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 01:47:45 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/14 02:59:25 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:45:53 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdlib.h>
-
-#include <stdio.h>
 
 /*
 **	put the first elem of b and put it on a

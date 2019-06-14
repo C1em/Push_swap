@@ -6,13 +6,11 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 00:40:09 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/11 00:54:08 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:46:23 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-#include <stdio.h>
 
 size_t	max_rot_bw_non_pusha(int *arr)
 {

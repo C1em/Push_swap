@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:18:56 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/10 02:54:33 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:58:23 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ void			ft_putnstr(const char *s, size_t n);
 unsigned int	ft_count_digitbase(long nb, const int base);
 unsigned long	ft_pwr(unsigned long nb, unsigned int exp);
 void			ft_putbfloat(float nb);
-void			ft_print_byte(const unsigned char byte, const unsigned int base);
+void			ft_print_byte(const unsigned char byte,
+								const unsigned int base);
 void			ft_quicksort(int *arr, int size);
 int				ft_ceil(float nb);
 int				ft_isspace(const char c);

@@ -6,15 +6,11 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 14:33:13 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/10 01:03:25 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 04:46:08 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 static ssize_t		rot_til_inverse_rot(t_arr *arr, int rev)
 {
@@ -62,10 +58,7 @@ static void			rot_to_the_start(t_all_data *data, t_llist_tmp *top_b,
 	offset = (rev) ? sizeof(t_llist_tmp*) : 0;
 	op = (rev) ? RRB : RB;
 	while (data->piles->b != top_b)
-	{
-		data->piles->b = *(t_llist_tmp**)((char*)data->piles->b + offset);
-		fill_buffer(data->buff, op);
-	}
+		rot_b(data, rev);
 }
 
 static t_llist_tmp	*get_next_non_pusha(t_llist_tmp *b, t_arr *arr)
