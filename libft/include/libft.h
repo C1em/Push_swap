@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:18:56 by coremart          #+#    #+#             */
-/*   Updated: 2019/03/24 18:35:46 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/10 02:54:33 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void			ft_lstdel(t_list **alst, void (*del)(void*, size_t));
 void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-
 size_t			ft_lstlen(t_list *lst);
 t_list			*ft_lstdup(t_list *src);
 void			ft_lstprint(t_list *lst);
@@ -109,5 +108,6 @@ void			ft_putbfloat(float nb);
 void			ft_print_byte(const unsigned char byte, const unsigned int base);
 void			ft_quicksort(int *arr, int size);
 int				ft_ceil(float nb);
+int				ft_isspace(const char c);
 
 #endif

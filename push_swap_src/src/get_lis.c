@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 01:31:18 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/10 07:24:11 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/14 02:26:11 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,10 @@ int					*get_lis_index(int *const arr, int size)
 	while (i < size)
 	{
 		if ((tmp_lis = get_part_lis(&arr[i], size, actual_lis_len)))
+		{
 			ft_tabcpy_n_add(actual_lis, tmp_lis, *actual_lis_len, i);
-		free(tmp_lis);
+			free(tmp_lis);
+		}
 		i++;
 	}
 	squeeze_lis(arr, size, actual_lis_len);

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 05:55:46 by coremart          #+#    #+#             */
-/*   Updated: 2019/05/30 16:53:51 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/11 04:12:32 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void		add_to_lis(t_llist *lis, int nb);
 void		push_a(t_piles *piles, t_data_buff *buff);
 void		push_b(t_all_data *all_data);
 void		rot_a_til_order(t_llist **ptr_a, int len, t_data_buff *buff);
-int			len_b(t_llist_tmp *b);
 
 /*
 **	put_non_lis_on_b.c
@@ -104,8 +103,6 @@ void		start_sort_pile(t_all_data *data, size_t size);
 int			pusha_if_destof(t_all_data *all_data, int max_elem, int rev);
 void		put_non_lis_on_b(t_all_data *all_data, t_llist *end_a,
 												size_t rot_count, int rev);
-void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data);
-void		push_a_tab_reverse_rot(size_t len_arr, t_arr *arr, t_all_data *all_data);
 /*
 **	fill_buffer.c
 */
@@ -130,7 +127,6 @@ void	fill_push_b(t_data_buff *buff);
 **	empty_b.c
 */
 void		empty_b(t_all_data *data, size_t size);
-int			is_destof(t_llist_tmp *b, int dest);
 
 /*
 **	rot_count.c
@@ -153,8 +149,42 @@ size_t		max_rot_bw_non_lis(t_llist *a, t_llist *lis);
 size_t		max_rot_bw_non_pusha(int *arr);
 void		pusha_custom_rot(t_all_data *data, t_arr *arr, int rev);
 
+/*
+**	pile_utils.c
+*/
+t_llist	*rot_pile(size_t rot_count, t_llist *pile, int rev);
+int		len_b(t_llist_tmp *b);
+int		is_destof(t_llist_tmp *b, int dest);
 
-void		print_list(void *list);
+/*
+**	error.c
+*/
+void	error(void);
+
+/*
+**	get_lis_utils.c
+*/
+void		squeeze_lis(int *arr, int size, int *index_arr);
+void		ft_tabcpy_n_add(int *const dst, const int *const src,
+										int size, const int add);
+int			ft_max(int a, int b);
+
+/*
+**	push_a_tab_rot.c
+*/
+void		push_a_tab_rot(size_t len_arr, int *arr, t_all_data *all_data);
+void		push_a_tab_reverse_rot(size_t len_arr, t_arr *arr, t_all_data *all_data);
+
+/*
+**	push_a_tab.c
+*/
+int				push_a_tab(t_arr *arr, t_all_data *all_data, int rev);
+
+/*
+**	rot_op.c
+*/
+void		rot_a(t_all_data *data, int rev);
+void		rot_b(t_all_data *data, int rev);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:05:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/10 06:17:22 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/14 04:30:16 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static size_t		count_rot_til_destof(t_llist_tmp *b, t_llist *a,
+static size_t		ct_rot_til_destof(t_llist_tmp *b, t_llist *a,
 											size_t size, int rev)
 {
 	size_t	rot_count;
@@ -80,25 +80,25 @@ void				empty_b(t_all_data *data, size_t size)
 	size_t	rev_til_push;
 	size_t	to_smallest;
 	size_t	rev_to_smallest;
+	t_llist	*end_a;
 
-	if (!data->piles->b || (til_push = count_rot_til_destof(data->piles->b,
-		data->piles->a->next, size, 0) + 1) == size)
+	if (!data->piles->b || (til_push = ct_rot_til_destof(data->piles->b,
+		data->piles->a->next, size, 0) + 1) == size + 1)
 		return ;
-	rev_til_push = count_rot_til_destof(data->piles->b, data->piles->a,
-										size, 1);
+	rev_til_push = ct_rot_til_destof(data->piles->b, data->piles->a, size, 1);
 	to_smallest = rot_count_after_empty(data->piles->a, til_push, size, 0);
-	rev_to_smallest = rot_count_after_empty(data->piles->a,
-											rev_til_push, size, 1);
+	rev_to_smallest = rot_count_after_empty(data->piles->a, rev_til_push,
+											size, 1);
 	if (til_push + rev_to_smallest >= rev_til_push + to_smallest
 		|| (rev_til_push + to_smallest - til_push - rev_to_smallest)
 		+ ((rev_til_push + to_smallest - til_push - rev_to_smallest) >> 1)
 		<= (size_t)len_b(data->piles->b))
 	{
+		end_a = rot_pile(til_push, data->piles->a, 0);
 		data->piles->a = rot_pile(rev_til_push, data->piles->a, 1);
-		return (push_all(data, rot_pile(til_push, data->piles->a, 0),
-				rev_til_push, 1));
+		return (push_all(data, end_a, rev_til_push, 1));
 	}
+	end_a = rot_pile(rev_til_push, data->piles->a, 1);
 	data->piles->a = rot_pile(til_push, data->piles->a, 0);
-	return (push_all(data, rot_pile(rev_til_push, data->piles->a, 1),
-			til_push, 0));
+	return (push_all(data, end_a, til_push, 0));
 }

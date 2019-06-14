@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 07:38:51 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/11 00:53:29 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/14 02:24:24 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ static void inline	add_nb(const char *const entry, int **arr,
 		*(--*arr) = ft_custom_atoi(&entry[i + 1]);
 		if (add_to_end)
 			*(*arr + size) = **arr;
+		else
+			add_to_end = 1;
 	}
 }
 

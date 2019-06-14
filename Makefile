@@ -6,7 +6,7 @@
 #    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
-#    Updated: 2019/06/03 23:19:20 by coremart         ###   ########.fr        #
+#    Updated: 2019/06/14 00:55:50 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ PDIR_PUSH_SWAP = push_swap_src
 SDIR_PUSH_SWAP = $(PDIR_PUSH_SWAP)/src
 _SRCS_PUSH_SWAP = main.c get_lis.c parsing.c list_op.c pile_op.c put_non_lis_on_b.c \
 		write_buff.c empty_b.c fill_buffer.c fun_fill_rot.c fun_fill_push.c \
-		rot_count.c ssp_custom_rot.c pusha_custom_rot.c
+		rot_count.c ssp_custom_rot.c pusha_custom_rot.c pile_utils.c error.c \
+		get_lis_utils.c push_a_tab.c push_a_tab_rot.c rot_op.c
 SRC_PUSH_SWAP = $(patsubst %,$(SDIR_PUSH_SWAP)/%,$(_SRCS_PUSH_SWAP))
 
 ### SOURCES CHECKER ###
