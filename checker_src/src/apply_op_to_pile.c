@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 08:49:48 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/15 05:17:00 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 06:42:51 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "libft.h"
-
-static void			add_string_to_str(t_str *str, char *string)
-{
-	while (*string)
-	{
-		str->str[str->index] = *string;
-		++string;
-		if (++str->index == 2048)
-			write_str(str);
-	}
-}
 
 static void			custom_itoa(int nb, char *str_nb)
 {
