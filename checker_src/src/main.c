@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 10:47:33 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/15 04:50:27 by coremart         ###   ########.fr       */
+/*   Updated: 2019/06/15 08:15:08 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ int			main(int ac, char **av)
 	int		print_op;
 
 	if (ac < 2)
-	{
-		write(1, "OK\n", 3);
 		return (0);
-	}
 	print_op = get_option(&av, &ac);
 	pile = pars_pile(&av[1], ac - 1);
 	op_pile = get_op();
