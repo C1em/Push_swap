@@ -6,14 +6,14 @@
 #    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
-#    Updated: 2019/10/31 20:50:58 by coremart         ###   ########.fr        #
+#    Updated: 2019/10/31 23:48:40 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### COMPILATION ###
 NAME1 = push_swap
 NAME2 = checker
-CFLAGS = -g -Werror -Wall -Wextra -std=c99
+CFLAGS = -g -Werror -Wall -Wextra -std=c99 -pedantic-errors
 DFLAGS = -MT $@ -MMD -MP -MF $(DDIR)/$*.d
 ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer -Wno-format-security \
 -fsanitize=undefined

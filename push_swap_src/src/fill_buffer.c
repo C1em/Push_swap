@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 09:37:57 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/15 04:44:16 by coremart         ###   ########.fr       */
+/*   Updated: 2019/10/31 23:52:40 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static inline void	dispatch_rot(t_data_buff *buff, int op)
 	i = 0;
 	while (~op & fun_match_op[i].op)
 		++i;
-	return (fun_match_op[i].p(buff));
+	fun_match_op[i].p(buff);
 }
 
 void				fill_buffer(t_data_buff *buff, int op)
@@ -36,9 +36,9 @@ void				fill_buffer(t_data_buff *buff, int op)
 		return ;
 	}
 	if (op & ROT)
-		return (dispatch_rot(buff, op));
-	if (op & PA)
-		return (fill_push_a(buff));
-	if (op & PB)
-		return (fill_push_b(buff));
+		dispatch_rot(buff, op);
+	else if (op & PA)
+		fill_push_a(buff);
+	else if (op & PB)
+		fill_push_b(buff);
 }

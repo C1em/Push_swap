@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 12:05:27 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/15 09:06:58 by coremart         ###   ########.fr       */
+/*   Updated: 2019/10/31 23:51:55 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,10 @@ void				empty_b(t_all_data *data, size_t size)
 	{
 		end_a = rot_pile(til_push, data->piles->a, 0);
 		data->piles->a = rot_pile(rev_til_push, data->piles->a, 1);
-		return (push_all(data, end_a, rev_til_push, 1));
+		push_all(data, end_a, rev_til_push, 1);
+		return ;
 	}
 	end_a = rot_pile(rev_til_push, data->piles->a, 1);
 	data->piles->a = rot_pile(til_push, data->piles->a, 0);
-	return (push_all(data, end_a, til_push, 0));
+	push_all(data, end_a, til_push, 0);
 }

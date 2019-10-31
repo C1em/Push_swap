@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 08:49:48 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/15 06:42:51 by coremart         ###   ########.fr       */
+/*   Updated: 2019/10/31 23:54:45 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void inline	do_pile_op(t_piles *piles, int op)
 		++i;
 	fun_op = (t_fun_op[11]){swap_a, swap_b, swap_ab, push_a, push_b, rot_a,
 							rot_b, rot_ab, rev_rot_a, rev_rot_b, rev_rot_ab};
-	return (fun_op[i](piles));
+	fun_op[i](piles);
 }
 
 t_piles				*apply_op_to_pile(t_pile *a, t_pile *op_list, int print_op)

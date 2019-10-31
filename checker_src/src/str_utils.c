@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 03:30:30 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/15 03:35:52 by coremart         ###   ########.fr       */
+/*   Updated: 2019/10/31 23:56:14 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void				add_header(t_str *str, int op)
 
 	add_string_to_str(str, "\n");
 	if (!op)
-		return (add_string_to_str(str, "Pile a:     Pile b:\n"));
+	{
+		add_string_to_str(str, "Pile a:     Pile b:\n");
+		return ;
+	}
 	index = (log2(op) << 1) + (op >= 512) + (op == 1024);
 	str->str[str->index] = "sasbsspapbrarbrrrrarrbrrr"[index];
 	if (++str->index == 2048)

@@ -6,7 +6,7 @@
 /*   By: coremart <coremart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 20:56:44 by coremart          #+#    #+#             */
-/*   Updated: 2019/06/15 09:07:04 by coremart         ###   ########.fr       */
+/*   Updated: 2019/10/31 23:51:12 by coremart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ void				start_sort_pile(t_all_data *data, size_t size)
 						== size)
 		return ;
 	if ((max_rot_bw_non_lis(data->piles->a, data->lis) << 1) > size)
-		return (ssp_custom_rot(data, size));
+	{
+		ssp_custom_rot(data, size);
+		return ;
+	}
 	rev_rot_til_push = rot_count_til_push(data->piles->a->prev, data->lis->prev,
 											size, 1) + 1;
 	if (rev_rot_til_push >= rot_til_push
@@ -109,7 +112,8 @@ void				start_sort_pile(t_all_data *data, size_t size)
 		end_a = rot_pile(rev_rot_til_push, data->piles->a, 1);
 		data->piles->a = rot_pile(rot_til_push, data->piles->a, 0);
 		data->lis = rot_pile(rot_til_push, data->lis, 0);
-		return (put_non_lis_on_b(data, end_a, rot_til_push, 0));
+		put_non_lis_on_b(data, end_a, rot_til_push, 0);
+		return ;
 	}
 	end_a = rot_pile(rot_til_push, data->piles->a, 0);
 	data->piles->a = rot_pile(rev_rot_til_push, data->piles->a, 1);
