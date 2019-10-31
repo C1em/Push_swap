@@ -6,15 +6,19 @@
 #    By: coremart <coremart@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 17:33:24 by coremart          #+#    #+#              #
-#    Updated: 2019/06/15 05:17:19 by coremart         ###   ########.fr        #
+#    Updated: 2019/10/31 20:50:58 by coremart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### COMPILATION ###
 NAME1 = push_swap
 NAME2 = checker
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -g -Werror -Wall -Wextra -std=c99
 DFLAGS = -MT $@ -MMD -MP -MF $(DDIR)/$*.d
+ASANFLAGS = -fsanitize=address -fno-omit-frame-pointer -Wno-format-security \
+-fsanitize=undefined
+AFLAGS =
+ASAN =
 
 ### INCLUDES ###
 LIB = libft
@@ -50,7 +54,7 @@ _OBJ_CHECKER = $(_SRCS_CHECKER:.c=.o)
 OBJ_CHECKER = $(patsubst %,$(ODIR_CHECKER)/%,$(_OBJ_CHECKER))
 
 ## DEPENDENCIES ##
-DDIR = deps
+DDIR = dep
 _DEPS = $(_OBJ_CHECKER:.o=.d) $(_OBJ_PUSH_SWAP:.o=.d)
 DEPS = $(patsubst %,$(DDIR)/%,$(_DEPS))
 
@@ -59,30 +63,46 @@ DEPS = $(patsubst %,$(DDIR)/%,$(_DEPS))
 all: $(NAME1) $(NAME2)
 
 $(NAME1): $(OBJ_PUSH_SWAP)
-	make -C $(LIB)
-	gcc -g -o $(NAME1) $(LIBA) $(OBJ_PUSH_SWAP) $(CFLAGS)
+	@if [ "$(AFLAGS)" == "" ];\
+	then\
+		make -j 4 -C $(LIB);\
+	else\
+		make -j 4 -C $(LIB) asan;\
+	fi
+	gcc -g -o $(NAME1) $(LIBA) $(OBJ_PUSH_SWAP) $(CFLAGS) $(AFLAGS)
 
 $(NAME2): $(OBJ_CHECKER)
-	make -C $(LIB)
-	gcc -g -o $(NAME2) $(LIBA) $(OBJ_CHECKER) $(CFLAGS)
+	@if [ "$(AFLAGS)" == "" ];\
+	then\
+		make -j 4 -C $(LIB);\
+	else\
+		make -j 4 -C $(LIB) asan;\
+	fi
+	gcc -g -o $(NAME2) $(LIBA) $(OBJ_CHECKER) $(CFLAGS) $(AFLAGS)
 
 $(ODIR_PUSH_SWAP)/%.o: $(SDIR_PUSH_SWAP)/%.c
-	gcc $(CFLAGS) -g $(DFLAGS) -o $@ -c $< -I $(HDIR_PUSH_SWAP) -I $(LIBH)
+	gcc $(CFLAGS) -g $(DFLAGS) -o $@ -c $< -I $(HDIR_PUSH_SWAP) -I $(LIBH) $(AFLAGS)
 
 $(ODIR_CHECKER)/%.o: $(SDIR_CHECKER)/%.c
-	gcc $(CFLAGS) -g $(DFLAGS) -o $@ -c $< -I $(HDIR_CHECKER) -I $(LIBH)
+	gcc $(CFLAGS) -g $(DFLAGS) -o $@ -c $< -I $(HDIR_CHECKER) -I $(LIBH) $(AFLAGS)
 
 -include $(DEPS)
 
 clean:
-	@make -C $(LIB) clean
+	@make -j 4 -C $(LIB) clean
 	@rm -f $(OBJ_CHECKER) $(OBJ_PUSH_SWAP)
 
 fclean: clean
-	@make -C $(LIB) fclean
+	@make -j 4 -C $(LIB) fclean
 	@rm -f $(NAME1) $(NAME2)
 
 re: fclean all
+
+asan: AFLAGS = $(ASANFLAGS)
+asan: all
+
+reasan: AFLAGS = $(ASANFLAGS)
+reasan: re
 
 .PRECIOUS: $(DDIR)/%.d
 .PHONY: all clean fclean re $(NAME1) $(NAME2)

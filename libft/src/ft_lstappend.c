@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstappend.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coremart <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tlamart <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 12:10:36 by coremart          #+#    #+#             */
-/*   Updated: 2018/11/16 12:46:32 by coremart         ###   ########.fr       */
+/*   Created: 2018/11/26 10:18:47 by tlamart           #+#    #+#             */
+/*   Updated: 2019/10/03 15:25:25 by tlamart          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dst, const char *src)
-{
-	int i;
+#include "libft.h"
 
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
+void	ft_lstappend(t_list **lst, t_list *new)
+{
+	t_list	*list;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+		*lst = new;
+	list = *lst;
+	while (list->next)
+		list = list->next;
+	list->next = new;
+	new->next = NULL;
 }
